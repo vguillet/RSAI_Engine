@@ -5,17 +5,13 @@
 """
 
 # Built-in/Generic Imports
-import random
-from itertools import combinations
 
 # Libs
-import numpy as np
-import networkx as nx
 import matplotlib.pyplot as plt
-from faker import Faker
 
 # Own modules
-from RSAI_Engine.Environment.POI_gen import gen_POI
+from RSAI_Engine.Environment.Grid_gen.Obstacle_grid_gen import Obstacle_grid_gen
+from RSAI_Engine.Environment.Grid_gen.POI_grid_gen import POI_grid_gen
 
 
 __version__ = '1.1.1'
@@ -26,21 +22,23 @@ __date__ = '31/01/2020'
 
 
 class gen_RSAI_environment:
-    def __init__(self):
+    def __init__(self,
+                 image_path="RSAI_Engine\Data\Environment\Obstacle_image.png",
+                 origin: "Exploded map coordinates" = (10, 10)):
         """
         RSAI environment class, used to generate RSAI-type Ingenium environments
         """
         # ----- Setup reference properties
         self.name = "RSAI environment"
         self.type = "Environment"
-        self.size = (192, 256)
+        self.origin = origin        # Origin coordinates of grid on the exploded map
 
-        # --> Record points of interest
-        self.POI_dict = {}
+        # --> Setup obstacle grid
+        self.obstacles_grid = Obstacle_grid_gen(image_path)
 
-        # --> Build environment grids
-        self.grid_dict = {"loc_grid": np.array(self.size[0], self.size[1])}
-        print(self.grid_dict["loc_grid"])
+        # --> Setup POI grid
+        self.POI_grid, self.POI_dict = POI_grid_gen(self.obstacles_grid.shape, self.origin)
+
     # =============================================================================== Getters
 
     @property
@@ -82,6 +80,9 @@ class gen_RSAI_environment:
 
     def visualise_environment(self):
         # TODO: Add visualiser
+        plt.imshow(self.obstacle_grid)
+        plt.colorbar()
+        plt.show()
         return
 
     def get_POI_at_pos(self, pos: tuple):
@@ -112,14 +113,6 @@ class gen_RSAI_environment:
     def remove_POI(self, POI: "POI Object"):
         del self.POI_dict[POI.name]
         return
-
-    def gen_layout(self):
-        # --> Adding POI to environment
-        # Cows field
-        self.add_POI(gen_POI("Cows field", "Source", (116, 66)))
-        self.add_POI(gen_POI("Varrock GM", "Converter", (78, 215)))
-
-        print("-- Random environment layout generated successfully --")
 
     def __str__(self):
         return "RSAI environment"

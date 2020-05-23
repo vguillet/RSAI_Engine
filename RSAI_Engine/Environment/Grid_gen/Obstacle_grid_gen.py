@@ -25,9 +25,9 @@ __date__ = '26/04/2020'
 ##################################################################################################################
 
 
-def Obstacle_map_gen():
+def Obstacle_map_gen(image_path):
     # --> Load image
-    img = cv2.imread('Obstacle_image.png', cv2.IMREAD_UNCHANGED)
+    img = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
     img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
     # --> Filter image colors
@@ -82,8 +82,8 @@ def Obstacle_map_gen():
 
 
 if __name__ == "__main__":
-    world_obstacles_array = Obstacle_map_gen()
-    print(world_obstacles_array)
+    world_obstacles_array = Obstacle_map_gen("RSAI_Engine\Data\Environment\Obstacle_image.png")
+    print(world_obstacles_array.shape)
 
     # --> Test pathfinding
     grid = Grid(matrix=world_obstacles_array)
