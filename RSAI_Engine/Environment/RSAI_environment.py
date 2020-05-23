@@ -21,10 +21,10 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-class gen_RSAI_environment:
+class RSAI_environment:
     def __init__(self,
                  image_path="RSAI_Engine\Data\Environment\Obstacle_image.png",
-                 origin: "Exploded map coordinates" = (10, 10)):
+                 origin: "Exploded map coordinates" = (3136, 3136)):
         """
         RSAI environment class, used to generate RSAI-type Ingenium environments
         """
@@ -34,10 +34,10 @@ class gen_RSAI_environment:
         self.origin = origin        # Origin coordinates of grid on the exploded map
 
         # --> Setup obstacle grid
-        self.obstacles_grid = Obstacle_grid_gen(image_path)
+        self.obstacle_grid = Obstacle_grid_gen(image_path)
 
         # --> Setup POI grid
-        self.POI_grid, self.POI_dict = POI_grid_gen(self.obstacles_grid.shape, self.origin)
+        self.POI_grid, self.POI_dict = POI_grid_gen(self.obstacle_grid.shape, self.origin)
 
     # =============================================================================== Getters
 
@@ -57,30 +57,13 @@ class gen_RSAI_environment:
                 sources_dict[source] = self.POI_dict[POI].ef_dict["Sources"][source]
         return sources_dict
 
-    @property
-    def high(self):
-        # --> Max x and y
-        high_lst = [self.size[0], self.size[-1]]
-
-        # --> Add max distance for each POI (diagonal of env)
-        max_distance = (self.size[0] ** 2 + self.size[-1] ** 2) ** (1 / 2)
-        for _ in self.POI_dict.keys():
-            high_lst.append(max_distance)
-        return high_lst
-
-    @property
-    def low(self):
-        # --> Max x and y
-        low_lst = [0, 0]
-
-        # --> Add max distance for each POI (diagonal of env)
-        for _ in self.POI_dict.keys():
-            low_lst.append(0)
-        return low_lst
-
     def visualise_environment(self):
         # TODO: Add visualiser
-        plt.imshow(self.obstacle_grid)
+        visu = self.obstacle_grid.copy()
+
+        visu += self.POI_grid * 5
+
+        plt.imshow(visu)
         plt.colorbar()
         plt.show()
         return
@@ -108,10 +91,12 @@ class gen_RSAI_environment:
     # =============================================================================== Setters
     def add_POI(self, POI: "POI Object"):
         self.POI_dict[POI.name] = POI
+        self.POI_grid[POI.pos[1]][POI.pos[1]] = 1
         return
 
     def remove_POI(self, POI: "POI Object"):
         del self.POI_dict[POI.name]
+        self.POI_grid[POI.pos[1]][POI.pos[1]] = 0
         return
 
     def __str__(self):

@@ -25,7 +25,8 @@ __date__ = '26/04/2020'
 ##################################################################################################################
 
 
-def Obstacle_map_gen(image_path):
+def Obstacle_grid_gen(image_path):
+    # TODO: Add loading grid directly if already exists
     # --> Load image
     img = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
     img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -75,14 +76,16 @@ def Obstacle_map_gen(image_path):
                         pass
             
             # -> Flag tile as obstacle if obstacle counter is too high
-            if obstacle_counter >= tile_size:
+            if obstacle_counter >= tile_size/2:
                 world_obstacles_array[tile_x][tile_y] = 0
+
+    np.save("world_array", world_obstacles_array)
 
     return world_obstacles_array
 
 
 if __name__ == "__main__":
-    world_obstacles_array = Obstacle_map_gen("RSAI_Engine\Data\Environment\Obstacle_image.png")
+    world_obstacles_array = Obstacle_grid_gen("RSAI_Engine\Data\Environment\Obstacle_image.png")
     print(world_obstacles_array.shape)
 
     # --> Test pathfinding
