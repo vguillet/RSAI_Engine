@@ -68,7 +68,7 @@ class Inventory:
         if self.size < self.max_size:
             self.inventory_dict["Content"].append(item)
 
-    def remove_item_to_inventory(self, item):
+    def remove_item_from_inventory(self, item):
         """
         Remove item from inventory
 

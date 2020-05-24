@@ -59,8 +59,6 @@ class States:
                       "Strength": 0,
                       "Ranged_strength": 0,
                       "Magic_damage": 0,
-                      "Prayer": 0,
-
-                      "Inventory": 0}
+                      "Prayer": 0}
 
         return state_dict

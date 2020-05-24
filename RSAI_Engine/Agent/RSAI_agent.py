@@ -6,8 +6,10 @@
 
 # Built-in/Generic Imports
 import math
+import random
 
 # Libs
+import numpy as np
 
 # Own modules
 from Settings.SETTINGS import SETTINGS
@@ -59,6 +61,18 @@ class Agent:
         self.__repr__()
 
     @property
+    def melee_level(self):
+        return 0.325 * (self.skills()["Attack"]["Level"] + self.skills()["Strength"]["Level"])
+
+    @property
+    def range_level(self):
+        return 0.325 * (math.floor(self.skills()["Ranged"]["Level"]/2) + self.skills()["Ranged"]["Level"])
+
+    @property
+    def mage_level(self):
+        return 0.325 * (math.floor(self.skills()["Magic"]["Level"]/2) + self.skills()["Magic"]["Level"])
+
+    @property
     def combat_level(self):
         """
         Bot combat level
@@ -69,13 +83,20 @@ class Agent:
                        + self.skills()["Hitpoints"]["Level"]
                        + math.floor(self.skills()["Prayer"]["Level"]))
 
-        melee = 0.325 * (self.skills()["Attack"]["Level"]
-                        + self.skills()["Strength"]["Level"])
+        return math.floor(base + max([self.melee_level, self.range_level, self.mage_level]))
 
-        range = 0.325 * (math.floor(self.skills()["Ranged"]["Level"]/2)
-                         + self.skills()["Ranged"]["Level"])
+    def hit(self, target):
+        """
+        Calculate damage done when attempting to hit
 
-        mage = 0.325 * (math.floor(self.skills()["Magic"]["Level"]/2)
-                        + self.skills()["Magic"]["Level"])
+        :param target: target to hit
+        """
 
-        return math.floor(base + max([melee, range, mage]))
+        # --> Roll D2 to check if hit
+        if bool(random.getrandbits(1)):
+            # --> Roll a D6 to check damage:
+            damage = random.randint(0, 6) * self.melee_level
+        else:
+            damage = 0
+
+        # TODO: Do damage to target, account for target defence
