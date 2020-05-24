@@ -9,8 +9,9 @@
 # Libs
 
 # Own modules
-from Ingenium_Engine.Tools.Characteristics_tools import Characteristics_tools
-from Ingenium_Engine.Tools.Item_gen import gen_item
+from RSAI_Engine.Agent.Tools.State_tools import State_tools
+from RSAI_Engine.Agent.Tools.Skills_tools import Skills_tools
+from RSAI_Engine.Tools.Item import Item
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -21,13 +22,10 @@ __date__ = '31/01/2020'
 
 class Inventory_tools:
     @staticmethod
-    def gen_agent_inventory_dict(bias=None):
-        inventory_dict = {"Money": 100,
-                          "Resources": {"Iron": 0,
-                                        "Gold": 0,
-                                        "Diamond": 0,
-                                        },
-                          "Items": {"S_Tool": 0}
+    def gen_empty_inventory_dict():
+        inventory_dict = {"Money": 0,
+                          "Resources": {},
+                          "Items": {}
                           }
 
         return inventory_dict
@@ -35,11 +33,13 @@ class Inventory_tools:
     @staticmethod
     def equip_item(agent, item: str, item_quantity: int):
         """
-        Equip item function used to add items that have an impact on agent characteristics
-        (the agent characteristics are adjusted according to the item rating)
+        Equip item function used to add items that have an impact on agent skills
+        (the agent skills are adjusted according to the item rating)
         """
-        characteristics_tools = Characteristics_tools()
-        item = gen_item(item)
+        skills_tools = Skills_tools()
+        state_tools = State_tools()
+
+        item = Item(item)
 
         # --> Add item to agent inventory if not health potion
         if item.label.split()[-1] != "Health":
@@ -49,26 +49,26 @@ class Inventory_tools:
             else:
                 agent.inventory["Items"][item.label] = item_quantity
 
-        # --> Adjust agent characteristics according to item
-        agent.characteristics = characteristics_tools.increase_characteristic(agent.characteristics,
-                                                                              item.label.split("_")[-1],
-                                                                              item.rating*item_quantity)
+        # --> Adjust agent skills/state according to item
+        # TODO: Adjust skills/state
+
+        return
 
     @staticmethod
     def unequip_item(agent, item: str, item_quantity: int):
-        characteristics_tools = Characteristics_tools()
-        item = gen_item(item)
+        skills_tools = Skills_tools()
+        state_tools = State_tools()
 
-        # --> Adjust agent characteristics according to item
-        agent.characteristics = characteristics_tools.decrease_characteristic(agent.characteristics,
-                                                                              item.label.split("_")[-1],
-                                                                              item.rating*item_quantity)
+        item = Item(item)
 
         # --> Remove item from agent inventory
         if agent.inventory["Items"][item.label] - item_quantity < 0:
             raise Exception("!!! Item quantity removed from inventory too large !!!")
         else:
             agent.inventory["Items"][item.label] -= item_quantity
+
+        # --> Adjust agent skills/state according to item
+        # TODO: Adjust skills/state
 
         return
 
@@ -103,8 +103,8 @@ class Inventory_tools:
     @staticmethod
     def get_gathered_quantity(agent, quantity):
         # --> Adjust gathered quantity to available cargo space
-        if agent.characteristics["Cargo"] - agent.used_cargo < quantity:
-            gathered_quantity = agent.characteristics["Cargo"] - agent.used_cargo
+        if agent.skills["Cargo"] - agent.used_cargo < quantity:
+            gathered_quantity = agent.skills["Cargo"] - agent.used_cargo
             if gathered_quantity < 0:
                 print("No cargo space available")
                 return 0

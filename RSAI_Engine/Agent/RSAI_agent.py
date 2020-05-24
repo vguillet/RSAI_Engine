@@ -12,9 +12,11 @@
 # Own modules
 from Settings.SETTINGS import SETTINGS
 
-from RSAI_Engine.Agent.Tools.Traits_tools import Traits_tools
-from RSAI_Engine.Agent.Tools.Characteristics_tools import Characteristics_tools
+from RSAI_Engine.Agent.Tools.Skills_tools import Skills_tools
+from RSAI_Engine.Agent.Tools.State_tools import State_tools
 from RSAI_Engine.Tools.Inventory_tools import Inventory_tools
+
+from RSAI_Engine.Agent.Tools.Pathfinder import Pathfinder
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -27,8 +29,8 @@ class Agent:
     def __init__(self,
                  name: "Bot name",
                  pos: tuple,
-                 traits: dict = None,
-                 characteristics: dict = None,
+                 skills: dict = None,
+                 state: dict = None,
                  inventory: dict = None):
 
         # ----- Setup settings
@@ -39,35 +41,38 @@ class Agent:
         self.name = name
         self.pos = pos
 
-        # --> Setup traits/inventory/interests/characteristics dicts
-        self.traits, self.characteristics, self.inventory = self.gen_dicts(traits,
-                                                                           characteristics,
-                                                                           inventory)
-
+        # --> Setup skills/inventory/interests/characteristics dicts
+        self.skills, self.state, self.inventory = self.gen_dicts(skills,
+                                                                 state,
+                                                                 inventory)
+        
+        # --> Setup tools
+        self.pathfinder = Pathfinder()
+        
     def gen_dicts(self,
-                  traits: dict,
-                  characteristics: dict,
+                  skills: dict,
+                  state: dict,
                   inventory: dict):
 
-        # --> Setting up traits
-        if traits is None:
-            traits = Traits_tools().gen_traits_dict()
+        # --> Setting up skills
+        if skills is None:
+            skills = Skills_tools().gen_skills_dict()
         else:
             pass
 
         # --> Setting up characteristics
-        if characteristics is None:
-            characteristics = Characteristics_tools().gen_agent_characteristics_dict()
+        if state is None:
+            state = State_tools().gen_agent_state_dict()
         else:
             pass
 
         # --> Setting up inventory
         if inventory is None:
-            inventory = Inventory_tools().gen_agent_inventory_dict()
+            inventory = Inventory_tools().gen_empty_inventory_dict()
         else:
             pass
 
-        return traits, characteristics, inventory
+        return skills, state, inventory
 
     def __str__(self):
         return self.name + " (Bot)"
