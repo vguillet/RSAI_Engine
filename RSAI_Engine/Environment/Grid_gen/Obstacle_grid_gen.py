@@ -25,7 +25,7 @@ __date__ = '26/04/2020'
 ##################################################################################################################
 
 
-def Obstacle_grid_gen(image_path):
+def gen_obstacle_grid(image_path):
     # TODO: Add loading grid directly if already exists
     # --> Load image
     img = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
@@ -85,7 +85,7 @@ def Obstacle_grid_gen(image_path):
 
 
 if __name__ == "__main__":
-    world_obstacles_array = Obstacle_grid_gen("RSAI_Engine\Data\Environment\Obstacle_image.png")
+    world_obstacles_array = gen_obstacle_grid("RSAI_Engine\Data\Environment\Obstacle_image.png")
     print(world_obstacles_array.shape)
 
     # --> Test pathfinding

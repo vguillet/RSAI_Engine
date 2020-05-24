@@ -22,7 +22,7 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-def POI_grid_gen(grid_size, origin):
+def gen_POI_grid(grid_size, origin):
 
     # --> Listing POIs to be added (coordinate in Exploded map coordinates)
     POI_lst = [["Cows field", "Source", (3252, 3267)],
@@ -51,7 +51,7 @@ def POI_grid_gen(grid_size, origin):
 
 
 if __name__ == "__main__":
-    grid, poi_dict = POI_grid_gen((384, 128), (3136, 3136))
+    grid, poi_dict = gen_POI_grid((384, 128), (3136, 3136))
 
     plt.imshow(grid)
     plt.colorbar()

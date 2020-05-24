@@ -10,8 +10,8 @@
 import matplotlib.pyplot as plt
 
 # Own modules
-from RSAI_Engine.Environment.Grid_gen.Obstacle_grid_gen import Obstacle_grid_gen
-from RSAI_Engine.Environment.Grid_gen.POI_grid_gen import POI_grid_gen
+from RSAI_Engine.Environment.Grid_gen.Obstacle_grid_gen import gen_obstacle_grid
+from RSAI_Engine.Environment.Grid_gen.POI_grid_gen import gen_POI_grid
 
 
 __version__ = '1.1.1'
@@ -26,7 +26,7 @@ class RSAI_environment:
                  image_path="RSAI_Engine\Data\Environment\Obstacle_image.png",
                  origin: "Exploded map coordinates" = (3136, 3136)):
         """
-        RSAI environment class, used to generate RSAI-type Ingenium environments
+        RSAI environment class, used to generate RSAI environments
         """
         # ----- Setup reference properties
         self.name = "RSAI environment"
@@ -34,10 +34,10 @@ class RSAI_environment:
         self.origin = origin        # Origin coordinates of grid on the exploded map
 
         # --> Setup obstacle grid
-        self.obstacle_grid = Obstacle_grid_gen(image_path)
+        self.obstacle_grid = gen_obstacle_grid(image_path)
 
         # --> Setup POI grid
-        self.POI_grid, self.POI_dict = POI_grid_gen(self.obstacle_grid.shape, self.origin)
+        self.POI_grid, self.POI_dict = gen_POI_grid(self.obstacle_grid.shape, self.origin)
 
     # =============================================================================== Getters
 
