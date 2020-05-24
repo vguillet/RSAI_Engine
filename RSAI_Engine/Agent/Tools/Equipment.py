@@ -18,9 +18,29 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-class Equipment_tools:
+class Equipment:
+    def __init__(self, start_equipment_dict=None):
+        if start_equipment_dict is None:
+            self.equipment_dict = self.gen_equipment_dict()
+
+        else:
+            self.equipment_dict = start_equipment_dict
+
+    def __call__(self):
+        """
+        Return equipment_dict when called
+
+        :return: equipment_dict
+        """
+        return self.equipment_dict
+
     @staticmethod
     def gen_equipment_dict():
+        """
+        Create new empty equipment dict
+
+        :return: equipment_dict
+        """
         equipment_dict = {"Weapon": None,
                           "Helm": None,
                           "Chest": None,
@@ -31,23 +51,32 @@ class Equipment_tools:
 
         return equipment_dict
 
-    @staticmethod
-    def equip_item(equipment_dict, inventory_dict, states_dict, item):
+    def equip_item(self, inventory_dict, states_dict, item):
+        """
+        Unequip item
+        (Remove from inventory and put in equipment)
+
+        :param inventory_dict: Inventory_dict to be used
+        :param states_dict: States_dict to adjust
+        :param item: Item to be added
+
+        :return: Updated inventory_dict and states_dict
+        """
         # --> Remove item from inventory (has to be done first to make sure there is space if inventory is full)
         inventory_dict["Content"].remove(item)
 
         # --> Add item to equipment
-        if equipment_dict[item.type] is None:
+        if self.equipment_dict[item.type] is None:
             # --> Equip item
-            equipment_dict[item.type] = item
+            self.equipment_dict[item.type] = item
 
         else:
             # --> Remove current equipped item
-            equipment_dict, inventory_dict, states_dict = \
-                Equipment_tools().unequip_item(equipment_dict, inventory_dict, states_dict, equipment_dict[item.type])
+            inventory_dict, states_dict = \
+                self.unequip_item(inventory_dict, states_dict, self.equipment_dict[item.type])
 
             # --> Equip item
-            equipment_dict[item.type] = item
+            self.equipment_dict[item.type] = item
 
         # --> Adjust states with item property
         states_dict["Stab_attack"] += item.properties["Stab_attack"]
@@ -67,22 +96,30 @@ class Equipment_tools:
         states_dict["Magic_damage"] += item.properties["Magic_damage"]
         states_dict["Prayer"] += item.properties["Prayer"]
 
+        return inventory_dict, states_dict
 
-        return equipment_dict, inventory_dict, states_dict
+    def unequip_item(self, inventory_dict, states_dict, item):
+        """
+        Unequip item
+        (Remove from equipment and put in inventory)
 
-    @staticmethod
-    def unequip_item(equipment_dict, inventory_dict, states_dict, item):
+        :param inventory_dict: Inventory_dict to be used
+        :param states_dict: States_dict to adjust
+        :param item: Item to be removed
+
+        :return: Updated inventory_dict and states_dict
+        """
         if len(inventory_dict["Content"]) + 1 > 4*7:
             print("Inventory is full")
-            return equipment_dict, inventory_dict, states_dict
+            return inventory_dict, states_dict
 
         else:
             # --> Add item to inventory
             inventory_dict["Content"].append(item)
 
             # --> Remove item from equipment
-            equipment_dict[item.type] = None
-            
+            self.equipment_dict[item.type] = None
+
             # --> Adjust states with item property
             states_dict["Stab_attack"] -= item.properties["Stab_attack"]
             states_dict["Slash_attack"] -= item.properties["Slash_attack"]
@@ -101,4 +138,4 @@ class Equipment_tools:
             states_dict["Magic_damage"] -= item.properties["Magic_damage"]
             states_dict["Prayer"] -= item.properties["Prayer"]
 
-            return equipment_dict, inventory_dict, states_dict
+            return inventory_dict, states_dict

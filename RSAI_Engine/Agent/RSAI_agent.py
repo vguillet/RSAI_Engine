@@ -5,19 +5,18 @@
 """
 
 # Built-in/Generic Imports
+import math
 
 # Libs
-
 
 # Own modules
 from Settings.SETTINGS import SETTINGS
 
-from RSAI_Engine.Agent.Tools.Skills_tools import Skills_tools
-from RSAI_Engine.Agent.Tools.States_tools import States_tools
-from RSAI_Engine.Agent.Tools.Equipment_tools import Equipment_tools
+from RSAI_Engine.Agent.Tools.Skills import Skills
+from RSAI_Engine.Agent.Tools.States import States
+from RSAI_Engine.Agent.Tools.Equipment import Equipment
 
-from RSAI_Engine.Tools.Inventory_tools import Inventory_tools
-
+from RSAI_Engine.Agent.Tools.Inventory import Inventory
 from RSAI_Engine.Agent.Tools.Pathfinder import Pathfinder
 
 __version__ = '1.1.1'
@@ -30,11 +29,11 @@ __date__ = '31/01/2020'
 class Agent:
     def __init__(self,
                  name: "Bot name",
-                 pos: tuple,
-                 skills: dict = None,
-                 states: dict = None,
-                 equipment: dict = None,
-                 inventory: dict = None):
+                 start_pos: tuple,
+                 start_skills: dict = None,
+                 start_states: dict = None,
+                 start_equipment: dict = None,
+                 start_inventory: dict = None):
 
         # ----- Setup settings
         self.settings = SETTINGS()
@@ -42,51 +41,41 @@ class Agent:
 
         # ----- Setup reference properties
         self.name = name
-        self.pos = pos
+        self.pos = start_pos
 
         # --> Setup skills/inventory/interests/characteristics dicts
-        self.skills, self.states, self.equipment, self.inventory = self.gen_dicts(skills,
-                                                                                  states,
-                                                                                  equipment,
-                                                                                  inventory)
+        self.skills = Skills(start_skills)
+        self.states = States(start_states)
+        self.equipment = Equipment(start_equipment)
+        self.inventory = Inventory(start_inventory)
         
         # --> Setup tools
         self.pathfinder = Pathfinder()
-        
-    def gen_dicts(self,
-                  skills: dict,
-                  states: dict,
-                  equipment: dict,
-                  inventory: dict):
-
-        # --> Setting up skills
-        if skills is None:
-            skills = Skills_tools().gen_skills_dict()
-        else:
-            pass
-
-        # --> Setting up states
-        if states is None:
-            states = States_tools().gen_state_dict()
-        else:
-            pass
-
-        # --> Setting up equipment
-        if equipment is None:
-            equipment = Equipment_tools()
-        else:
-            pass
-
-        # --> Setting up inventory
-        if inventory is None:
-            inventory = Inventory_tools().gen_empty_inventory_dict()
-        else:
-            pass
-
-        return skills, states, equipment, inventory
 
     def __str__(self):
-        return self.name + " (Bot)"
+        return self.name + " (Bot level " + str(self.combat_level) + ")"
 
     def __repr__(self):
         self.__repr__()
+
+    @property
+    def combat_level(self):
+        """
+        Bot combat level
+
+        :return: combat_level
+        """
+        base = 0.25 * (self.skills()["Defence"]["Level"]
+                       + self.skills()["Hitpoints"]["Level"]
+                       + math.floor(self.skills()["Prayer"]["Level"]))
+
+        melee = 0.325 * (self.skills()["Attack"]["Level"]
+                        + self.skills()["Strength"]["Level"])
+
+        range = 0.325 * (math.floor(self.skills()["Ranged"]["Level"]/2)
+                         + self.skills()["Ranged"]["Level"])
+
+        mage = 0.325 * (math.floor(self.skills()["Magic"]["Level"]/2)
+                        + self.skills()["Magic"]["Level"])
+
+        return math.floor(base + max([melee, range, mage]))

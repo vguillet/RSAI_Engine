@@ -45,8 +45,23 @@ class Item:
         # --> Get item properties
         self.properties = self.get_item_properties(type, name, material)
 
+    def __str__(self):
+        return self.material + self.name + "(item)"
+
+    def __repr__(self):
+        self.__repr__()
+
     @staticmethod
     def get_item_properties(type, name, material):
+        """
+        Retrieve items properties
+
+        :param type: Item type
+        :param name: Item name
+        :param material: Item material
+
+        :return: properties_dict
+        """
         items = {
                  "Weapon": {# ========================================================================
                             "Dagger": {
@@ -1718,15 +1733,9 @@ class Item:
                  }
 
         if type in items.keys():
-            properties = items[type][name][material]
+            properties_dict = items[type][name][material]
 
         else:
-            properties = None
+            properties_dict = None
 
-        return properties
-
-    def __str__(self):
-        return self.material + self.name + "(item)"
-
-    def __repr__(self):
-        self.__repr__()
+        return properties_dict

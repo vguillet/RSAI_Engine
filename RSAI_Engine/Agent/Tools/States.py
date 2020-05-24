@@ -18,11 +18,31 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-class States_tools:
+class States:
+    def __init__(self, start_states_dict=None):
+        if start_states_dict is None:
+            self.states_dict = self.gen_states_dict()
+
+        else:
+            self.states_dict = start_states_dict
+
+    def __call__(self):
+        """
+        Return states_dict when called
+
+        :return: states_dict
+        """
+        return self.states_dict
+
     @staticmethod
     def gen_states_dict():
+        """
+        Create new states dict
+
+        :return: states_dict
+        """
         state_dict = {"Age": 1,
-                      "Health": 10,
+                      "Hitpoints": 10,
 
                       "Stab_attack": 0,
                       "Slash_attack": 0,

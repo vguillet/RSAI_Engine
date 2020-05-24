@@ -18,9 +18,29 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-class Skills_tools:
+class Skills:
+    def __init__(self, start_skills_dict=None):
+        if start_skills_dict is None:
+            self.skills_dict = self.gen_skills_dict()
+
+        else:
+            self.skills_dict = start_skills_dict
+
+    def __call__(self):
+        """
+        Return skills_dict when called
+
+        :return: skills_dict
+        """
+        return self.skills_dict
+
     @staticmethod
     def gen_skills_dict():
+        """
+        Create new skills dict
+
+        :return: skills_dict
+        """
         skills_dict = {"Attack": {"Experience": 0,
                                   "Level": 1},
 
