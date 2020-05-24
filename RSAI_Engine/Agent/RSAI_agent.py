@@ -13,7 +13,9 @@
 from Settings.SETTINGS import SETTINGS
 
 from RSAI_Engine.Agent.Tools.Skills_tools import Skills_tools
-from RSAI_Engine.Agent.Tools.State_tools import State_tools
+from RSAI_Engine.Agent.Tools.States_tools import States_tools
+from RSAI_Engine.Agent.Tools.Equipment_tools import Equipment_tools
+
 from RSAI_Engine.Tools.Inventory_tools import Inventory_tools
 
 from RSAI_Engine.Agent.Tools.Pathfinder import Pathfinder
@@ -30,7 +32,8 @@ class Agent:
                  name: "Bot name",
                  pos: tuple,
                  skills: dict = None,
-                 state: dict = None,
+                 states: dict = None,
+                 equipment: dict = None,
                  inventory: dict = None):
 
         # ----- Setup settings
@@ -42,16 +45,18 @@ class Agent:
         self.pos = pos
 
         # --> Setup skills/inventory/interests/characteristics dicts
-        self.skills, self.state, self.inventory = self.gen_dicts(skills,
-                                                                 state,
-                                                                 inventory)
+        self.skills, self.states, self.equipment, self.inventory = self.gen_dicts(skills,
+                                                                                  states,
+                                                                                  equipment,
+                                                                                  inventory)
         
         # --> Setup tools
         self.pathfinder = Pathfinder()
         
     def gen_dicts(self,
                   skills: dict,
-                  state: dict,
+                  states: dict,
+                  equipment: dict,
                   inventory: dict):
 
         # --> Setting up skills
@@ -60,9 +65,15 @@ class Agent:
         else:
             pass
 
-        # --> Setting up characteristics
-        if state is None:
-            state = State_tools().gen_agent_state_dict()
+        # --> Setting up states
+        if states is None:
+            states = States_tools().gen_state_dict()
+        else:
+            pass
+
+        # --> Setting up equipment
+        if equipment is None:
+            equipment = Equipment_tools()
         else:
             pass
 
@@ -72,7 +83,7 @@ class Agent:
         else:
             pass
 
-        return skills, state, inventory
+        return skills, states, equipment, inventory
 
     def __str__(self):
         return self.name + " (Bot)"

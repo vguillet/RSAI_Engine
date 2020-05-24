@@ -24,53 +24,10 @@ class Inventory_tools:
     @staticmethod
     def gen_empty_inventory_dict():
         inventory_dict = {"Money": 0,
-                          "Resources": {},
-                          "Items": {}
+                          "Content": []
                           }
 
         return inventory_dict
-
-    @staticmethod
-    def equip_item(agent, item: str, item_quantity: int):
-        """
-        Equip item function used to add items that have an impact on agent skills
-        (the agent skills are adjusted according to the item rating)
-        """
-        skills_tools = Skills_tools()
-        state_tools = State_tools()
-
-        item = Item(item)
-
-        # --> Add item to agent inventory if not health potion
-        if item.label.split()[-1] != "Health":
-            # --> Add item to agent inventory
-            if item.label in list(agent.inventory["Items"].keys()):
-                agent.inventory["Items"][item.label] += item_quantity
-            else:
-                agent.inventory["Items"][item.label] = item_quantity
-
-        # --> Adjust agent skills/state according to item
-        # TODO: Adjust skills/state
-
-        return
-
-    @staticmethod
-    def unequip_item(agent, item: str, item_quantity: int):
-        skills_tools = Skills_tools()
-        state_tools = State_tools()
-
-        item = Item(item)
-
-        # --> Remove item from agent inventory
-        if agent.inventory["Items"][item.label] - item_quantity < 0:
-            raise Exception("!!! Item quantity removed from inventory too large !!!")
-        else:
-            agent.inventory["Items"][item.label] -= item_quantity
-
-        # --> Adjust agent skills/state according to item
-        # TODO: Adjust skills/state
-
-        return
 
     @staticmethod
     def gen_market_inventory_dict(traded_item_types: list):
