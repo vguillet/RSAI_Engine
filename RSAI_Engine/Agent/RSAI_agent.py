@@ -12,7 +12,7 @@ import random
 import numpy as np
 
 # Own modules
-from Settings.SETTINGS import SETTINGS
+from RSAI_Engine.Settings.SETTINGS import SETTINGS
 
 from RSAI_Engine.Agent.Tools.Skills import Skills
 from RSAI_Engine.Agent.Tools.States import States
@@ -53,6 +53,9 @@ class Agent:
         
         # --> Setup tools
         self.pathfinder = Pathfinder()
+
+        # --> Setup trackers
+        self.pos_history = []
 
     def __str__(self):
         return self.name + " (Bot level " + str(self.combat_level) + ")"

@@ -8,10 +8,14 @@
 
 # Libs
 import matplotlib.pyplot as plt
+import cv2
 
 # Own modules
 from RSAI_Engine.Environment.Grid_gen.Obstacle_grid_gen import gen_obstacle_grid
 from RSAI_Engine.Environment.Grid_gen.POI_grid_gen import gen_POI_grid
+
+from RSAI_Engine.Visualiser.Visualiser import Visualiser
+from RSAI_Engine.Visualiser.Visualiser_tools import Visualiser_tools
 
 
 __version__ = '1.1.1'
@@ -33,11 +37,16 @@ class RSAI_environment:
         self.type = "Environment"
         self.origin = origin        # Origin coordinates of grid on the exploded map
 
+        # --> Load map image
+        self.map_image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
+
         # --> Setup obstacle grid
-        self.obstacle_grid = gen_obstacle_grid(image_path)
+        self.obstacle_grid = gen_obstacle_grid(self.map_image)
 
         # --> Setup POI grid
         self.POI_grid, self.POI_dict = gen_POI_grid(self.obstacle_grid.shape, self.origin)
+
+        self.shape = self.obstacle_grid.shape
 
     # =============================================================================== Getters
 
@@ -57,15 +66,18 @@ class RSAI_environment:
                 sources_dict[source] = self.POI_dict[POI].ef_dict["Sources"][source]
         return sources_dict
 
-    def visualise_environment(self):
-        # TODO: Add visualiser
-        visu = self.obstacle_grid.copy()
+    def visualise_environment(self, run_name, agents_dict, press_start=True):
+        # # TODO: Add visualiser
+        # visu = self.obstacle_grid.copy()
+        #
+        # visu += self.POI_grid * 5
+        #
+        # plt.imshow(visu)
+        # plt.colorbar()
+        # plt.show()
 
-        visu += self.POI_grid * 5
+        Visualiser(run_name, self, agents_dict, press_start=press_start)
 
-        plt.imshow(visu)
-        plt.colorbar()
-        plt.show()
         return
 
     def get_POI_at_pos(self, pos: tuple):
