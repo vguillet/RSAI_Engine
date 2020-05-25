@@ -49,7 +49,7 @@ class Visualiser:
         screen = pg.display.set_mode(screen_size)                               # Window size
         pg.display.set_caption("Visualiser: " + run_name)                       # Window name
 
-        background = Background('RSAI_Engine/Data/Environment/Obstacle_image.png', [0, 0], screen_size)
+        background = Background(environment, [0, 0], screen_size)
 
         # --> Setup visualizer clock (to keep track of visualiser run speed)
         clock = pg.time.Clock()
@@ -83,7 +83,8 @@ class Visualiser:
             Button(screen,
                    10, environment.shape[0] * scale_factor - 10,
                    80, 20,
-                   "Map view mode")
+                   "View toggle",
+                   action=background.switch_view(environment))
 
             # --> Set step
             step += 1
@@ -108,6 +109,7 @@ class Visualiser:
             # ----- Draw/render
             # --> Fill screen with white
             screen.fill((255, 255, 255))
+
             # --> Add background map
             screen.blit(background.image, background.rect)
 
@@ -162,5 +164,5 @@ class Visualiser:
         text_rect.center = ((self.button_x + (self.button_width / 2)), (self.button_y + (self.button_height / 2)))
         screen.blit(text_surface, text_rect)
 
-        pg.display.update()
-        time.sleep(0.2)
+        # pg.display.update()
+        # time.sleep(0.2)

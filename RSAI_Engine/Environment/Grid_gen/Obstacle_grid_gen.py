@@ -25,7 +25,7 @@ __date__ = '26/04/2020'
 ##################################################################################################################
 
 
-def gen_obstacle_grid(map_image):
+def gen_obstacle_grid(map_image, obstacle_image_path=None):
     # TODO: Add loading grid directly if already exists
     # --> Load image
     img_hsv = cv2.cvtColor(map_image, cv2.COLOR_BGR2HSV)
@@ -45,6 +45,10 @@ def gen_obstacle_grid(map_image):
 
     # -> Add masks
     mask = cv2.bitwise_or(walls_mask, water_mask)
+
+    # --> Save obstacle image if path provided
+    if obstacle_image_path is not None:
+        cv2.imwrite(obstacle_image_path, mask)
 
     # cv2.imshow("mask", mask)
     # cv2.waitKey(0)

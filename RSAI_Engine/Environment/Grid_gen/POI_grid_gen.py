@@ -39,7 +39,6 @@ def gen_POI_grid(grid_size, origin):
 
     # --> Adding POIs to environment
     for i in range(len(POI_lst)):
-        print(POI_lst[i][0])
         translated_y_coordinate = grid_size[0] - (POI_lst[i][2][1] - origin[1])
         translated_x_coordinate = POI_lst[i][2][0] - origin[0]
 

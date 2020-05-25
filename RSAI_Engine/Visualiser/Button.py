@@ -39,6 +39,7 @@ class Button:
             pg.draw.rect(screen, (255, 255, 200), (self.button_x, self.button_y, self.button_width, self.button_height))
 
             if click[0] == 1 and action is not None:
+                print("Click")
                 action()
 
         else:
@@ -53,5 +54,5 @@ class Button:
         text_rect.center = ((self.button_x + (self.button_width / 2)), (self.button_y + (self.button_height / 2)))
         screen.blit(text_surface, text_rect)
 
-        pg.display.update()
-        time.sleep(0.2)
+        # pg.display.update()
+        # time.sleep(0.2)
