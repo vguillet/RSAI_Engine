@@ -13,6 +13,8 @@ import numpy as np
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 
 from qimage2ndarray import array2qimage
 
@@ -35,6 +37,7 @@ class RSAI_GUI:
 
         # --> Load RSAI GUI layout
         self.main_window = uic.loadUi("RSAI_Engine/GUI/Layout_1.ui")
+        self.main_window.setWindowIcon(QIcon("RSAI_Engine/Data/GUI_assets/RSAI_icon.png"))
 
         # --> Create RSAI environment
         self.environment = RSAI_environment()
@@ -44,75 +47,82 @@ class RSAI_GUI:
         self.main_window.agent_name.setText(agent.name)
         self.main_window.agent_pos_sim_coordinates.setText(str(agent.pos))
 
-        # --> Initiate view tracker
-        self.view = "obstacle"
+        # --> Initiate views trackers
+        self.current_scale = "fit"
 
-        # --> Set image to map
-        self.change_view()
-
-        # --> Set array to sim array
-        self.set_array_view()
+        # --> Set views
+        self.update_views()
 
         # --> Connect buttons
-        self.main_window.view_toggle.clicked.connect(self.change_view)
+        self.main_window.scale_toggle.clicked.connect(self.change_scale)
 
         # --> Display GUI
         self.main_window.show()
 
         sys.exit(app.exec())
 
-    def set_array_view(self):
-        # --> Set image to fill graphics view
-        # self.main_window.sim_view.setScaledContents(True)
+    @property
+    def scale(self):
+        if self.current_scale == "fit":
+            return 10000, 720
+        else:
+            return 10000, 1536
 
+    def change_scale(self):
+        if self.current_scale == "fit":
+            self.current_scale = "full"
+            self.update_views()
+
+            # --> Adjust button text
+            self.main_window.scale_toggle.setText("Scale view (Full screen)")
+
+        else:
+            self.current_scale = "fit"
+            self.update_views()
+
+            # --> Adjust button text
+            self.main_window.scale_toggle.setText("Scale view (Fit screen)")
+
+        return
+
+    def update_views(self):
+        # ----- Update map view
+        # --> Create pixmap
+        pixmap = QPixmap(self.environment.world_image_path)
+
+        # --> Set view
+        scene = self.create_scene(pixmap)
+        self.main_window.map_view.setScene(scene)
+
+        # ----- Update obstacle view
+        # --> Create pixmap
+        pixmap = QPixmap(self.environment.obstacle_image_path)
+
+        # --> Set view
+        scene = self.create_scene(pixmap)
+        self.main_window.obstacle_view.setScene(scene)
+
+        # ----- Update simulation view
         # --> Convert array to Qimage
         qimage = array2qimage(self.environment.sim_grid, normalize=True)
+        pixmap = QPixmap(qimage)
 
-        # --> Create pixmap
-        pix = QPixmap(qimage)
-        item = QtWidgets.QGraphicsPixmapItem(pix)
+        # --> Set view
+        scene = self.create_scene(pixmap)
+        self.main_window.sim_view.setScene(scene)
+
+        return
+
+    def create_scene(self, pixmap):
+        # --> Scale pixmap
+        x_scale, y_scale = self.scale
+        pixmap_scaled = pixmap.scaled(x_scale, y_scale, Qt.KeepAspectRatio)
+
+        # --> Create item
+        item = QtWidgets.QGraphicsPixmapItem(pixmap_scaled)
 
         # --> Create scene
         scene = QtWidgets.QGraphicsScene()
         scene.addItem(item)
-        self.main_window.sim_view.setScene(scene)
 
-        # self.main_window.sim_view.fitInView(scene.sceneRect())
-        return
-
-    def change_view(self):
-        if self.view == "obstacle":
-            # ----- Set image to map
-            # --> Create pixmap
-            pix = QPixmap(self.environment.world_image_path)
-            item = QtWidgets.QGraphicsPixmapItem(pix)
-
-            # --> Create scene
-            scene = QtWidgets.QGraphicsScene()
-            scene.addItem(item)
-            self.main_window.map_view.setScene(scene)
-
-            # --> Update text to view
-            self.main_window.view_toggle.setText("Switch view (Map)")
-
-            # --> Update view tracker
-            self.view = "map"
-
-        else:
-            # ----- Set image to obstacle
-            # --> Create pixmap
-            pix = QPixmap(self.environment.obstacle_image_path)
-            item = QtWidgets.QGraphicsPixmapItem(pix)
-
-            # --> Create scene
-            scene = QtWidgets.QGraphicsScene()
-            scene.addItem(item)
-            self.main_window.map_view.setScene(scene)
-
-            # --> Update text to view
-            self.main_window.view_toggle.setText("Switch view (Obstacles)")
-
-            # --> Update view tracker
-            self.view = "obstacle"
-
-        return
+        return scene

@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1089</width>
-    <height>891</height>
+    <width>1144</width>
+    <height>920</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1089</width>
-    <height>0</height>
+    <width>1144</width>
+    <height>920</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -74,7 +74,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QTabWidget" name="tabWidget_2">
+         <widget class="QTabWidget" name="views_tab">
           <property name="currentIndex">
            <number>0</number>
           </property>
@@ -86,18 +86,21 @@
             <item>
              <widget class="QGraphicsView" name="map_view"/>
             </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_7">
+           <attribute name="title">
+            <string>Obstacles</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
             <item>
-             <widget class="QPushButton" name="view_toggle">
-              <property name="text">
-               <string>Switch view (Map)</string>
-              </property>
-             </widget>
+             <widget class="QGraphicsView" name="obstacle_view"/>
             </item>
            </layout>
           </widget>
           <widget class="QWidget" name="tab_6">
            <attribute name="title">
-            <string>Array</string>
+            <string>Simulation</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
@@ -105,6 +108,13 @@
             </item>
            </layout>
           </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="scale_toggle">
+          <property name="text">
+           <string>Scale view (Fit screen)</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -267,7 +277,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1089</width>
+     <width>1144</width>
      <height>21</height>
     </rect>
    </property>

@@ -46,10 +46,9 @@ class RSAI_environment:
         self.world_image_path = world_image_path
         self.obstacle_image_path = obstacle_image_path
 
-        self.map_image = cv2.imread(self.world_image_path, cv2.IMREAD_UNCHANGED)
-
         # --> Setup obstacle grid
-        self.obstacle_grid = gen_obstacle_grid(self.map_image, obstacle_image_path)
+        self.obstacle_grid = gen_obstacle_grid(world_image_path,
+                                               obstacle_image_path)
 
         # --> Setup POI grid
         self.POI_grid, self.POI_dict = gen_POI_grid(self.obstacle_grid.shape, self.origin)
