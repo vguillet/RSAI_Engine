@@ -47,7 +47,7 @@ class RSAI_simulation:
                                 start_world_pos=(3216, 3219))
 
     def run_simulation(self, progress_callback):
-        print("---------------------- Started simulation ----------------------")
+        print("---------------------- Simulation started ----------------------")
         while True:
             while self.agent.goal is None:
                 # --> Pick random goal
@@ -59,9 +59,7 @@ class RSAI_simulation:
 
             print("- New Goal:", self.agent.goal)
 
-            step = 0
             while self.agent.goal is not None:
-                step += 1
                 self.agent.step()
                 progress_callback.emit()
                 time.sleep(0.005)

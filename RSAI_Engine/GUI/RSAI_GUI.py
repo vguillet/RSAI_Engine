@@ -106,6 +106,8 @@ class RSAI_GUI():
         sys.exit(app.exec())
 
     def run_simulation(self):
+        self.main_window.engine_state.setText("Running")
+
         worker = Worker(self.simulation.run_simulation)
         worker.signals.progress.connect(self.update_gui)
 
@@ -119,7 +121,7 @@ class RSAI_GUI():
 
     def update_console(self, progress_callback):
         while True:
-            time.sleep(0.01)
+            time.sleep(0.001)
             self.console_gui.log_console_output()
             self.console_gui.update_console_output(self)
 
