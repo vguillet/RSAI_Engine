@@ -244,7 +244,10 @@
         <item>
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>Agent</string>
+           <string>Agent:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -289,7 +292,10 @@
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Step</string>
+           <string>Step:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -334,7 +340,10 @@
         <item>
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>Goal</string>
+           <string>Goal:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>

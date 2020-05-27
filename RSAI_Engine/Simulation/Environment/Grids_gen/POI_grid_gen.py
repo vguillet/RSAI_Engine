@@ -26,7 +26,7 @@ def gen_POI_grid(simulation_origin, simulation_size):
 
     # --> Listing POIs to be added (coordinate in Exploded map coordinates)
     POI_lst = [["Cows field", "Source", (3252, 3267)],
-               ["Varrock GM", "Converter", (3213, 3415)],
+               ["Varrock GM", "Converter", (3212, 3415)],
                ["Varrock SW mine", "Source", (3178, 3369)],
                # ["Varrock SE mine", "Source", (3178, 3369)],
                ]

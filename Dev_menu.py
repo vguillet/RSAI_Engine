@@ -19,10 +19,3 @@ __date__ = '26/04/2020'
 
 RSAI_GUI()
 
-# env = RSAI_environment()
-# env.sim_view
-# agent_dict = {"Bob": Agent("Bob", (10, 10))}
-#
-# print(env.shape)
-#
-# env.visualise_environment("Dev test run", agent_dict, press_start=False)

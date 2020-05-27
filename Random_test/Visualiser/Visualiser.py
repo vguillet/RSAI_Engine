@@ -5,16 +5,15 @@
 """
 
 # Built-in/Generic Imports
-import time
 
 # Libs
 import pygame as pg
 
 # Own modules
 from RSAI_Engine.Settings.SETTINGS import SETTINGS
-from RSAI_Engine.Visualiser.Visualiser_tools import Visualiser_tools
-from RSAI_Engine.Visualiser.Background_visu import Background
-from RSAI_Engine.Visualiser.Button import Button
+from Random_test.Visualiser.Visualiser_tools import Visualiser_tools
+from Random_test.Visualiser.Background_visu import Background
+from Random_test.Visualiser.Button import Button
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'

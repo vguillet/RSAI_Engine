@@ -68,8 +68,11 @@ class RSAI_agent:
         self.inventory = Inventory(start_inventory)
         
         # --> Setup tools
+        self.goal = None
+        self.goal_type = None
+        self.path_to_goal = None
+
         self.pathfinder = Pathfinder()
-        self.goal = "None"
 
         # --> Setup trackers
         self.goal_history = []
@@ -105,6 +108,30 @@ class RSAI_agent:
                        + math.floor(self.skills()["Prayer"]["Level"]))
 
         return math.floor(base + max([self.melee_level, self.range_level, self.mage_level]))
+
+    def set_goal_POI(self, grids_dict, POI):
+        # --> Record previous goal
+        self.goal_history.append(self.goal)
+
+        # --> Set new goal
+        self.goal = POI
+        self.goal_type = "POI"
+
+        # --> Find path for new goal
+        self.path_to_goal = self.pathfinder.find_path_to_POI(grids_dict["Obstacle"],
+                                                             self.simulation_pos, POI)
+
+    def set_goal_coordinates(self, grids_dict, coordinates):
+        # --> Record previous goal
+        self.goal_history.append(self.goal)
+
+        # --> Set new goal
+        self.goal = coordinates
+        self.goal_type = "Coordinates"
+
+        # --> Find path for new goal
+        self.path_to_goal = self.pathfinder.find_path_to_coordinate(grids_dict["Obstacle"],
+                                                                    self.simulation_pos, coordinates)
 
     def hit(self, target):
         """

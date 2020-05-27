@@ -11,8 +11,8 @@ import sys
 import matplotlib.pyplot as plt
 
 # Own modules
-from RSAI_Engine.Simulation.Environment.Grid_gen.Obstacle_grid_gen import gen_obstacle_grid
-from RSAI_Engine.Simulation.Environment.Grid_gen.POI_grid_gen import gen_POI_grid
+from RSAI_Engine.Simulation.Environment.Grids_gen.Obstacle_grid_gen import gen_obstacle_grid
+from RSAI_Engine.Simulation.Environment.Grids_gen.POI_grid_gen import gen_POI_grid
 
 # from RSAI_Engine.Visualiser.Visualiser import Visualiser
 # from RSAI_Engine.Visualiser.Visualiser_tools import Visualiser_tools
@@ -43,13 +43,16 @@ class RSAI_environment:
             sys.exit()
 
         # --> Setup obstacle grid
-        self.obstacle_grid = gen_obstacle_grid(world_image,
-                                               obstacle_image_path)
+        obstacle_grid = gen_obstacle_grid(world_image, obstacle_image_path)
 
         # --> Setup POI grid and dict
-        self.POI_grid, self.POI_dict = gen_POI_grid(self.origin, self.obstacle_grid.shape)
+        POI_grid, self.POI_dict = gen_POI_grid(self.origin, obstacle_grid.shape)
 
-        self.shape = self.obstacle_grid.shape
+        self.shape = obstacle_grid.shape
+
+        # --> Setup grids dictionary
+        self.grids_dict = {"Obstacle": obstacle_grid,
+                           "POI": POI_grid}
 
     # =============================================================================== Getters
 
@@ -69,15 +72,15 @@ class RSAI_environment:
                 sources_dict[source] = self.POI_dict[POI].ef_dict["Sources"][source]
         return sources_dict
 
-    def visualise_environment(self):
-        # TODO: Add visualiser
-        # Visualiser(run_name, self, agents_dict, press_start=press_start)
-
-        plt.imshow(self.sim_grid)
-        plt.colorbar()
-        plt.show()
-
-        return
+    # def visualise_environment(self):
+    #     # TODO: Add visualiser
+    #     # Visualiser(run_name, self, agents_dict, press_start=press_start)
+    #
+    #     plt.imshow(self.sim_grid)
+    #     plt.colorbar()
+    #     plt.show()
+    #
+        # return
 
     def get_POI_at_pos(self, pos: tuple):
         for POI in self.POI_dict.keys():
@@ -102,12 +105,12 @@ class RSAI_environment:
     # =============================================================================== Setters
     def add_POI(self, POI: "POI Object"):
         self.POI_dict[POI.name] = POI
-        self.POI_grid[POI.pos[1]][POI.pos[1]] = 1
+        self.grids_dict["POI"][POI.pos[1]][POI.pos[1]] = 1
         return
 
     def remove_POI(self, POI: "POI Object"):
         del self.POI_dict[POI.name]
-        self.POI_grid[POI.pos[1]][POI.pos[1]] = 0
+        self.grids_dict["POI"][POI.pos[1]][POI.pos[1]] = 0
         return
 
     def __str__(self):

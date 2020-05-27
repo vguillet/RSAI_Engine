@@ -19,6 +19,7 @@ from qimage2ndarray import array2qimage
 
 # Own modules
 from RSAI_Engine.Simulation.RSAI_simulation import RSAI_simulation
+from RSAI_Engine.Simulation.Tools.Views_generator import Views
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -43,17 +44,20 @@ class RSAI_GUI:
         self.main_window.agent_pos_world_coordinates.setText(str(self.simulation.agent.world_pos))
         self.main_window.agent_pos_simulation_coordinates.setText(str(self.simulation.agent.simulation_pos))
 
-        self.main_window.goal_name.setText(str(self.simulation.agent.goal))
+        # if self.simulation.agent.goal is not None:
+            # self.main_window.goal_name.setText(str(self.simulation.agent.goal.simulation_pos))
         # self.main_window
 
-        # --> Set views
+        # --> Create views
+        self.views = Views(self.simulation)
+
         self.views_dict = {"world": {"Map": QPixmap(self.simulation.world_image_path),
                                      "Obstacles": QPixmap(self.simulation.obstacle_image_path)},
 
-                           "simulation": {"Overview": QPixmap(array2qimage(self.simulation.overview, normalize=True)),
-                                          "Obstacles": QPixmap(array2qimage(self.simulation.obstacle_view, normalize=True)),
-                                          "POIs": QPixmap(array2qimage(self.simulation.POI_view, normalize=True)),
-                                          "Agent": QPixmap(array2qimage(self.simulation.agent_view, normalize=True))}
+                           "simulation": {"Overview": QPixmap(array2qimage(self.views.overview, normalize=True)),
+                                          "Obstacles": QPixmap(array2qimage(self.views.obstacle_view, normalize=True)),
+                                          "POIs": QPixmap(array2qimage(self.views.POI_view, normalize=True)),
+                                          "Agent": QPixmap(array2qimage(self.views.agent_view, normalize=True))}
                            }
 
         # --> Initiate views trackers
@@ -131,8 +135,6 @@ class RSAI_GUI:
 
     def change_sim_sub_view(self):
         self.current_sim_view = self.main_window.simulation_combo.currentText()
-
-        print(self.current_sim_view)
 
         if self.current_view == "simulation":
             self.update_map_view()

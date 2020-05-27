@@ -30,10 +30,10 @@ class Pathfinder:
 
         # --> Define starting point and goal
         start = grid.node(start_coordinates[0], start_coordinates[1])
-        end = grid.node(POI.pos[0], POI.pos[1])
+        end = grid.node(POI.simulation_pos[0], POI.simulation_pos[1])
 
         # --> Find path
-        path = self.find_path(start, end, grid)
+        path = self.__find_path(start, end, grid)
 
         # --> Show path on grid
         if show_path:
@@ -50,7 +50,7 @@ class Pathfinder:
         end = grid.node(goal_coordinates[0], goal_coordinates[1])
 
         # --> Find path
-        path = self.find_path(start, end, grid)
+        path = self.__find_path(start, end, grid)
 
         # --> Show path on grid
         if show_path:
@@ -58,7 +58,7 @@ class Pathfinder:
 
         return path
 
-    def find_path(self, start, end, grid):
+    def __find_path(self, start, end, grid):
         # --> Set pathfinding algorithm
         finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
 
@@ -69,6 +69,8 @@ class Pathfinder:
 
     @staticmethod
     def show_path(grid, path):
+        grid = grid.copy()
+
         # --> Set all path steps == 2
         for step in path:
            grid[step[1]][step[0]] = 2

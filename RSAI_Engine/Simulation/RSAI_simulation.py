@@ -44,39 +44,9 @@ class RSAI_simulation:
                                 self.environment.shape,
                                 start_world_pos=(3216, 3219))
 
-    @property
-    def overview(self):
-        # --> Adding obstacles to overview
-        overview = self.environment.obstacle_grid.copy()
+        # --> Test goal
+        self.agent.set_goal_POI(self.environment.grids_dict,
+                                self.environment.POI_dict["Varrock GM"])
 
-        # --> Adding paths to overview
-
-        # --> Adding POIs to overview
-        overview += self.environment.POI_grid * 5
-
-        # --> Adding agent to overview
-        print(self.agent.simulation_pos)
-        overview[self.agent.simulation_pos[1]][self.agent.simulation_pos[0]] = 10
-
-        # --> Adding agent path to overview
-
-        return overview
-
-    @property
-    def obstacle_view(self):
-        return self.environment.obstacle_grid
-
-    @property
-    def POI_view(self):
-        return self.environment.POI_grid
-
-    @property
-    def agent_view(self):
-        agent_view = np.zeros(self.environment.shape)
-
-        # --> Add agent position
-        agent_view[self.agent.simulation_pos[1]][self.agent.simulation_pos[0]] = 10
-
-        # --> Add agent path
-
-        return agent_view
+        # self.agent.set_goal_coordinates(self.environment.grids_dict,
+        #                                 (90, 301))

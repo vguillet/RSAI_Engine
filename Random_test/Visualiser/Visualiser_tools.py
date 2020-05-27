@@ -5,15 +5,13 @@
 """
 
 # Built-in/Generic Imports
-import time
 
 # Libs
 import pygame as pg
 
 # Own modules
-from RSAI_Engine.Visualiser.Agent_visu import Agent_visu
-from RSAI_Engine.Visualiser.POI_visu import POI_visu
-from RSAI_Engine.Visualiser.Dynamic_label import Dynamic_label
+from Random_test.Visualiser.Agent_visu import Agent_visu
+from Random_test.Visualiser.POI_visu import POI_visu
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
