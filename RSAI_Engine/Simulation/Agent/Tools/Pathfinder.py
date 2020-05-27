@@ -65,7 +65,7 @@ class Pathfinder:
         # --> Find path
         path, _ = finder.find_path(start, end, grid)
 
-        return path
+        return path[1:]
 
     @staticmethod
     def show_path(grid, path):

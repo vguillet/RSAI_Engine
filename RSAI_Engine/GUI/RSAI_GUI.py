@@ -44,9 +44,9 @@ class RSAI_GUI:
         self.main_window.agent_pos_world_coordinates.setText(str(self.simulation.agent.world_pos))
         self.main_window.agent_pos_simulation_coordinates.setText(str(self.simulation.agent.simulation_pos))
 
-        # if self.simulation.agent.goal is not None:
-            # self.main_window.goal_name.setText(str(self.simulation.agent.goal.simulation_pos))
-        # self.main_window
+        # --> If goal is set
+        if self.simulation.agent.goal is not None:
+            self.update_position_summary()
 
         # --> Create views
         self.views = Views(self.simulation)
@@ -88,7 +88,7 @@ class RSAI_GUI:
     @property
     def scale(self):
         if self.current_scale == "fit":
-            return 10000, 680
+            return 10000, 660
         else:
             return 10000, 1536
 
@@ -154,5 +154,27 @@ class RSAI_GUI:
 
         # --> Set map view
         self.main_window.map_view.setScene(scene)
+
+        return
+
+    def update_position_summary(self):
+        # --> Set step text
+        self.main_window.step_pos_world_coordinates.setText(str(self.simulation.agent.world_path_to_goal[0]))
+        self.main_window.step_pos_simulation_coordinates.setText(str(self.simulation.agent.simulation_path_to_goal[0]))
+
+        # --> Set name text
+        if self.simulation.agent.goal_type == "POI":
+            self.main_window.goal_name.setText(str(self.simulation.agent.goal.name))
+
+        elif self.simulation.agent.goal_type == "Coordinates":
+            self.main_window.goal_name.setText("Coordinates")
+
+        # --> Set goal coordinates
+        self.main_window.goal_pos_world_coordinates.setText(str(self.simulation.agent.goal.world_pos))
+        self.main_window.goal_pos_simulation_coordinates.setText(str(self.simulation.agent.goal.simulation_pos))
+
+        # --> Set path text
+        self.main_window.total_path_length.setText(str(self.simulation.agent.total_path_len))
+        self.main_window.steps_to_goal.setText(str(len(self.simulation.agent.simulation_path_to_goal)))
 
         return

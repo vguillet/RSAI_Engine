@@ -20,7 +20,7 @@ from RSAI_Engine.Simulation.Agent.Tools.Equipment import Equipment
 from RSAI_Engine.Simulation.Agent.Tools.Inventory import Inventory
 from RSAI_Engine.Simulation.Agent.Tools.Pathfinder import Pathfinder
 
-from RSAI_Engine.Simulation.Tools.Coordinate_system_converter import convert_coordinates
+from RSAI_Engine.Simulation.Tools.Coordinate_system_converter import *
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -32,9 +32,9 @@ __date__ = '31/01/2020'
 class RSAI_agent:
     def __init__(self,
                  name: "Bot name",
-                 sim_origin, sim_size,
+                 simulation_origin, simulation_shape,
                  start_world_pos: tuple = None,
-                 start_sim_pos: tuple = None,
+                 start_simulation_pos: tuple = None,
                  start_skills: dict = None,
                  start_states: dict = None,
                  start_equipment: dict = None,
@@ -43,7 +43,10 @@ class RSAI_agent:
         Create RSAI agent objects to be used in RSAI simulations in the RSAI engine
 
         :param name: Name of agent
-        :param start_pos: Tuple specified in sim coordinates
+        :param simulation_origin: Simulation origin
+        :param simulation_shape: Simulation shape
+        :param start_world_pos: Tuple specified in world coordinates
+        :param start_simulation_pos: Tuple specified in simulation coordinates
         :param start_skills: Starting skill set (Optional)
         :param start_states: Starting states (Optional)
         :param start_equipment: Starting equipment (Optional)
@@ -55,11 +58,16 @@ class RSAI_agent:
         self.settings.agent_settings.gen_agent_settings()
 
         # ----- Setup reference properties
+        # --> Agent
         self.name = name
 
+        # --> Environment
+        self.simulation_origin = simulation_origin
+        self.simulation_shape = simulation_shape
+
         # --> Setup position
-        self.world_pos, self.simulation_pos = convert_coordinates(sim_origin, sim_size,
-                                                                  start_world_pos, start_sim_pos)
+        self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin, simulation_shape,
+                                                                  start_world_pos, start_simulation_pos)
 
         # --> Setup skills/inventory/interests/characteristics dicts
         self.skills = Skills(start_skills)
@@ -67,16 +75,19 @@ class RSAI_agent:
         self.equipment = Equipment(start_equipment)
         self.inventory = Inventory(start_inventory)
         
-        # --> Setup tools
+        # --> Setup goal tracker
         self.goal = None
         self.goal_type = None
-        self.path_to_goal = None
+        self.total_path_len = None
+
+        self.world_path_to_goal = None
+        self.simulation_path_to_goal = None
 
         self.pathfinder = Pathfinder()
 
-        # --> Setup trackers
+        # --> Setup memory
         self.goal_history = []
-        self.pos_history = []
+        self.simulation_pos_history = []
 
     def __str__(self):
         return self.name + " (Bot level " + str(self.combat_level) + ")"
@@ -110,28 +121,77 @@ class RSAI_agent:
         return math.floor(base + max([self.melee_level, self.range_level, self.mage_level]))
 
     def set_goal_POI(self, grids_dict, POI):
-        # --> Record previous goal
-        self.goal_history.append(self.goal)
+        if self.goal is not None:
+            # --> Record previous goal
+            self.goal_history.append(self.goal)
 
         # --> Set new goal
         self.goal = POI
         self.goal_type = "POI"
 
         # --> Find path for new goal
-        self.path_to_goal = self.pathfinder.find_path_to_POI(grids_dict["Obstacle"],
-                                                             self.simulation_pos, POI)
+        self.simulation_path_to_goal = self.pathfinder.find_path_to_POI(grids_dict["Obstacle"],
+                                                                        self.simulation_pos, POI)
+
+        # --> Find equivalent world path
+        self.world_path_to_goal, self.simulation_path_to_goal = \
+            convert_path_coordinates(self.simulation_origin, self.simulation_shape,
+                                     simulation_path=self.simulation_path_to_goal)
+
+        # --> Set path length
+        self.total_path_len = len(self.simulation_path_to_goal)
 
     def set_goal_coordinates(self, grids_dict, coordinates):
-        # --> Record previous goal
-        self.goal_history.append(self.goal)
+        if self.goal is not None:
+            # --> Record previous goal
+            self.goal_history.append(self.goal)
 
         # --> Set new goal
         self.goal = coordinates
         self.goal_type = "Coordinates"
 
         # --> Find path for new goal
-        self.path_to_goal = self.pathfinder.find_path_to_coordinate(grids_dict["Obstacle"],
-                                                                    self.simulation_pos, coordinates)
+        self.simulation_path_to_goal = self.pathfinder.find_path_to_coordinate(grids_dict["Obstacle"],
+                                                                               self.simulation_pos,
+                                                                               coordinates)
+        # --> Find equivalent world path
+        self.world_path_to_goal, self.simulation_path_to_goal = \
+            convert_path_coordinates(self.simulation_origin, self.simulation_shape,
+                                     simulation_path=self.simulation_path_to_goal)
+
+        # --> Set path length
+        self.total_path_len = len(self.simulation_path_to_goal)
+
+    def step(self):
+
+        if self.goal is None:
+            print("!!!!! No goal specified !!!!!")
+
+        else:
+            # --> Record position
+            self.simulation_pos_history.append(self.simulation_pos)
+
+            # --> Step according to path
+            self.simulation_pos = self.simulation_path_to_goal[0]
+            self.world_pos, _ = convert_coordinates(self.simulation_origin, self.simulation_shape,
+                                                    simulation_pos=self.simulation_pos)
+
+            del self.simulation_path_to_goal[0]
+
+            # --> If arrived at goal
+            if len(self.simulation_path_to_goal) == 0:
+                # --> Record previous goal
+                self.goal_history.append(self.goal)
+
+                # --> Reset goal trackers
+                self.goal = None
+                self.goal_type = None
+                self.total_path_len = None
+
+                self.world_path_to_goal = None
+                self.simulation_path_to_goal = None
+
+        return
 
     def hit(self, target):
         """

@@ -48,5 +48,10 @@ class RSAI_simulation:
         self.agent.set_goal_POI(self.environment.grids_dict,
                                 self.environment.POI_dict["Varrock GM"])
 
-        # self.agent.set_goal_coordinates(self.environment.grids_dict,
-        #                                 (90, 301))
+    def run_simulation(self):
+        # --> Test goal
+        self.agent.set_goal_POI(self.environment.grids_dict,
+                                self.environment.POI_dict["Varrock GM"])
+
+        while self.agent.goal is not None:
+            self.agent.step()

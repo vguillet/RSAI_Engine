@@ -44,7 +44,6 @@ def gen_POI_grid(simulation_origin, simulation_size):
 
         POI_array[POI_dict[POI_lst[i][0]].simulation_pos[1]][POI_dict[POI_lst[i][0]].simulation_pos[0]] = 1
 
-    print("-- RSAI environment layout generated successfully --")
     return POI_array, POI_dict
 
 
