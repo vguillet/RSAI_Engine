@@ -35,7 +35,6 @@ class Map_view_GUI:
                 }
 
     def update_map_view(self, gui):
-        print("Map view updated")
         gui.views_dict = self.gen_views_dict(gui)
 
         # --> Scale pixmap
@@ -80,6 +79,6 @@ class Map_view_GUI:
 
             # --> Set path text
             gui.main_window.total_path_length.setText(str(gui.simulation.agent.total_path_len))
-            gui.main_window.steps_to_goal.setText(str(len(gui.simulation.agent.simulation_path_to_goal)))
+            gui.main_window.steps_to_goal.setText(str(len(gui.simulation.agent.simulation_path_to_goal) - 1))
 
         return

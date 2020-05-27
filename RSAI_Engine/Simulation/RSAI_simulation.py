@@ -6,6 +6,7 @@
 
 # Built-in/Generic Imports
 import time
+import random
 
 # Libs
 import cv2
@@ -45,24 +46,18 @@ class RSAI_simulation:
                                 self.environment.shape,
                                 start_world_pos=(3216, 3219))
 
-        # --> Test goal
-        self.agent.set_goal_POI(self.environment.grids_dict,
-                                self.environment.POI_dict["Varrock GM"])
-
     def run_simulation(self, progress_callback):
-        # --> Test goal
-        self.agent.set_goal_POI(self.environment.grids_dict,
-                                self.environment.POI_dict["Varrock GM"])
+        while True:
+            while self.agent.goal is None:
+                goal = random.choice(list(self.environment.POI_dict.keys()))
 
-        step = 0
-        while self.agent.goal is not None:
-            step += 1
-            self.agent.step()
-            progress_callback.emit(step)
-            time.sleep(0.02)
+                # --> Test goal
+                self.agent.set_goal_POI(self.environment.grids_dict,
+                                        self.environment.POI_dict[goal])
 
-        self.agent.set_goal_POI(self.environment.grids_dict,
-                                self.environment.POI_dict["Varrock GM"])
-
-        print("Done")
-        return
+            step = 0
+            while self.agent.goal is not None:
+                step += 1
+                self.agent.step()
+                progress_callback.emit(step)
+                time.sleep(0.01)

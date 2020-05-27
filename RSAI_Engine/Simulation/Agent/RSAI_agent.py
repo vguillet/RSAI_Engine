@@ -121,6 +121,10 @@ class RSAI_agent:
         return math.floor(base + max([self.melee_level, self.range_level, self.mage_level]))
 
     def set_goal_POI(self, grids_dict, POI):
+        if POI.simulation_pos == self.simulation_pos:
+            print("!!!!! Already at goal!!!!")
+            return
+
         if self.goal is not None:
             # --> Record previous goal
             self.goal_history.append(self.goal)
@@ -142,6 +146,10 @@ class RSAI_agent:
         self.total_path_len = len(self.simulation_path_to_goal)
 
     def set_goal_coordinates(self, grids_dict, coordinates):
+        if coordinates == self.simulation_pos:
+            print("!!!!! Already at goal!!!!")
+            return
+
         if self.goal is not None:
             # --> Record previous goal
             self.goal_history.append(self.goal)
@@ -163,11 +171,11 @@ class RSAI_agent:
         self.total_path_len = len(self.simulation_path_to_goal)
 
     def step(self):
-
         if self.goal is None:
             print("!!!!! No goal specified !!!!!")
 
         else:
+            # print(len(self.simulation_path_to_goal))
             # --> Record position
             self.simulation_pos_history.append(self.simulation_pos)
 

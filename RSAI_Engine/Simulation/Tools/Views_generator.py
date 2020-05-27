@@ -35,13 +35,13 @@ class Views:
         # --> Adding agent path to overview
         if self.simulation.agent.goal is not None:
             for step in self.simulation.agent.simulation_path_to_goal:
-                overview[step[1]][step[0]] = 10
+                overview[step[1]][step[0]] = 5
 
         # --> Adding POIs to overview
-        overview += self.simulation.environment.grids_dict["POI"] * 15
+        overview += self.simulation.environment.grids_dict["POI"] * 10
 
         # --> Adding agent to overview
-        overview[self.simulation.agent.simulation_pos[1]][self.simulation.agent.simulation_pos[0]] = 25
+        overview[self.simulation.agent.simulation_pos[1]][self.simulation.agent.simulation_pos[0]] = 15
 
         return overview
 

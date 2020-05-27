@@ -95,6 +95,7 @@ class RSAI_GUI():
 
     def update_gui(self, s):
         self.map_view_gui.update_map_view(self)
+        self.map_view_gui.update_position_summary(self)
 
     def run_simulation(self):
         worker = Worker(self.simulation.run_simulation)
