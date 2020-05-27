@@ -47,7 +47,7 @@ class POI:
             self.ef_dict = ef_dict
 
     def __str__(self):
-        return self.name + self.label + " (POI) " + "\n"
+        return self.name + " - " + self.label + " (POI)"
 
     def __repr__(self):
         return self.__str__()

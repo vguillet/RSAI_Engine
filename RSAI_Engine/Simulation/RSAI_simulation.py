@@ -50,15 +50,18 @@ class RSAI_simulation:
         print("---------------------- Started simulation ----------------------")
         while True:
             while self.agent.goal is None:
+                # --> Pick random goal
                 goal = random.choice(list(self.environment.POI_dict.keys()))
 
-                # --> Test goal
+                # --> Set goal
                 self.agent.set_goal_POI(self.environment.grids_dict,
                                         self.environment.POI_dict[goal])
+
+            print("- New Goal:", self.agent.goal)
 
             step = 0
             while self.agent.goal is not None:
                 step += 1
                 self.agent.step()
-                progress_callback.emit(step)
-                time.sleep(0.01)
+                progress_callback.emit()
+                time.sleep(0.005)

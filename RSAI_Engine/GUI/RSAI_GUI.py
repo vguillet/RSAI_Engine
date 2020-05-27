@@ -13,11 +13,8 @@ import time
 from PyQt5.QtCore import *
 from PyQt5 import QtWidgets
 from PyQt5 import uic
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt, QThreadPool
+from PyQt5.QtCore import QThreadPool
 from PyQt5.QtGui import QIcon
-
-from qimage2ndarray import array2qimage
 
 # Own modules
 from RSAI_Engine.GUI.GUI_elements.Map_view_gui import Map_view_GUI
@@ -104,6 +101,8 @@ class RSAI_GUI():
         # ============================== Display GUI
         self.main_window.show()
 
+        print("\n - RSAI Initialisation: Success \n")
+
         sys.exit(app.exec())
 
     def run_simulation(self):
@@ -114,7 +113,7 @@ class RSAI_GUI():
 
         return
 
-    def update_gui(self, s):
+    def update_gui(self):
         self.map_view_gui.update_map_view(self)
         self.map_view_gui.update_position_summary(self)
 
@@ -128,9 +127,9 @@ class RSAI_GUI():
     @property
     def scale(self):
         if self.current_scale == "fit":
-            return 10000, 660
+            return 10000, 635
         else:
-            return 10000, 1536
+            return 530, 10000
 
     @property
     def view_pixmap(self):
@@ -201,10 +200,11 @@ class WorkerSignals(QObject):
         `int` indicating % progress
 
     '''
+
     finished = pyqtSignal()
     error = pyqtSignal(tuple)
     result = pyqtSignal(object)
-    progress = pyqtSignal(int)
+    progress = pyqtSignal()
 
 
 class Worker(QRunnable):

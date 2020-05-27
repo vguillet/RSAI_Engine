@@ -25,7 +25,7 @@ __date__ = '26/04/2020'
 class Game_view_GUI:
     @staticmethod
     def dummy_view(gui):
-        pix_gv = QPixmap("RSAI_Engine/Data/GUI_assets/random_game_view.png")
+        pix_gv = QPixmap("RSAI_Engine/Data/GUI_assets/random_game_view1.png")
 
         # --> Create item
         item = QtWidgets.QGraphicsPixmapItem(pix_gv)
@@ -36,3 +36,4 @@ class Game_view_GUI:
 
         # --> Set dummy game view
         gui.main_window.game_view.setScene(scene)
+        print("Dummy view on")
