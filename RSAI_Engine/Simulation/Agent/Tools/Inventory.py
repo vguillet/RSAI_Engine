@@ -9,9 +9,6 @@
 # Libs
 
 # Own modules
-from RSAI_Engine.Agent.Tools.States import States
-from RSAI_Engine.Agent.Tools.Skills import Skills
-from RSAI_Engine.Tools.Item import Item
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'

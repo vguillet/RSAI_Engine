@@ -5,18 +5,14 @@
 """
 
 # Built-in/Generic Imports
+import sys
 
 # Libs
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
-import cv2
-import numpy as np
-
 # Own modules
-from RSAI_Engine.Environment.Grid_gen.Obstacle_grid_gen import gen_obstacle_grid
-from RSAI_Engine.Environment.Grid_gen.POI_grid_gen import gen_POI_grid
+from RSAI_Engine.Simulation.Environment.Grid_gen.Obstacle_grid_gen import gen_obstacle_grid
+from RSAI_Engine.Simulation.Environment.Grid_gen.POI_grid_gen import gen_POI_grid
 
 # from RSAI_Engine.Visualiser.Visualiser import Visualiser
 # from RSAI_Engine.Visualiser.Visualiser_tools import Visualiser_tools
@@ -31,27 +27,27 @@ __date__ = '31/01/2020'
 
 class RSAI_environment:
     def __init__(self,
-                 world_image_path="RSAI_Engine\Data\Environment\World_image.png",
+                 world_image=None,
                  obstacle_image_path="RSAI_Engine\Data\Environment\Obstacle_image.png",
-                 origin: "Exploded map coordinates" = (3136, 3136)):
+                 sim_origin: "World coordinates tuple" = (3136, 3136)):
         """
         RSAI environment class, used to generate RSAI environments
         """
         # ----- Setup reference properties
         self.name = "RSAI environment"
         self.type = "Environment"
-        self.origin = origin        # Origin coordinates of grid on the exploded map
+        self.origin = sim_origin        # Origin coordinates of grid on the exploded map
 
-        # --> Load map image
-        self.world_image_path = world_image_path
-        self.obstacle_image_path = obstacle_image_path
+        if world_image is None:
+            print("!!!!! Environment image is not provided !!!!!")
+            sys.exit()
 
         # --> Setup obstacle grid
-        self.obstacle_grid = gen_obstacle_grid(world_image_path,
+        self.obstacle_grid = gen_obstacle_grid(world_image,
                                                obstacle_image_path)
 
-        # --> Setup POI grid
-        self.POI_grid, self.POI_dict = gen_POI_grid(self.obstacle_grid.shape, self.origin)
+        # --> Setup POI grid and dict
+        self.POI_grid, self.POI_dict = gen_POI_grid(self.origin, self.obstacle_grid.shape)
 
         self.shape = self.obstacle_grid.shape
 
@@ -72,13 +68,6 @@ class RSAI_environment:
             for source in self.POI_dict[POI].ef_dict["Sources"].keys():
                 sources_dict[source] = self.POI_dict[POI].ef_dict["Sources"][source]
         return sources_dict
-
-    @property
-    def sim_grid(self):
-        sim_grid = self.obstacle_grid.copy()
-        sim_grid += self.POI_grid * 5
-
-        return sim_grid
 
     def visualise_environment(self):
         # TODO: Add visualiser

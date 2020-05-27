@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Own modules
-from RSAI_Engine.Environment.Tools.POI import POI
+from RSAI_Engine.Simulation.Environment.Tools.POI import POI
 
 
 __version__ = '1.1.1'
@@ -22,7 +22,7 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-def gen_POI_grid(grid_size, origin):
+def gen_POI_grid(simulation_origin, simulation_size):
 
     # --> Listing POIs to be added (coordinate in Exploded map coordinates)
     POI_lst = [["Cows field", "Source", (3252, 3267)],
@@ -32,18 +32,17 @@ def gen_POI_grid(grid_size, origin):
                ]
 
     # --> Creating POI array
-    POI_array = np.zeros(grid_size)
+    POI_array = np.zeros(simulation_size)
 
     # --> Creating environment POI dictionary
     POI_dict = {}
 
     # --> Adding POIs to environment
     for i in range(len(POI_lst)):
-        translated_y_coordinate = grid_size[0] - (POI_lst[i][2][1] - origin[1])
-        translated_x_coordinate = POI_lst[i][2][0] - origin[0]
+        POI_dict[POI_lst[i][0]] = POI(POI_lst[i][0], POI_lst[i][1], simulation_origin, simulation_size,
+                                      POI_lst[i][2])
 
-        POI_dict[POI_lst[i][0]] = POI(POI_lst[i][0], POI_lst[i][1], (translated_x_coordinate, translated_y_coordinate))
-        POI_array[translated_y_coordinate][translated_x_coordinate] = 1
+        POI_array[POI_dict[POI_lst[i][0]].simulation_pos[1]][POI_dict[POI_lst[i][0]].simulation_pos[0]] = 1
 
     print("-- RSAI environment layout generated successfully --")
     return POI_array, POI_dict

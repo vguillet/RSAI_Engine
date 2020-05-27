@@ -103,17 +103,22 @@
               </item>
               <item>
                <property name="text">
+                <string>Agent</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>POIs</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string>Obstacles</string>
                </property>
               </item>
               <item>
                <property name="text">
                 <string>Paths</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Agent</string>
                </property>
               </item>
              </widget>
@@ -268,7 +273,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="agent_pos_sim_coordinates">
+         <widget class="QLabel" name="agent_pos_simulation_coordinates">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -313,7 +318,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="step_pos_sim_coordinates">
+         <widget class="QLabel" name="step_pos_simulation_coordinates">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -358,7 +363,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="goal_pos_sim_coordinates">
+         <widget class="QLabel" name="goal_pos_simulation_coordinates">
           <property name="text">
            <string>TextLabel</string>
           </property>

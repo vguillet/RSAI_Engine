@@ -25,11 +25,9 @@ __date__ = '26/04/2020'
 ##################################################################################################################
 
 
-def gen_obstacle_grid(world_image_path, obstacle_image_path=None):
-    # TODO: Add loading grid directly if already exists
+def gen_obstacle_grid(world_image, obstacle_image_path=None):
     # --> Load image
-    map_image = cv2.imread(world_image_path, cv2.IMREAD_UNCHANGED)
-    img_hsv = cv2.cvtColor(map_image, cv2.COLOR_BGR2HSV)
+    img_hsv = cv2.cvtColor(world_image, cv2.COLOR_BGR2HSV)
 
     # --> Filter image colors
     # -> Create Walls/icon mask

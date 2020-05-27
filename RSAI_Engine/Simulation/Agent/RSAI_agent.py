@@ -9,17 +9,18 @@ import math
 import random
 
 # Libs
-import numpy as np
 
 # Own modules
 from RSAI_Engine.Settings.SETTINGS import SETTINGS
 
-from RSAI_Engine.Agent.Tools.Skills import Skills
-from RSAI_Engine.Agent.Tools.States import States
-from RSAI_Engine.Agent.Tools.Equipment import Equipment
+from RSAI_Engine.Simulation.Agent.Tools.Skills import Skills
+from RSAI_Engine.Simulation.Agent.Tools.States import States
+from RSAI_Engine.Simulation.Agent.Tools.Equipment import Equipment
 
-from RSAI_Engine.Agent.Tools.Inventory import Inventory
-from RSAI_Engine.Agent.Tools.Pathfinder import Pathfinder
+from RSAI_Engine.Simulation.Agent.Tools.Inventory import Inventory
+from RSAI_Engine.Simulation.Agent.Tools.Pathfinder import Pathfinder
+
+from RSAI_Engine.Simulation.Tools.Coordinate_system_converter import convert_coordinates
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -28,14 +29,26 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-class Agent:
+class RSAI_agent:
     def __init__(self,
                  name: "Bot name",
-                 start_pos: tuple,
+                 sim_origin, sim_size,
+                 start_world_pos: tuple = None,
+                 start_sim_pos: tuple = None,
                  start_skills: dict = None,
                  start_states: dict = None,
                  start_equipment: dict = None,
                  start_inventory: dict = None):
+        """
+        Create RSAI agent objects to be used in RSAI simulations in the RSAI engine
+
+        :param name: Name of agent
+        :param start_pos: Tuple specified in sim coordinates
+        :param start_skills: Starting skill set (Optional)
+        :param start_states: Starting states (Optional)
+        :param start_equipment: Starting equipment (Optional)
+        :param start_inventory: Starting inventory (Optional)
+        """
 
         # ----- Setup settings
         self.settings = SETTINGS()
@@ -43,7 +56,10 @@ class Agent:
 
         # ----- Setup reference properties
         self.name = name
-        self.pos = start_pos
+
+        # --> Setup position
+        self.world_pos, self.simulation_pos = convert_coordinates(sim_origin, sim_size,
+                                                                  start_world_pos, start_sim_pos)
 
         # --> Setup skills/inventory/interests/characteristics dicts
         self.skills = Skills(start_skills)
@@ -53,8 +69,10 @@ class Agent:
         
         # --> Setup tools
         self.pathfinder = Pathfinder()
+        self.goal = "None"
 
         # --> Setup trackers
+        self.goal_history = []
         self.pos_history = []
 
     def __str__(self):

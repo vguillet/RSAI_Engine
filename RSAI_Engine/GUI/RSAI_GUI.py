@@ -8,10 +8,9 @@
 import sys
 
 # Libs
-import numpy as np
 
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtGui import QPixmap, QImage
+from PyQt5 import uic
+from PyQt5.QtGui import QPixmap
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
@@ -19,10 +18,7 @@ from PyQt5.QtGui import QIcon
 from qimage2ndarray import array2qimage
 
 # Own modules
-from RSAI_Engine.Environment.RSAI_environment import RSAI_environment
-from RSAI_Engine.Agent.RSAI_agent import Agent
-
-from RSAI_Engine.GUI.Table_model import TableModel
+from RSAI_Engine.Simulation.RSAI_simulation import RSAI_simulation
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -36,22 +32,28 @@ class RSAI_GUI:
         app = QtWidgets.QApplication([])
 
         # --> Load RSAI GUI layout
-        self.main_window = uic.loadUi("RSAI_Engine/GUI/Layout_2.ui")
+        self.main_window = uic.loadUi("RSAI_Engine/GUI/Layouts/Layout_2.ui")
         self.main_window.setWindowIcon(QIcon("RSAI_Engine/Data/GUI_assets/RSAI_icon.png"))
 
-        # --> Create RSAI environment
-        self.environment = RSAI_environment()
+        # --> Create RSAI sim
+        self.simulation = RSAI_simulation()
 
-        # --> Create agent
-        agent = Agent("Bob", (10, 10))
-        self.main_window.agent_name.setText(agent.name)
-        self.main_window.agent_pos_sim_coordinates.setText(str(agent.pos))
+        # --> Update labels
+        self.main_window.agent_name.setText(self.simulation.agent.name)
+        self.main_window.agent_pos_world_coordinates.setText(str(self.simulation.agent.world_pos))
+        self.main_window.agent_pos_simulation_coordinates.setText(str(self.simulation.agent.simulation_pos))
+
+        self.main_window.goal_name.setText(str(self.simulation.agent.goal))
+        # self.main_window
 
         # --> Set views
-        self.views_dict = {"world": {"Map": QPixmap(self.environment.world_image_path),
-                                     "Obstacles": QPixmap(self.environment.obstacle_image_path)},
+        self.views_dict = {"world": {"Map": QPixmap(self.simulation.world_image_path),
+                                     "Obstacles": QPixmap(self.simulation.obstacle_image_path)},
 
-                           "sim": {"Overview": QPixmap(array2qimage(self.environment.sim_grid, normalize=True))}
+                           "simulation": {"Overview": QPixmap(array2qimage(self.simulation.overview, normalize=True)),
+                                          "Obstacles": QPixmap(array2qimage(self.simulation.obstacle_view, normalize=True)),
+                                          "POIs": QPixmap(array2qimage(self.simulation.POI_view, normalize=True)),
+                                          "Agent": QPixmap(array2qimage(self.simulation.agent_view, normalize=True))}
                            }
 
         # --> Initiate views trackers
@@ -61,7 +63,7 @@ class RSAI_GUI:
         self.current_world_view = "Map"
         self.current_sim_view = "Overview"
 
-        # --. Initiate view
+        # --> Initiate view
         self.update_map_view()
 
         # --> Connect buttons
@@ -82,7 +84,7 @@ class RSAI_GUI:
     @property
     def scale(self):
         if self.current_scale == "fit":
-            return 10000, 720
+            return 10000, 680
         else:
             return 10000, 1536
 
@@ -116,7 +118,7 @@ class RSAI_GUI:
         return
 
     def toggle_simulation_view(self):
-        self.current_view = "sim"
+        self.current_view = "simulation"
         self.update_map_view()
         return
 
@@ -130,7 +132,9 @@ class RSAI_GUI:
     def change_sim_sub_view(self):
         self.current_sim_view = self.main_window.simulation_combo.currentText()
 
-        if self.current_view == "sim":
+        print(self.current_sim_view)
+
+        if self.current_view == "simulation":
             self.update_map_view()
         return
 

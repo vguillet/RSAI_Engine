@@ -7,12 +7,9 @@
 # Built-in/Generic Imports
 
 # Libs
-import matplotlib.pyplot as plt
 
 # Own modules
 from RSAI_Engine.GUI.RSAI_GUI import RSAI_GUI
-from RSAI_Engine.Environment.RSAI_environment import RSAI_environment
-from RSAI_Engine.Agent.RSAI_agent import Agent
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
