@@ -22,6 +22,7 @@ from qimage2ndarray import array2qimage
 # Own modules
 from RSAI_Engine.GUI.GUI_elements.Map_view_gui import Map_view_GUI
 from RSAI_Engine.GUI.GUI_elements.Game_view_gui import Game_view_GUI
+from RSAI_Engine.GUI.GUI_elements.Console_gui import Console_GUI
 
 from RSAI_Engine.Simulation.RSAI_simulation import RSAI_simulation
 from RSAI_Engine.Simulation.Tools.Views_generator import Views
@@ -37,14 +38,26 @@ class RSAI_GUI():
     def __init__(self):
         app = QtWidgets.QApplication([])
 
-        # --> Setting up thread pool
-        self.threadpool = QThreadPool()
-        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
-
         # --> Load RSAI GUI layout
         self.main_window = uic.loadUi("RSAI_Engine/GUI/Layouts/Layout_2.ui")
         self.main_window.setWindowIcon(QIcon("RSAI_Engine/Data/GUI_assets/RSAI_icon.png"))
 
+        # ============================== Initiate threadpool and workers
+        # --> Setting up thread pool
+        self.threadpool = QThreadPool()
+
+        # ============================== Initiate Gui console
+        # --> Load gui element
+        self.console_gui = Console_GUI()
+
+        # --> Reset log
+        self.console_gui.reset_log()
+
+        # --> Initiate console observer
+        worker = Worker(self.update_console)
+        self.threadpool.start(worker)
+
+        # ============================== Initiate RSAI simulation
         # --> Create RSAI sim
         self.simulation = RSAI_simulation()
 
@@ -93,10 +106,6 @@ class RSAI_GUI():
 
         sys.exit(app.exec())
 
-    def update_gui(self, s):
-        self.map_view_gui.update_map_view(self)
-        self.map_view_gui.update_position_summary(self)
-
     def run_simulation(self):
         worker = Worker(self.simulation.run_simulation)
         worker.signals.progress.connect(self.update_gui)
@@ -104,6 +113,16 @@ class RSAI_GUI():
         self.threadpool.start(worker)
 
         return
+
+    def update_gui(self, s):
+        self.map_view_gui.update_map_view(self)
+        self.map_view_gui.update_position_summary(self)
+
+    def update_console(self, progress_callback):
+        while True:
+            time.sleep(0.01)
+            self.console_gui.log_console_output()
+            self.console_gui.update_console_output(self)
 
     # =======================================================================================================
     @property

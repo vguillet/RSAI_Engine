@@ -47,6 +47,7 @@ class RSAI_simulation:
                                 start_world_pos=(3216, 3219))
 
     def run_simulation(self, progress_callback):
+        print("---------------------- Started simulation ----------------------")
         while True:
             while self.agent.goal is None:
                 goal = random.choice(list(self.environment.POI_dict.keys()))
