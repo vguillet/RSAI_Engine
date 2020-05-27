@@ -5,6 +5,7 @@
 """
 
 # Built-in/Generic Imports
+import time
 
 # Libs
 import cv2
@@ -48,10 +49,20 @@ class RSAI_simulation:
         self.agent.set_goal_POI(self.environment.grids_dict,
                                 self.environment.POI_dict["Varrock GM"])
 
-    def run_simulation(self):
+    def run_simulation(self, progress_callback):
         # --> Test goal
         self.agent.set_goal_POI(self.environment.grids_dict,
                                 self.environment.POI_dict["Varrock GM"])
 
+        step = 0
         while self.agent.goal is not None:
+            step += 1
             self.agent.step()
+            progress_callback.emit(step)
+            time.sleep(0.02)
+
+        self.agent.set_goal_POI(self.environment.grids_dict,
+                                self.environment.POI_dict["Varrock GM"])
+
+        print("Done")
+        return

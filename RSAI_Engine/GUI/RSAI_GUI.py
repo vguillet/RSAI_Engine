@@ -6,18 +6,23 @@
 
 # Built-in/Generic Imports
 import sys
+import traceback
+import time
 
 # Libs
-
+from PyQt5.QtCore import *
+from PyQt5 import QtWidgets
 from PyQt5 import uic
 from PyQt5.QtGui import QPixmap
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QThreadPool
 from PyQt5.QtGui import QIcon
 
 from qimage2ndarray import array2qimage
 
 # Own modules
+from RSAI_Engine.GUI.GUI_elements.Map_view_gui import Map_view_GUI
+from RSAI_Engine.GUI.GUI_elements.Game_view_gui import Game_view_GUI
+
 from RSAI_Engine.Simulation.RSAI_simulation import RSAI_simulation
 from RSAI_Engine.Simulation.Tools.Views_generator import Views
 
@@ -28,9 +33,13 @@ __date__ = '7/02/2020'
 ##################################################################################################################
 
 
-class RSAI_GUI:
+class RSAI_GUI():
     def __init__(self):
         app = QtWidgets.QApplication([])
+
+        # --> Setting up thread pool
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
 
         # --> Load RSAI GUI layout
         self.main_window = uic.loadUi("RSAI_Engine/GUI/Layouts/Layout_2.ui")
@@ -39,26 +48,9 @@ class RSAI_GUI:
         # --> Create RSAI sim
         self.simulation = RSAI_simulation()
 
-        # --> Update labels
-        self.main_window.agent_name.setText(self.simulation.agent.name)
-        self.main_window.agent_pos_world_coordinates.setText(str(self.simulation.agent.world_pos))
-        self.main_window.agent_pos_simulation_coordinates.setText(str(self.simulation.agent.simulation_pos))
-
-        # --> If goal is set
-        if self.simulation.agent.goal is not None:
-            self.update_position_summary()
-
-        # --> Create views
-        self.views = Views(self.simulation)
-
-        self.views_dict = {"world": {"Map": QPixmap(self.simulation.world_image_path),
-                                     "Obstacles": QPixmap(self.simulation.obstacle_image_path)},
-
-                           "simulation": {"Overview": QPixmap(array2qimage(self.views.overview, normalize=True)),
-                                          "Obstacles": QPixmap(array2qimage(self.views.obstacle_view, normalize=True)),
-                                          "POIs": QPixmap(array2qimage(self.views.POI_view, normalize=True)),
-                                          "Agent": QPixmap(array2qimage(self.views.agent_view, normalize=True))}
-                           }
+        # ============================== Initiate map view
+        # --> Load gui element
+        self.map_view_gui = Map_view_GUI()
 
         # --> Initiate views trackers
         self.current_scale = "fit"
@@ -67,8 +59,15 @@ class RSAI_GUI:
         self.current_world_view = "Map"
         self.current_sim_view = "Overview"
 
+        # --> Create map views
+        self.views = Views(self.simulation)
+        self.views_dict = self.map_view_gui.gen_views_dict(self)
+
         # --> Initiate view
-        self.update_map_view()
+        self.map_view_gui.update_map_view(self)
+
+        # --> Update labels
+        self.map_view_gui.update_position_summary(self)
 
         # --> Connect buttons
         self.main_window.scale_toggle.clicked.connect(self.change_scale)
@@ -76,15 +75,36 @@ class RSAI_GUI:
         self.main_window.world_toggle.clicked.connect(self.toggle_world_view)
         self.main_window.simulation_toggle.clicked.connect(self.toggle_simulation_view)
 
+        self.main_window.run_button.clicked.connect(self.run_simulation)
+
         # --> Connect comb boxes
         self.main_window.world_combo.currentIndexChanged.connect(self.change_world_sub_view)
         self.main_window.simulation_combo.currentIndexChanged.connect(self.change_sim_sub_view)
 
-        # --> Display GUI
+        # ============================== Initiate game view
+        # --> Load gui element
+        self.game_view_gui = Game_view_GUI()
+
+        # --> Set dummy game view
+        self.game_view_gui.dummy_view(self)
+
+        # ============================== Display GUI
         self.main_window.show()
 
         sys.exit(app.exec())
 
+    def update_gui(self, s):
+        self.map_view_gui.update_map_view(self)
+
+    def run_simulation(self):
+        worker = Worker(self.simulation.run_simulation)
+        worker.signals.progress.connect(self.update_gui)
+
+        self.threadpool.start(worker)
+
+        return
+
+    # =======================================================================================================
     @property
     def scale(self):
         if self.current_scale == "fit":
@@ -102,14 +122,14 @@ class RSAI_GUI:
     def change_scale(self):
         if self.current_scale == "fit":
             self.current_scale = "full"
-            self.update_map_view()
+            self.map_view_gui.update_map_view(self)
 
             # --> Adjust button text
             self.main_window.scale_toggle.setText("Scale view (Full screen)")
 
         else:
             self.current_scale = "fit"
-            self.update_map_view()
+            self.map_view_gui.update_map_view(self)
 
             # --> Adjust button text
             self.main_window.scale_toggle.setText("Scale view (Fit screen)")
@@ -118,63 +138,95 @@ class RSAI_GUI:
 
     def toggle_world_view(self):
         self.current_view = "world"
-        self.update_map_view()
+        self.map_view_gui.update_map_view(self)
         return
 
     def toggle_simulation_view(self):
         self.current_view = "simulation"
-        self.update_map_view()
+        self.map_view_gui.update_map_view(self)
         return
 
     def change_world_sub_view(self):
         self.current_world_view = self.main_window.world_combo.currentText()
 
         if self.current_view == "world":
-            self.update_map_view()
+            self.map_view_gui.update_map_view(self)
         return
 
     def change_sim_sub_view(self):
         self.current_sim_view = self.main_window.simulation_combo.currentText()
 
         if self.current_view == "simulation":
-            self.update_map_view()
+            self.map_view_gui.update_map_view(self)
         return
 
-    def update_map_view(self):
-        # --> Scale pixmap
-        x_scale, y_scale = self.scale
-        pixmap_scaled = self.view_pixmap.scaled(x_scale, y_scale, Qt.KeepAspectRatio)
 
-        # --> Create item
-        item = QtWidgets.QGraphicsPixmapItem(pixmap_scaled)
+# =======================================================================================================
+class WorkerSignals(QObject):
+    '''
+    Defines the signals available from a running worker thread.
 
-        # --> Create scene
-        scene = QtWidgets.QGraphicsScene()
-        scene.addItem(item)
+    Supported signals are:
 
-        # --> Set map view
-        self.main_window.map_view.setScene(scene)
+    finished
+        No data
 
-        return
+    error
+        `tuple` (exctype, value, traceback.format_exc() )
 
-    def update_position_summary(self):
-        # --> Set step text
-        self.main_window.step_pos_world_coordinates.setText(str(self.simulation.agent.world_path_to_goal[0]))
-        self.main_window.step_pos_simulation_coordinates.setText(str(self.simulation.agent.simulation_path_to_goal[0]))
+    result
+        `object` data returned from processing, anything
 
-        # --> Set name text
-        if self.simulation.agent.goal_type == "POI":
-            self.main_window.goal_name.setText(str(self.simulation.agent.goal.name))
+    progress
+        `int` indicating % progress
 
-        elif self.simulation.agent.goal_type == "Coordinates":
-            self.main_window.goal_name.setText("Coordinates")
+    '''
+    finished = pyqtSignal()
+    error = pyqtSignal(tuple)
+    result = pyqtSignal(object)
+    progress = pyqtSignal(int)
 
-        # --> Set goal coordinates
-        self.main_window.goal_pos_world_coordinates.setText(str(self.simulation.agent.goal.world_pos))
-        self.main_window.goal_pos_simulation_coordinates.setText(str(self.simulation.agent.goal.simulation_pos))
 
-        # --> Set path text
-        self.main_window.total_path_length.setText(str(self.simulation.agent.total_path_len))
-        self.main_window.steps_to_goal.setText(str(len(self.simulation.agent.simulation_path_to_goal)))
+class Worker(QRunnable):
+    '''
+    Worker thread
 
-        return
+    Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
+
+    :param callback: The function callback to run on this worker thread. Supplied args and
+                     kwargs will be passed through to the runner.
+    :type callback: function
+    :param args: Arguments to pass to the callback function
+    :param kwargs: Keywords to pass to the callback function
+
+    '''
+
+    def __init__(self, fn, *args, **kwargs):
+        super(Worker, self).__init__()
+
+        # Store constructor arguments (re-used for processing)
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+        self.signals = WorkerSignals()
+
+        # Add the callback to our kwargs
+        self.kwargs['progress_callback'] = self.signals.progress
+
+    @pyqtSlot()
+    def run(self):
+        '''
+        Initialise the runner function with passed args, kwargs.
+        '''
+
+        # Retrieve args/kwargs here; and fire processing using them
+        try:
+            result = self.fn(*self.args, **self.kwargs)
+        except:
+            traceback.print_exc()
+            exctype, value = sys.exc_info()[:2]
+            self.signals.error.emit((exctype, value, traceback.format_exc()))
+        else:
+            self.signals.result.emit(result)  # Return the result of the processing
+        finally:
+            self.signals.finished.emit()  # Done
