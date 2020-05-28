@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>RSAI_v1.1</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(107, 107, 107);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
@@ -26,7 +29,11 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QGraphicsView" name="game_view"/>
+         <widget class="QGraphicsView" name="game_view">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_12">
@@ -43,6 +50,9 @@
         </item>
         <item>
          <widget class="QScrollArea" name="scrollArea">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
@@ -70,6 +80,9 @@
                 <height>193</height>
                </size>
               </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(176, 176, 176);</string>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -90,6 +103,9 @@
             <bold>true</bold>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(240, 240, 240);</string>
+          </property>
           <property name="text">
            <string>Run</string>
           </property>
@@ -105,14 +121,10 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_11">
           <item>
-           <widget class="Line" name="line_17">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QTabWidget" name="tabWidget">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(176, 176, 176);</string>
+            </property>
             <property name="currentIndex">
              <number>0</number>
             </property>
@@ -528,7 +540,7 @@
                            <x>0</x>
                            <y>0</y>
                            <width>247</width>
-                           <height>440</height>
+                           <height>410</height>
                           </rect>
                          </property>
                          <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1096,6 +1108,9 @@
                <layout class="QGridLayout" name="gridLayout_15">
                 <item row="0" column="0">
                  <widget class="QPushButton" name="agent_sync">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(240, 240, 240);</string>
+                  </property>
                   <property name="text">
                    <string>Sync</string>
                   </property>
@@ -1103,6 +1118,9 @@
                 </item>
                 <item row="0" column="1">
                  <widget class="QPushButton" name="pushButton">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(240, 240, 240);</string>
+                  </property>
                   <property name="text">
                    <string>Set</string>
                   </property>
@@ -1110,6 +1128,9 @@
                 </item>
                 <item row="0" column="2">
                  <widget class="QPushButton" name="pushButton_2">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(240, 240, 240);</string>
+                  </property>
                   <property name="text">
                    <string>Reset</string>
                   </property>
@@ -1670,6 +1691,12 @@
               </item>
               <item row="2" column="1">
                <widget class="QLabel" name="engine_state">
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(176, 176, 176);</string>
+                </property>
                 <property name="text">
                  <string>Idle</string>
                 </property>
@@ -1703,6 +1730,12 @@
               </item>
               <item row="3" column="1">
                <widget class="QLabel" name="osrc_state">
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(176, 176, 176);</string>
+                </property>
                 <property name="text">
                  <string>Off</string>
                 </property>
@@ -1739,6 +1772,12 @@
               </item>
               <item row="5" column="1">
                <widget class="QLabel" name="label_67">
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(176, 176, 176);</string>
+                </property>
                 <property name="text">
                  <string>TextLabel</string>
                 </property>
@@ -1821,6 +1860,12 @@
               </item>
               <item row="9" column="1">
                <widget class="QLabel" name="level_melee">
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(176, 176, 176);</string>
+                </property>
                 <property name="text">
                  <string>TextLabel</string>
                 </property>
@@ -1831,6 +1876,12 @@
               </item>
               <item row="10" column="1">
                <widget class="QLabel" name="level_range">
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(176, 176, 176);</string>
+                </property>
                 <property name="text">
                  <string>TextLabel</string>
                 </property>
@@ -1841,6 +1892,12 @@
               </item>
               <item row="11" column="1">
                <widget class="QLabel" name="level_mage">
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(176, 176, 176);</string>
+                </property>
                 <property name="text">
                  <string>TextLabel</string>
                 </property>
@@ -1851,6 +1908,12 @@
               </item>
               <item row="12" column="1">
                <widget class="QLabel" name="level_combat">
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(176, 176, 176);</string>
+                </property>
                 <property name="text">
                  <string>TextLabel</string>
                 </property>
@@ -1901,10 +1964,16 @@
             <height>618</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="scale_toggle">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(240, 240, 240);</string>
+          </property>
           <property name="text">
            <string>Scale view (Fit screen)</string>
           </property>
@@ -1916,6 +1985,9 @@
            <layout class="QGridLayout" name="gridLayout">
             <item row="0" column="2">
              <widget class="QPushButton" name="simulation_toggle">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(240, 240, 240);</string>
+              </property>
               <property name="text">
                <string>Simulation</string>
               </property>
@@ -1923,6 +1995,9 @@
             </item>
             <item row="1" column="2">
              <widget class="QComboBox" name="simulation_combo">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(240, 240, 240);</string>
+              </property>
               <item>
                <property name="text">
                 <string>Overview</string>
@@ -1952,6 +2027,9 @@
             </item>
             <item row="0" column="0">
              <widget class="QPushButton" name="world_toggle">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(240, 240, 240);</string>
+              </property>
               <property name="text">
                <string>World</string>
               </property>
@@ -1959,6 +2037,9 @@
             </item>
             <item row="1" column="0">
              <widget class="QComboBox" name="world_combo">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(240, 240, 240);</string>
+              </property>
               <item>
                <property name="text">
                 <string>Map</string>
@@ -2039,6 +2120,9 @@
           </item>
           <item row="2" column="2">
            <widget class="QLabel" name="agent_pos_world_coordinates">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(176, 176, 176);</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -2049,6 +2133,9 @@
           </item>
           <item row="2" column="4">
            <widget class="QLabel" name="agent_pos_simulation_coordinates">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(176, 176, 176);</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -2105,6 +2192,9 @@
           </item>
           <item row="2" column="1">
            <widget class="QLabel" name="agent_name">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(176, 176, 176);</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -2152,6 +2242,9 @@
         </item>
         <item row="1" column="6">
          <widget class="QLabel" name="step_pos_simulation_coordinates">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -2162,6 +2255,9 @@
         </item>
         <item row="0" column="4">
          <widget class="QLabel" name="goal_pos_world_coordinates">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -2188,6 +2284,9 @@
         </item>
         <item row="0" column="6">
          <widget class="QLabel" name="goal_pos_simulation_coordinates">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -2198,6 +2297,9 @@
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="goal_name">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -2208,6 +2310,9 @@
         </item>
         <item row="1" column="4">
          <widget class="QLabel" name="step_pos_world_coordinates">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -2271,8 +2376,14 @@
         </item>
         <item row="0" column="2">
          <widget class="QLabel" name="total_path_length">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
           <property name="text">
            <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -2294,8 +2405,14 @@
         </item>
         <item row="0" column="4">
          <widget class="QLabel" name="steps_to_goal">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(176, 176, 176);</string>
+          </property>
           <property name="text">
            <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>

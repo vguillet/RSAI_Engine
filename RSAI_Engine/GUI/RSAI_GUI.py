@@ -36,7 +36,7 @@ class RSAI_GUI():
         app = QtWidgets.QApplication([])
 
         # --> Load RSAI GUI layout
-        self.main_window = uic.loadUi("RSAI_Engine/GUI/Layouts/Layout_2.ui")
+        self.main_window = uic.loadUi("RSAI_Engine/GUI/Layouts/Layout_3.ui")
         self.main_window.setWindowIcon(QIcon("RSAI_Engine/Data/GUI_assets/RSAI_icon.png"))
 
         # ============================== Initiate threadpool and workers
@@ -121,7 +121,7 @@ class RSAI_GUI():
 
     def update_console(self, progress_callback):
         while True:
-            time.sleep(0.001)
+            time.sleep(0.01)
             self.console_gui.log_console_output()
             self.console_gui.update_console_output(self)
 
