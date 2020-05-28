@@ -27,7 +27,7 @@ class Overview_GUI:
     def update_overview(gui):
         # --> Set agent overview
         gui.main_window.overview_agent_name.setText(gui.simulation.agent.name)
-        gui.main_window.state_age.setText(str(gui.simulation.agent.states()["Age"]))
+        gui.main_window.state_age.setText(str(gui.simulation.agent.age))
         gui.main_window.state_hitpoints.setText(str(gui.simulation.agent.states()["Hitpoint"]))
 
         gui.main_window.level_melee.setText(str(gui.simulation.agent.melee_level))

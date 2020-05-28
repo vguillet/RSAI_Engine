@@ -36,4 +36,3 @@ class Game_view_GUI:
 
         # --> Set dummy game view
         gui.main_window.game_view.setScene(scene)
-        print("Dummy view on")

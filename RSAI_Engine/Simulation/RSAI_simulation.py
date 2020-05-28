@@ -60,6 +60,6 @@ class RSAI_simulation:
             print("- New Goal:", self.agent.goal)
 
             while self.agent.goal is not None:
-                self.agent.step()
+                self.agent.move()
                 progress_callback.emit()
                 time.sleep(0.005)

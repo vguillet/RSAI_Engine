@@ -60,6 +60,7 @@ class RSAI_agent:
         # ----- Setup reference properties
         # --> Agent
         self.name = name
+        self.age = 1
 
         # --> Environment
         self.simulation_origin = simulation_origin
@@ -89,8 +90,10 @@ class RSAI_agent:
         self.goal_history = []
         self.simulation_pos_history = []
 
+        print("- Agent initiated:", self)
+
     def __str__(self):
-        return self.name + " (Bot level " + str(self.combat_level) + ")"
+        return self.name + " (RSAI bot level " + str(self.combat_level) + ")"
 
     def __repr__(self):
         self.__repr__()
@@ -170,7 +173,7 @@ class RSAI_agent:
         # --> Set path length
         self.total_path_len = len(self.simulation_path_to_goal)
 
-    def step(self):
+    def move(self):
         if self.goal is None:
             print("!!!!! No goal specified !!!!!")
 
@@ -199,6 +202,14 @@ class RSAI_agent:
                 self.world_path_to_goal = None
                 self.simulation_path_to_goal = None
 
+        return
+
+    def check_final_state(self):
+        # TODO: Implement check final state
+        return False
+
+    def reset(self):
+        # TODO: Implement reset agent/sim
         return
 
     def hit(self, target):

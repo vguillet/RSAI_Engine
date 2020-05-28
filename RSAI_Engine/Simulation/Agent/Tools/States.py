@@ -41,8 +41,7 @@ class States:
 
         :return: states_dict
         """
-        state_dict = {"Age": 1,
-                      "Hitpoint": 10,
+        state_dict = {"Hitpoint": 10,
 
                       "Stab_attack": 0,
                       "Slash_attack": 0,

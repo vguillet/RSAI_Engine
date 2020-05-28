@@ -54,7 +54,13 @@ class RSAI_environment:
         self.grids_dict = {"Obstacle": obstacle_grid,
                            "POI": POI_grid}
 
-    # =============================================================================== Getters
+        print("- Environment initiated:", self)
+
+    def __str__(self):
+        return "RSAI environment"
+
+    def __repr__(self):
+        return self.__str__()
 
     @property
     def converter_lst(self):
@@ -120,10 +126,3 @@ class RSAI_environment:
         del self.POI_dict[POI.name]
         self.grids_dict["POI"][POI.pos[1]][POI.pos[1]] = 0
         return
-
-    def __str__(self):
-        return "RSAI environment"
-
-    def __repr__(self):
-        return self.__str__()
-
