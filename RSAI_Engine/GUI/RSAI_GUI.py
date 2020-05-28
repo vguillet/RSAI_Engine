@@ -44,10 +44,14 @@ class RSAI_GUI():
         # --> Setting up thread pool
         self.threadpool = QThreadPool()
 
-        # ============================== Initiate Gui console
+        # ============================== Initiate Gui elements
         # --> Load gui element
         self.console_gui = Console_GUI()
+        self.map_view_gui = Map_view_GUI()
+        self.game_view_gui = Game_view_GUI()
+        self.overview_gui = Overview_GUI()
 
+        # ============================== Initialise console
         # --> Reset log
         self.console_gui.reset_log()
 
@@ -59,10 +63,7 @@ class RSAI_GUI():
         # --> Create RSAI sim
         self.simulation = RSAI_simulation()
 
-        # ============================== Initiate map view
-        # --> Load gui element
-        self.map_view_gui = Map_view_GUI()
-
+        # ============================== Initiate GUI
         # --> Initiate views trackers
         self.current_scale = "fit"
         self.current_view = "world"
@@ -73,14 +74,10 @@ class RSAI_GUI():
         # --> Create map views
         self.views = Views(self.simulation)
         self.views_dict = self.map_view_gui.gen_views_dict(self)
+        self.game_view_gui.dummy_view(self)
+        self.update_gui()
 
-        # --> Initiate view
-        self.map_view_gui.update_map_view(self)
-
-        # --> Update labels
-        self.map_view_gui.update_position_summary(self)
-
-        # --> Connect buttons
+        # ============================== Connect buttons
         self.main_window.scale_toggle.clicked.connect(self.change_scale)
 
         self.main_window.world_toggle.clicked.connect(self.toggle_world_view)
@@ -91,22 +88,6 @@ class RSAI_GUI():
         # --> Connect comb boxes
         self.main_window.world_combo.currentIndexChanged.connect(self.change_world_sub_view)
         self.main_window.simulation_combo.currentIndexChanged.connect(self.change_sim_sub_view)
-
-        # ============================== Initiate game view
-        # --> Load gui element
-        self.game_view_gui = Game_view_GUI()
-
-        # --> Set dummy game view
-        self.game_view_gui.dummy_view(self)
-
-        # ============================== Initiate overview
-        # --> Load gui element
-        self.overview_gui = Overview_GUI()
-
-        # --> Set overview text
-        self.overview_gui.update_overview(self)
-        self.overview_gui.update_agent_overview_tab(self)
-
 
         # ============================== Display GUI
         self.main_window.show()
@@ -126,11 +107,14 @@ class RSAI_GUI():
         return
 
     def update_gui(self):
-        self.map_view_gui.update_map_view(self)
-        self.map_view_gui.update_position_summary(self)
+        try:
+            self.map_view_gui.update_map_view(self)
+            self.map_view_gui.update_position_summary(self)
 
-        self.overview_gui.update_overview(self)
-        self.overview_gui.update_agent_overview_tab(self)
+            self.overview_gui.update_overview(self)
+            self.overview_gui.update_agent_overview_tab(self)
+        except:
+            pass
 
     def update_console(self, progress_callback):
         while True:

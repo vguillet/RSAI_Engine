@@ -35,26 +35,22 @@ class Map_view_GUI:
                 }
 
     def update_map_view(self, gui):
-        try:
-            if gui.main_window.enable_render.isChecked():
-                gui.views_dict = self.gen_views_dict(gui)
+        if gui.main_window.enable_render.isChecked():
+            gui.views_dict = self.gen_views_dict(gui)
 
-                # --> Scale pixmap
-                x_scale, y_scale = gui.scale
-                pixmap_scaled = gui.view_pixmap.scaled(x_scale, y_scale, Qt.KeepAspectRatio)
+            # --> Scale pixmap
+            x_scale, y_scale = gui.scale
+            pixmap_scaled = gui.view_pixmap.scaled(x_scale, y_scale, Qt.KeepAspectRatio)
 
-                # --> Create item
-                item = QtWidgets.QGraphicsPixmapItem(pixmap_scaled)
+            # --> Create item
+            item = QtWidgets.QGraphicsPixmapItem(pixmap_scaled)
 
-                # --> Create scene
-                scene = QtWidgets.QGraphicsScene()
-                scene.addItem(item)
+            # --> Create scene
+            scene = QtWidgets.QGraphicsScene()
+            scene.addItem(item)
 
-                # --> Set map view
-                gui.main_window.map_view.setScene(scene)
-
-        except:
-            pass
+            # --> Set map view
+            gui.main_window.map_view.setScene(scene)
 
             return
 
