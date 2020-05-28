@@ -140,9 +140,9 @@
                      <property name="geometry">
                       <rect>
                        <x>0</x>
-                       <y>0</y>
+                       <y>-29</y>
                        <width>267</width>
-                       <height>385</height>
+                       <height>336</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -164,51 +164,6 @@
                       </item>
                       <item>
                        <widget class="Line" name="line_19">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <layout class="QGridLayout" name="gridLayout_11">
-                        <item row="3" column="1">
-                         <widget class="QLabel" name="state_age">
-                          <property name="text">
-                           <string>TextLabel</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="4" column="1">
-                         <widget class="QLabel" name="state_hitpoints">
-                          <property name="text">
-                           <string>TextLabel</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="3" column="0">
-                         <widget class="QLabel" name="label_24">
-                          <property name="text">
-                           <string>Age:</string>
-                          </property>
-                          <property name="alignment">
-                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="4" column="0">
-                         <widget class="QLabel" name="label_28">
-                          <property name="text">
-                           <string>Hitpoints:</string>
-                          </property>
-                          <property name="alignment">
-                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </item>
-                      <item>
-                       <widget class="Line" name="line_20">
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
                         </property>
@@ -513,7 +468,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>284</width>
-                       <height>295</height>
+                       <height>307</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -840,7 +795,7 @@
                              </widget>
                             </item>
                             <item row="6" column="3">
-                             <widget class="QLabel" name="skills_xp_runcrafting">
+                             <widget class="QLabel" name="skills_xp_runecrafting">
                               <property name="text">
                                <string>0</string>
                               </property>
@@ -993,7 +948,7 @@
                              </widget>
                             </item>
                             <item row="6" column="1">
-                             <widget class="QSpinBox" name="skills_runcrafting">
+                             <widget class="QSpinBox" name="skills_runecrafting">
                               <property name="minimum">
                                <number>1</number>
                               </property>
@@ -1095,20 +1050,13 @@
               <item>
                <layout class="QGridLayout" name="gridLayout_15">
                 <item row="0" column="0">
-                 <widget class="QPushButton" name="agent_sync">
-                  <property name="text">
-                   <string>Sync</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
                  <widget class="QPushButton" name="pushButton">
                   <property name="text">
                    <string>Set</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2">
+                <item row="0" column="1">
                  <widget class="QPushButton" name="pushButton_2">
                   <property name="text">
                    <string>Reset</string>
@@ -1145,7 +1093,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>284</width>
-                       <height>326</height>
+                       <height>338</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout">
@@ -1262,8 +1210,8 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>284</width>
-                       <height>326</height>
+                       <width>261</width>
+                       <height>120</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1391,8 +1339,8 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>284</width>
-                       <height>326</height>
+                       <width>281</width>
+                       <height>299</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -1587,8 +1535,8 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>284</width>
-                       <height>326</height>
+                       <width>63</width>
+                       <height>16</height>
                       </rect>
                      </property>
                     </widget>
@@ -1611,8 +1559,8 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>284</width>
-                       <height>326</height>
+                       <width>63</width>
+                       <height>16</height>
                       </rect>
                      </property>
                     </widget>
@@ -1658,6 +1606,82 @@
             </item>
             <item>
              <layout class="QGridLayout" name="gridLayout_9">
+              <item row="16" column="0">
+               <widget class="QLabel" name="label_68">
+                <property name="text">
+                 <string>Nb. sources:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="17" column="0">
+               <widget class="QLabel" name="label_82">
+                <property name="text">
+                 <string>Nb. converters:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_81">
+                <property name="font">
+                 <font>
+                  <italic>true</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Agent overview:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="18" column="0">
+               <widget class="QLabel" name="label_85">
+                <property name="text">
+                 <string>Nb. sinks:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="Line" name="line_24">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="15" column="1">
+               <widget class="Line" name="line_26">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="0">
+               <widget class="QLabel" name="label_24">
+                <property name="text">
+                 <string>Age:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="1">
+               <widget class="QLabel" name="state_age">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
               <item row="3" column="0">
                <widget class="QLabel" name="label_25">
                 <property name="text">
@@ -1688,7 +1712,7 @@
                 </property>
                </widget>
               </item>
-              <item row="13" column="0">
+              <item row="20" column="0">
                <spacer name="verticalSpacer_4">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -1701,6 +1725,32 @@
                 </property>
                </spacer>
               </item>
+              <item row="6" column="1">
+               <widget class="QLabel" name="overview_agent_name">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="13" column="0">
+               <widget class="QLabel" name="label_69">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Combat level:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
               <item row="3" column="1">
                <widget class="QLabel" name="osrc_state">
                 <property name="text">
@@ -1711,20 +1761,7 @@
                 </property>
                </widget>
               </item>
-              <item row="12" column="0">
-               <widget class="QLabel" name="label_69">
-                <property name="font">
-                 <font>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Combat:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0">
+              <item row="6" column="0">
                <widget class="QLabel" name="label_49">
                 <property name="font">
                  <font>
@@ -1735,27 +1772,8 @@
                 <property name="text">
                  <string>Agent:</string>
                 </property>
-               </widget>
-              </item>
-              <item row="5" column="1">
-               <widget class="QLabel" name="label_67">
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="1">
-               <widget class="QLabel" name="label_68">
-                <property name="font">
-                 <font>
-                  <italic>false</italic>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Levels:</string>
-                </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -1775,35 +1793,7 @@
                 </property>
                </spacer>
               </item>
-              <item row="10" column="0">
-               <widget class="QLabel" name="label_71">
-                <property name="text">
-                 <string>Range:</string>
-                </property>
-               </widget>
-              </item>
               <item row="9" column="0">
-               <widget class="QLabel" name="label_70">
-                <property name="text">
-                 <string>Melee:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="11" column="0">
-               <widget class="QLabel" name="label_77">
-                <property name="text">
-                 <string>Mage:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="1">
-               <widget class="Line" name="line_25">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
                <spacer name="verticalSpacer_9">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -1819,7 +1809,37 @@
                 </property>
                </spacer>
               </item>
-              <item row="9" column="1">
+              <item row="11" column="0">
+               <widget class="QLabel" name="label_71">
+                <property name="text">
+                 <string>Range level:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="12" column="0">
+               <widget class="QLabel" name="label_77">
+                <property name="text">
+                 <string>Mage level:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="0">
+               <widget class="QLabel" name="label_70">
+                <property name="text">
+                 <string>Melee level:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="1">
                <widget class="QLabel" name="level_melee">
                 <property name="text">
                  <string>TextLabel</string>
@@ -1829,17 +1849,7 @@
                 </property>
                </widget>
               </item>
-              <item row="10" column="1">
-               <widget class="QLabel" name="level_range">
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="11" column="1">
+              <item row="12" column="1">
                <widget class="QLabel" name="level_mage">
                 <property name="text">
                  <string>TextLabel</string>
@@ -1849,8 +1859,122 @@
                 </property>
                </widget>
               </item>
-              <item row="12" column="1">
+              <item row="13" column="1">
                <widget class="QLabel" name="level_combat">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="1">
+               <widget class="QLabel" name="level_range">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="19" column="0">
+               <widget class="QLabel" name="label_79">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Total nb. POI:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="15" column="0">
+               <widget class="QLabel" name="label_78">
+                <property name="font">
+                 <font>
+                  <italic>true</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Environment overview:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="14" column="0">
+               <spacer name="verticalSpacer_10">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="16" column="1">
+               <widget class="QLabel" name="source_count">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="17" column="1">
+               <widget class="QLabel" name="converter_count">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="18" column="1">
+               <widget class="QLabel" name="sink_count">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="19" column="1">
+               <widget class="QLabel" name="poi_count">
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="0">
+               <widget class="QLabel" name="label_28">
+                <property name="text">
+                 <string>Hitpoints:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="1">
+               <widget class="QLabel" name="state_hitpoints">
                 <property name="text">
                  <string>TextLabel</string>
                 </property>
@@ -2104,7 +2228,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLabel" name="agent_name">
+           <widget class="QLabel" name="map_agent_name">
             <property name="text">
              <string/>
             </property>
@@ -2274,6 +2398,9 @@
           <property name="text">
            <string/>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">
@@ -2296,6 +2423,9 @@
          <widget class="QLabel" name="steps_to_goal">
           <property name="text">
            <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>

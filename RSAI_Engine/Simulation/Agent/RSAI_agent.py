@@ -115,7 +115,7 @@ class RSAI_agent:
         :return: combat_level
         """
         base = 0.25 * (self.skills()["Defence"]["Level"]
-                       + self.skills()["Hitpoints"]["Level"]
+                       + self.skills()["Hitpoint"]["Level"]
                        + math.floor(self.skills()["Prayer"]["Level"]))
 
         return math.floor(base + max([self.melee_level, self.range_level, self.mage_level]))

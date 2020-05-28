@@ -52,7 +52,7 @@ class Map_view_GUI:
 
                 # --> Set map view
                 gui.main_window.map_view.setScene(scene)
-                
+
         except:
             pass
 
@@ -65,7 +65,7 @@ class Map_view_GUI:
     def update_position_summary(gui):
         if gui.main_window.enable_render.isChecked():
             # --> Update agent labels
-            gui.main_window.agent_name.setText(gui.simulation.agent.name)
+            gui.main_window.map_agent_name.setText(gui.simulation.agent.name)
             gui.main_window.agent_pos_world_coordinates.setText(str(gui.simulation.agent.world_pos))
             gui.main_window.agent_pos_simulation_coordinates.setText(str(gui.simulation.agent.simulation_pos))
 

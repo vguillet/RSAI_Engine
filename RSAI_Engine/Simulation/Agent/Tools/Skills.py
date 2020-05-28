@@ -77,8 +77,8 @@ class Skills:
                        "Fishing": {"Experience": 0,
                                    "Level": 1},
 
-                       "Cooking": {"Experience": 0,
-                                   "Level": 1},
+                       "Cooking": {"Experience": 1,
+                                   "Level": 0},
 
                        "Firemaking": {"Experience": 0,
                                       "Level": 1},

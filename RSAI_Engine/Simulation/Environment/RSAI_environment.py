@@ -57,7 +57,7 @@ class RSAI_environment:
     # =============================================================================== Getters
 
     @property
-    def converters_dict(self):
+    def converter_lst(self):
         converters_lst = []
         for POI in self.POI_dict.keys():
             if self.POI_dict[POI].label == "Converter":
@@ -65,12 +65,20 @@ class RSAI_environment:
         return converters_lst
 
     @property
-    def sources_dict(self):
-        sources_dict = {}
+    def source_lst(self):
+        sources_lst = []
         for POI in self.POI_dict.keys():
-            for source in self.POI_dict[POI].ef_dict["Sources"].keys():
-                sources_dict[source] = self.POI_dict[POI].ef_dict["Sources"][source]
-        return sources_dict
+            if self.POI_dict[POI].label == "Source":
+                sources_lst.append(POI)
+        return sources_lst
+
+    @property
+    def sink_lst(self):
+        sinks_lst = []
+        for POI in self.POI_dict.keys():
+            if self.POI_dict[POI].label == "Sink":
+                sinks_lst.append(POI)
+        return sinks_lst
 
     # def visualise_environment(self):
     #     # TODO: Add visualiser

@@ -20,6 +20,7 @@ from PyQt5.QtGui import QIcon
 from RSAI_Engine.GUI.GUI_elements.Map_view_gui import Map_view_GUI
 from RSAI_Engine.GUI.GUI_elements.Game_view_gui import Game_view_GUI
 from RSAI_Engine.GUI.GUI_elements.Console_gui import Console_GUI
+from RSAI_Engine.GUI.GUI_elements.Overview_gui import Overview_GUI
 
 from RSAI_Engine.Simulation.RSAI_simulation import RSAI_simulation
 from RSAI_Engine.Simulation.Tools.Views_generator import Views
@@ -36,7 +37,7 @@ class RSAI_GUI():
         app = QtWidgets.QApplication([])
 
         # --> Load RSAI GUI layout
-        self.main_window = uic.loadUi("RSAI_Engine/GUI/Layouts/Layout_3.ui")
+        self.main_window = uic.loadUi("RSAI_Engine/GUI/Layouts/Layout_2.ui")
         self.main_window.setWindowIcon(QIcon("RSAI_Engine/Data/GUI_assets/RSAI_icon.png"))
 
         # ============================== Initiate threadpool and workers
@@ -98,6 +99,15 @@ class RSAI_GUI():
         # --> Set dummy game view
         self.game_view_gui.dummy_view(self)
 
+        # ============================== Initiate overview
+        # --> Load gui element
+        self.overview_gui = Overview_GUI()
+
+        # --> Set overview text
+        self.overview_gui.update_overview(self)
+        self.overview_gui.update_agent_overview_tab(self)
+
+
         # ============================== Display GUI
         self.main_window.show()
 
@@ -118,6 +128,9 @@ class RSAI_GUI():
     def update_gui(self):
         self.map_view_gui.update_map_view(self)
         self.map_view_gui.update_position_summary(self)
+
+        self.overview_gui.update_overview(self)
+        self.overview_gui.update_agent_overview_tab(self)
 
     def update_console(self, progress_callback):
         while True:
