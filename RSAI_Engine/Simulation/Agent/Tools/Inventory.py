@@ -50,7 +50,7 @@ class Inventory:
 
         :return: inventory_dict
         """
-        inventory_dict = {"Money": 0,
+        inventory_dict = {"Coins": 0,
                           "Content": []
                           }
 

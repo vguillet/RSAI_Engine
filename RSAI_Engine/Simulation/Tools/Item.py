@@ -46,10 +46,14 @@ class Item:
         self.properties = self.get_item_properties(type, name, material)
 
     def __str__(self):
-        return self.material + self.name + "(item)"
+        return self.material + " " + self.name
 
     def __repr__(self):
-        self.__repr__()
+        return self.__str__()
+
+    @property
+    def asset_path(self):
+        return "RSAI_Engine/Data/Assets/Items_assets/" + self.type + "/" + self.material + "_" + self.name.lower() + ".png"
 
     @staticmethod
     def get_item_properties(type, name, material):
@@ -586,10 +590,6 @@ class Item:
                                                      "Prayer": 0}},
 
                             # ========================================================================
-                            # "Hasta": {},
-                            # "Warhammer": {},
-
-                            # ========================================================================
                             "Battleaxe": {
                                           "Bronze": {"Stab_attack": -2,   # -2	+6	+3	0	0	0	0	0	0	-1	+9	0	0%	0
                                                      "Slash_attack": 6,
@@ -764,100 +764,96 @@ class Item:
                                                     "Prayer": 0}},
 
                             # ========================================================================
-                            "2h sword": {
-                                         "Bronze": {"Stab_attack": -4,     # -4	+9	+8	-4	0	0	0	0	0	-1	+10	0	0%	0
-                                                    "Slash_attack": 9,
-                                                    "Crush_attack": 8,
-                                                    "Magic_attack": -4,
-                                                    "Ranged_attack": 0,
+                            # "2h_sword": {
+                            #              "Bronze": {"Stab_attack": -4,     # -4	+9	+8	-4	0	0	0	0	0	-1	+10	0	0%	0
+                            #                         "Slash_attack": 9,
+                            #                         "Crush_attack": 8,
+                            #                         "Magic_attack": -4,
+                            #                         "Ranged_attack": 0,
+                            #
+                            #                         "Stab_defence": 0,
+                            #                         "Slash_defence": 0,
+                            #                         "Crush_defence": 0,
+                            #                         "Magic_defence": 0,
+                            #                         "Ranged_defence": -1,
+                            #
+                            #                         "Strength": 10,
+                            #                         "Ranged_strength": 0,
+                            #                         "Magic_damage": 0,
+                            #                         "Prayer": 0},
+                            #
+                            #              "Iron": {"Stab_attack": -4,     # -4	+13	+10	-4	0	0	0	0	0	-1	+14	0	0%	0
+                            #                       "Slash_attack": 13,
+                            #                       "Crush_attack": 10,
+                            #                       "Magic_attack": -4,
+                            #                       "Ranged_attack": 0,
+                            #
+                            #                       "Stab_defence": 0,
+                            #                       "Slash_defence": 0,
+                            #                       "Crush_defence": 0,
+                            #                       "Magic_defence": 0,
+                            #                       "Ranged_defence": -1,
+                            #
+                            #                       "Strength": 14,
+                            #                       "Ranged_strength": 0,
+                            #                       "Magic_damage": 0,
+                            #                       "Prayer": 0},
+                            #
+                            #              "Steel": {"Stab_attack": -4,     # -4	+21	+16	-4	0	0	0	0	0	-1	+22	0	0%	0
+                            #                        "Slash_attack": 21,
+                            #                        "Crush_attack": 16,
+                            #                        "Magic_attack": -4,
+                            #                        "Ranged_attack": 0,
+                            #
+                            #                        "Stab_defence": 0,
+                            #                        "Slash_defence": 0,
+                            #                        "Crush_defence": 0,
+                            #                        "Magic_defence": 0,
+                            #                        "Ranged_defence": -1,
+                            #
+                            #                         "Strength": 22,
+                            #                         "Ranged_strength": 0,
+                            #                         "Magic_damage": 0,
+                            #                         "Prayer": 0},
+                            #
+                            #              "Black": {"Stab_attack": -4,     # -4	+27	+21	-4	0	0	0	0	0	-1	+26	0	0%	0
+                            #                        "Slash_attack": 27,
+                            #                        "Crush_attack": 21,
+                            #                        "Magic_attack": -4,
+                            #                        "Ranged_attack": 0,
+                            #
+                            #                        "Stab_defence": 0,
+                            #                        "Slash_defence": 0,
+                            #                        "Crush_defence": 0,
+                            #                        "Magic_defence": 0,
+                            #                        "Ranged_defence": -1,
+                            #
+                            #                        "Strength": 26,
+                            #                        "Ranged_strength": 0,
+                            #                        "Magic_damage": 0,
+                            #                        "Prayer": 0},
+                            #
+                            #              "Mithril": {"Stab_attack": -4,     # -4	+30	+24	-4	0	0	0	0	0	-1	+31	0	0	0
+                            #                          "Slash_attack": 30,
+                            #                          "Crush_attack": 24,
+                            #                          "Magic_attack": -4,
+                            #                          "Ranged_attack": 0,
+                            #
+                            #                          "Stab_defence": 0,
+                            #                          "Slash_defence": 0,
+                            #                          "Crush_defence": 0,
+                            #                          "Magic_defence": 0,
+                            #                          "Ranged_defence": -1,
+                            #
+                            #                          "Strength": 31,
+                            #                          "Ranged_strength": 0,
+                            #                          "Magic_damage": 0,
+                            #                          "Prayer": 0}},
 
-                                                    "Stab_defence": 0,
-                                                    "Slash_defence": 0,
-                                                    "Crush_defence": 0,
-                                                    "Magic_defence": 0,
-                                                    "Ranged_defence": -1,
-
-                                                    "Strength": 10,
-                                                    "Ranged_strength": 0,
-                                                    "Magic_damage": 0,
-                                                    "Prayer": 0},
-
-                                         "Iron": {"Stab_attack": -4,     # -4	+13	+10	-4	0	0	0	0	0	-1	+14	0	0%	0
-                                                  "Slash_attack": 13,
-                                                  "Crush_attack": 10,
-                                                  "Magic_attack": -4,
-                                                  "Ranged_attack": 0,
-
-                                                  "Stab_defence": 0,
-                                                  "Slash_defence": 0,
-                                                  "Crush_defence": 0,
-                                                  "Magic_defence": 0,
-                                                  "Ranged_defence": -1,
-
-                                                  "Strength": 14,
-                                                  "Ranged_strength": 0,
-                                                  "Magic_damage": 0,
-                                                  "Prayer": 0},
-
-                                         "Steel": {"Stab_attack": -4,     # -4	+21	+16	-4	0	0	0	0	0	-1	+22	0	0%	0
-                                                   "Slash_attack": 21,
-                                                   "Crush_attack": 16,
-                                                   "Magic_attack": -4,
-                                                   "Ranged_attack": 0,
-
-                                                   "Stab_defence": 0,
-                                                   "Slash_defence": 0,
-                                                   "Crush_defence": 0,
-                                                   "Magic_defence": 0,
-                                                   "Ranged_defence": -1,
-
-                                                    "Strength": 22,
-                                                    "Ranged_strength": 0,
-                                                    "Magic_damage": 0,
-                                                    "Prayer": 0},
-
-                                         "Black": {"Stab_attack": -4,     # -4	+27	+21	-4	0	0	0	0	0	-1	+26	0	0%	0
-                                                   "Slash_attack": 27,
-                                                   "Crush_attack": 21,
-                                                   "Magic_attack": -4,
-                                                   "Ranged_attack": 0,
-
-                                                   "Stab_defence": 0,
-                                                   "Slash_defence": 0,
-                                                   "Crush_defence": 0,
-                                                   "Magic_defence": 0,
-                                                   "Ranged_defence": -1,
-
-                                                   "Strength": 26,
-                                                   "Ranged_strength": 0,
-                                                   "Magic_damage": 0,
-                                                   "Prayer": 0},
-
-                                         "Mithril": {"Stab_attack": -4,     # -4	+30	+24	-4	0	0	0	0	0	-1	+31	0	0	0
-                                                     "Slash_attack": 30,
-                                                     "Crush_attack": 24,
-                                                     "Magic_attack": -4,
-                                                     "Ranged_attack": 0,
-
-                                                     "Stab_defence": 0,
-                                                     "Slash_defence": 0,
-                                                     "Crush_defence": 0,
-                                                     "Magic_defence": 0,
-                                                     "Ranged_defence": -1,
-
-                                                     "Strength": 31,
-                                                     "Ranged_strength": 0,
-                                                     "Magic_damage": 0,
-                                                     "Prayer": 0}},
-
-                             # ========================================================================
-                             # "Claws": {},
-                             # "Spear": {},
-                             # "halberd": {}
                              },
 
                  "Helm": {# ============================================================================================
-                          "Med helm": {
+                          "Med_helm": {
                                        "Bronze": {"Stab_attack": 0,                        # 0	0	0	-3	-1	+3	+4	+2	-1	+4	0	0	0%	0
                                                   "Slash_attack": 0,
                                                   "Crush_attack": 0,
@@ -944,7 +940,7 @@ class Item:
                                                    "Prayer": 0}},
 
                            # ===========================================================================================
-                          "Full helm": {
+                          "Full_helm": {
                                         "Bronze": {"Stab_attack": 0,                       # 0	0	0	-6	-2	+4	+5	+3	-1	+4	0	0	0%	0
                                                    "Slash_attack": 0,
                                                    "Crush_attack": 0,
@@ -1382,7 +1378,7 @@ class Item:
                            },
 
                  "Shield": {# ==========================================================================================
-                           "Sq shield": {"Bronze": {"Stab_attack": 0,                       # 0	0	0	-6	-2	+5	+6	+4	0	+5	0	0	0%	0
+                           "Sq_shield": {"Bronze": {"Stab_attack": 0,                       # 0	0	0	-6	-2	+5	+6	+4	0	+5	0	0	0%	0
                                                     "Slash_attack": 0,
                                                     "Crush_attack": 0,
                                                     "Magic_attack": -6,
@@ -1733,8 +1729,11 @@ class Item:
                  }
 
         if type in items.keys():
-            properties_dict = items[type][name][material]
+            if name in items[type].keys():
+                properties_dict = items[type][name][material]
 
+            else:
+                properties_dict = None
         else:
             properties_dict = None
 

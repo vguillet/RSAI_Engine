@@ -96,4 +96,59 @@ class Overview_GUI:
         gui.main_window.skills_xp_firemaking.setText(str(gui.simulation.agent.skills()["Firemaking"]["Experience"]))
         gui.main_window.skills_xp_woodcutting.setText(str(gui.simulation.agent.skills()["Woodcutting"]["Experience"]))
 
+        # --> Set inventory
+        # --> Add coins
+        gui.main_window.inventory_slot_label_1.setText(str(gui.simulation.agent.inventory()["Coins"]))
+        pixmap = QPixmap("RSAI_Engine/Data/Assets/Items_assets/Coins.png")
+        gui.main_window.inventory_slot_asset_1.setPixmap(pixmap)
+
+        # --> Add content
+        slot = 1
+        if len(gui.simulation.agent.inventory()["Content"]) != 0:
+            for item in gui.simulation.agent.inventory()["Content"]:
+                # --> Add to next slot
+                slot += 1
+                getattr(gui.main_window, "inventory_slot_label_" + str(slot)).setText(str(item))
+
+                pixmap = QPixmap(item.asset_path)
+                getattr(gui.main_window, "inventory_slot_asset_" + str(slot)).setPixmap(pixmap)
+
+        # --> Set equipment
+        for item in gui.simulation.agent.equipment().keys():
+            if gui.simulation.agent.equipment()[item] is not None:
+                if item == "Helm":
+                    gui.main_window.equipment_helm_label.setText(str(gui.simulation.agent.equipment()[item]))
+                    pixmap = QPixmap(gui.simulation.agent.equipment()[item].asset_path)
+                    gui.main_window.equipment_helm_asset.setPixmap(pixmap)
+
+                elif item == "Chest":
+                    gui.main_window.equipment_chest_label.setText(str(gui.simulation.agent.equipment()[item]))
+                    pixmap = QPixmap(gui.simulation.agent.equipment()[item].asset_path)
+                    gui.main_window.equipment_chest_asset.setPixmap(pixmap)
+
+                elif item == "Legs":
+                    gui.main_window.equipment_legs_label.setText(str(gui.simulation.agent.equipment()[item]))
+                    pixmap = QPixmap(gui.simulation.agent.equipment()[item].asset_path)
+                    gui.main_window.equipment_legs_asset.setPixmap(pixmap)
+
+                elif item == "Boots":
+                    gui.main_window.equipment_boots_label.setText(str(gui.simulation.agent.equipment()[item]))
+                    pixmap = QPixmap(gui.simulation.agent.equipment()[item].asset_path)
+                    gui.main_window.equipment_boots_asset.setPixmap(pixmap)
+
+                elif item == "Gloves":
+                    gui.main_window.equipment_gloves_label.setText(str(gui.simulation.agent.equipment()[item]))
+                    pixmap = QPixmap(gui.simulation.agent.equipment()[item].asset_path)
+                    gui.main_window.equipment_gloves_asset.setPixmap(pixmap)
+
+                elif item == "Weapon":
+                    gui.main_window.equipment_weapon_label.setText(str(gui.simulation.agent.equipment()[item]))
+                    pixmap = QPixmap(gui.simulation.agent.equipment()[item].asset_path)
+                    gui.main_window.equipment_weapon_asset.setPixmap(pixmap)
+
+                elif item == "Shield":
+                    gui.main_window.equipment_shield_label.setText(str(gui.simulation.agent.equipment()[item]))
+                    pixmap = QPixmap(gui.simulation.agent.equipment()[item].asset_path)
+                    gui.main_window.equipment_shield_asset.setPixmap(pixmap)
+
         return

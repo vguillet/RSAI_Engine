@@ -140,8 +140,8 @@
                      <property name="geometry">
                       <rect>
                        <x>0</x>
-                       <y>-29</y>
-                       <width>267</width>
+                       <y>0</y>
+                       <width>292</width>
                        <height>336</height>
                       </rect>
                      </property>
@@ -467,8 +467,8 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>284</width>
-                       <height>307</height>
+                       <width>309</width>
+                       <height>295</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -482,7 +482,7 @@
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>247</width>
+                           <width>272</width>
                            <height>440</height>
                           </rect>
                          </property>
@@ -1039,11 +1039,1928 @@
                  <attribute name="title">
                   <string>Inventory</string>
                  </attribute>
+                 <layout class="QHBoxLayout" name="horizontalLayout_12">
+                  <item>
+                   <widget class="QScrollArea" name="scrollArea_10">
+                    <property name="widgetResizable">
+                     <bool>true</bool>
+                    </property>
+                    <widget class="QWidget" name="scrollAreaWidgetContents_10">
+                     <property name="geometry">
+                      <rect>
+                       <x>0</x>
+                       <y>-169</y>
+                       <width>292</width>
+                       <height>481</height>
+                      </rect>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_14">
+                      <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_15">
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_18">
+                          <item row="0" column="2">
+                           <layout class="QGridLayout" name="gridLayout_22">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_2">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_2">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="6">
+                           <layout class="QGridLayout" name="gridLayout_23">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_4">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_4">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="4">
+                           <layout class="QGridLayout" name="gridLayout_24">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_3">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_3">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="5">
+                           <widget class="Line" name="line_79">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="Line" name="line_80">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <layout class="QGridLayout" name="gridLayout_25">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_1">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_1">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="Line" name="line_75">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="Line" name="line_78">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_19">
+                          <item row="0" column="2">
+                           <layout class="QGridLayout" name="gridLayout_26">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_6">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_6">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="6">
+                           <layout class="QGridLayout" name="gridLayout_27">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_8">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_8">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="4">
+                           <layout class="QGridLayout" name="gridLayout_28">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_7">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_7">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="5">
+                           <widget class="Line" name="line_81">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="Line" name="line_82">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <layout class="QGridLayout" name="gridLayout_29">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_5">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_5">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="Line" name="line_77">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="Line" name="line_98">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_20">
+                          <item row="0" column="2">
+                           <layout class="QGridLayout" name="gridLayout_30">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_10">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_10">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="6">
+                           <layout class="QGridLayout" name="gridLayout_31">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_12">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_12">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="4">
+                           <layout class="QGridLayout" name="gridLayout_32">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_11">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_11">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="5">
+                           <widget class="Line" name="line_83">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="Line" name="line_84">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <layout class="QGridLayout" name="gridLayout_33">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_9">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_9">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="Line" name="line_85">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="Line" name="line_99">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_48">
+                          <item row="0" column="2">
+                           <layout class="QGridLayout" name="gridLayout_49">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_14">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_14">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="6">
+                           <layout class="QGridLayout" name="gridLayout_50">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_16">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_16">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="4">
+                           <layout class="QGridLayout" name="gridLayout_51">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_15">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_15">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="5">
+                           <widget class="Line" name="line_95">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="Line" name="line_96">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <layout class="QGridLayout" name="gridLayout_52">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_13">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_13">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="Line" name="line_97">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="Line" name="line_100">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_21">
+                          <item row="0" column="2">
+                           <layout class="QGridLayout" name="gridLayout_34">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_18">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_18">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="6">
+                           <layout class="QGridLayout" name="gridLayout_35">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_20">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_20">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="4">
+                           <layout class="QGridLayout" name="gridLayout_36">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_19">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_19">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="5">
+                           <widget class="Line" name="line_86">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="Line" name="line_87">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <layout class="QGridLayout" name="gridLayout_37">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_17">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_17">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="Line" name="line_88">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="Line" name="line_101">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_43">
+                          <item row="0" column="2">
+                           <layout class="QGridLayout" name="gridLayout_44">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_22">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_22">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="6">
+                           <layout class="QGridLayout" name="gridLayout_45">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_24">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_24">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="4">
+                           <layout class="QGridLayout" name="gridLayout_46">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_23">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_23">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="5">
+                           <widget class="Line" name="line_92">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="Line" name="line_93">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <layout class="QGridLayout" name="gridLayout_47">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_21">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_21">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="Line" name="line_94">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="Line" name="line_102">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_38">
+                          <item row="0" column="2">
+                           <layout class="QGridLayout" name="gridLayout_39">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_26">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_26">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="6">
+                           <layout class="QGridLayout" name="gridLayout_40">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_28">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_28">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="4">
+                           <layout class="QGridLayout" name="gridLayout_41">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_27">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_27">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="5">
+                           <widget class="Line" name="line_89">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="Line" name="line_90">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <layout class="QGridLayout" name="gridLayout_42">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="inventory_slot_asset_25">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>30</width>
+                                <height>30</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="inventory_slot_label_25">
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="Line" name="line_91">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                 <widget class="QWidget" name="tab_11">
                  <attribute name="title">
                   <string>Equipment</string>
                  </attribute>
+                 <layout class="QHBoxLayout" name="horizontalLayout_13">
+                  <item>
+                   <widget class="QScrollArea" name="scrollArea_11">
+                    <property name="widgetResizable">
+                     <bool>true</bool>
+                    </property>
+                    <widget class="QWidget" name="scrollAreaWidgetContents_11">
+                     <property name="geometry">
+                      <rect>
+                       <x>0</x>
+                       <y>0</y>
+                       <width>292</width>
+                       <height>362</height>
+                      </rect>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_16">
+                      <item>
+                       <layout class="QGridLayout" name="gridLayout_10">
+                        <item row="4" column="8">
+                         <widget class="Line" name="line_57">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="10" column="9">
+                         <widget class="Line" name="line_63">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="9">
+                         <widget class="Line" name="line_59">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="3">
+                         <widget class="Line" name="line_37">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="5" column="3">
+                         <widget class="QLabel" name="label_87">
+                          <property name="text">
+                           <string>Chest:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="9" column="3">
+                         <widget class="QLabel" name="label_90">
+                          <property name="text">
+                           <string>Legs:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="13" column="3">
+                         <widget class="QLabel" name="label_91">
+                          <property name="text">
+                           <string>Boots:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="3">
+                         <widget class="QLabel" name="label_67">
+                          <property name="text">
+                           <string>Helm:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="11" column="5">
+                         <widget class="Line" name="line_42">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="9" column="5">
+                         <widget class="Line" name="line_43">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="13" column="5">
+                         <widget class="Line" name="line_40">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="9" column="2">
+                         <widget class="Line" name="line_45">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="15" column="5">
+                         <widget class="Line" name="line_41">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="13" column="2">
+                         <widget class="Line" name="line_39">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="11" column="2">
+                         <widget class="Line" name="line_44">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="15" column="2">
+                         <widget class="Line" name="line_38">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="7" column="5">
+                         <widget class="Line" name="line_31">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="4" column="3">
+                         <widget class="Line" name="line_20">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="7" column="2">
+                         <widget class="Line" name="line_30">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="16" column="3">
+                         <widget class="Line" name="line_28">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="8" column="3">
+                         <widget class="Line" name="line_25">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="5">
+                         <widget class="Line" name="line_33">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="2">
+                         <widget class="Line" name="line_35">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="12" column="3">
+                         <widget class="Line" name="line_27">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="5" column="5">
+                         <widget class="Line" name="line_32">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="2">
+                         <widget class="Line" name="line_36">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="5">
+                         <widget class="Line" name="line_34">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="5" column="2">
+                         <widget class="Line" name="line_29">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="5" column="1">
+                         <widget class="QLabel" name="label_80">
+                          <property name="text">
+                           <string>Gloves:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="11" column="9">
+                         <widget class="Line" name="line_64">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="9" column="9">
+                         <widget class="Line" name="line_62">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="9">
+                         <widget class="Line" name="line_61">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="9">
+                         <widget class="Line" name="line_60">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="8">
+                         <widget class="Line" name="line_58">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="2">
+                         <widget class="Line" name="line_46">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="5">
+                         <widget class="Line" name="line_47">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="10" column="2">
+                         <widget class="Line" name="line_50">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="6" column="5">
+                         <widget class="Line" name="line_49">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="10" column="5">
+                         <widget class="Line" name="line_51">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="6" column="2">
+                         <widget class="Line" name="line_48">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="7">
+                         <widget class="Line" name="line_69">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="9" column="7">
+                         <widget class="Line" name="line_56">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="12" column="8">
+                         <widget class="Line" name="line_54">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="8" column="8">
+                         <widget class="Line" name="line_55">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="9" column="8">
+                         <widget class="QLabel" name="label_104">
+                          <property name="text">
+                           <string>Shield</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="8">
+                         <widget class="QLabel" name="label_101">
+                          <property name="text">
+                           <string>Weapon</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="14" column="2">
+                         <widget class="Line" name="line_52">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="14" column="5">
+                         <widget class="Line" name="line_53">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="10" column="7">
+                         <widget class="Line" name="line_65">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="11" column="7">
+                         <widget class="Line" name="line_66">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="6">
+                         <spacer name="horizontalSpacer_7">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::Fixed</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>50</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item row="1" column="7">
+                         <widget class="Line" name="line_67">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="5" column="0">
+                         <widget class="Line" name="line_70">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="8" column="1">
+                         <widget class="Line" name="line_73">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="6" column="0">
+                         <widget class="Line" name="line_71">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="7" column="0">
+                         <widget class="Line" name="line_72">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="7">
+                         <widget class="Line" name="line_68">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="4" column="1">
+                         <widget class="Line" name="line_74">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="15" column="3">
+                         <widget class="QLabel" name="equipment_boots_label">
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="14" column="3">
+                         <widget class="QLabel" name="equipment_boots_asset">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>30</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="11" column="3">
+                         <widget class="QLabel" name="equipment_legs_label">
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="10" column="3">
+                         <widget class="QLabel" name="equipment_legs_asset">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>30</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="7" column="3">
+                         <widget class="QLabel" name="equipment_chest_label">
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="11" column="8">
+                         <widget class="QLabel" name="equipment_shield_label">
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="10" column="8">
+                         <widget class="QLabel" name="equipment_shield_asset">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>30</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="6" column="3">
+                         <widget class="QLabel" name="equipment_chest_asset">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>30</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="6" column="1">
+                         <widget class="QLabel" name="equipment_gloves_asset">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>30</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="3">
+                         <widget class="QLabel" name="equipment_helm_asset">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>30</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="8">
+                         <widget class="QLabel" name="equipment_weapon_asset">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>30</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="8">
+                         <widget class="QLabel" name="equipment_weapon_label">
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="3">
+                         <widget class="QLabel" name="equipment_helm_label">
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="scaledContents">
+                           <bool>false</bool>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="7" column="1">
+                         <widget class="QLabel" name="equipment_gloves_label">
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </widget>
               </item>
@@ -1092,8 +3009,8 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>284</width>
-                       <height>338</height>
+                       <width>309</width>
+                       <height>326</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout">
@@ -1579,6 +3496,9 @@
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_7">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetDefaultConstraint</enum>
+            </property>
             <item>
              <widget class="QLabel" name="label_23">
               <property name="font">
@@ -1985,19 +3905,6 @@
               </item>
              </layout>
             </item>
-            <item>
-             <spacer name="horizontalSpacer_5">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
            </layout>
           </item>
          </layout>
@@ -2019,6 +3926,12 @@
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <widget class="QGraphicsView" name="map_view">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>551</width>

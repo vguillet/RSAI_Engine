@@ -66,17 +66,13 @@ class Equipment:
         inventory_dict["Content"].remove(item)
 
         # --> Add item to equipment
-        if self.equipment_dict[item.type] is None:
-            # --> Equip item
-            self.equipment_dict[item.type] = item
-
-        else:
+        if self.equipment_dict[item.type] is not None:
             # --> Remove current equipped item
             inventory_dict, states_dict = \
                 self.unequip_item(inventory_dict, states_dict, self.equipment_dict[item.type])
 
-            # --> Equip item
-            self.equipment_dict[item.type] = item
+        # --> Equip item
+        self.equipment_dict[item.type] = item
 
         # --> Adjust states with item property
         states_dict["Stab_attack"] += item.properties["Stab_attack"]

@@ -15,6 +15,7 @@ import numpy as np
 # Own modules
 from RSAI_Engine.Simulation.Environment.RSAI_environment import RSAI_environment
 from RSAI_Engine.Simulation.Agent.RSAI_agent import RSAI_agent
+from RSAI_Engine.Simulation.Tools.Item import Item
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -26,8 +27,8 @@ __date__ = '26/04/2020'
 class RSAI_simulation:
     def __init__(self,
                  sim_origin: "World coordinates tuple" = (3136, 3136),
-                 world_image_path="RSAI_Engine\Data\Environment\World_image.png",
-                 obstacle_image_path="RSAI_Engine\Data\Environment\Obstacle_image.png"):
+                 world_image_path="RSAI_Engine\Data\Assets\Environment\World_image.png",
+                 obstacle_image_path="RSAI_Engine\Data\Assets\Environment\Obstacle_image.png"):
 
         # --> Record image paths
         self.world_image_path = world_image_path
@@ -45,6 +46,25 @@ class RSAI_simulation:
                                 self.environment.origin,
                                 self.environment.shape,
                                 start_world_pos=(3216, 3219))
+
+        # --> Equip some items
+        equipment = [Item("Helm", "Med_helm", "Iron"),
+                     Item("Chest", "Platebody", "Iron"),
+                     Item("Legs", "Platelegs", "Iron"),
+                     Item("Boots", "Boots", "Iron"),
+                     Item("Gloves", "Gloves", "Iron"),
+                     Item("Shield", "Kiteshield", "Black"),
+                     Item("Weapon", "Scimitar", "Mithril")]
+
+        for item in equipment:
+            self.agent.inventory.add_item_to_inventory(item)
+            self.agent.equipment.equip_item(self.agent.inventory(),
+                                            self.agent.states(),
+                                            item)
+
+            self.agent.inventory.add_item_to_inventory(item)
+
+
 
     def run_simulation(self, progress_callback):
         print("---------------------- Simulation started ----------------------")

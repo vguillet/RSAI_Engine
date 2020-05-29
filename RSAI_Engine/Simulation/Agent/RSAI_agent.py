@@ -96,7 +96,7 @@ class RSAI_agent:
         return self.name + " (RSAI bot level " + str(self.combat_level) + ")"
 
     def __repr__(self):
-        self.__repr__()
+        return self.__str__()
 
     @property
     def melee_level(self):

@@ -38,7 +38,7 @@ class RSAI_GUI():
 
         # --> Load RSAI GUI layout
         self.main_window = uic.loadUi("RSAI_Engine/GUI/Layouts/Layout_2.ui")
-        self.main_window.setWindowIcon(QIcon("RSAI_Engine/Data/GUI_assets/RSAI_icon.png"))
+        self.main_window.setWindowIcon(QIcon("RSAI_Engine/Data/Assets/GUI_assets/RSAI_icon.png"))
 
         # ============================== Initiate threadpool and workers
         # --> Setting up thread pool
@@ -108,11 +108,12 @@ class RSAI_GUI():
 
     def update_gui(self):
         try:
-            self.map_view_gui.update_map_view(self)
-            self.map_view_gui.update_position_summary(self)
+            if self.main_window.enable_render.isChecked():
+                self.map_view_gui.update_map_view(self)
+                self.map_view_gui.update_position_summary(self)
 
-            self.overview_gui.update_overview(self)
-            self.overview_gui.update_agent_overview_tab(self)
+                self.overview_gui.update_overview(self)
+                self.overview_gui.update_agent_overview_tab(self)
         except:
             pass
 

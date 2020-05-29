@@ -35,27 +35,23 @@ class Map_view_GUI:
                 }
 
     def update_map_view(self, gui):
-        if gui.main_window.enable_render.isChecked():
-            gui.views_dict = self.gen_views_dict(gui)
+        gui.views_dict = self.gen_views_dict(gui)
 
-            # --> Scale pixmap
-            x_scale, y_scale = gui.scale
-            pixmap_scaled = gui.view_pixmap.scaled(x_scale, y_scale, Qt.KeepAspectRatio)
+        # --> Scale pixmap
+        x_scale, y_scale = gui.scale
+        pixmap_scaled = gui.view_pixmap.scaled(x_scale, y_scale, Qt.KeepAspectRatio)
 
-            # --> Create item
-            item = QtWidgets.QGraphicsPixmapItem(pixmap_scaled)
+        # --> Create item
+        item = QtWidgets.QGraphicsPixmapItem(pixmap_scaled)
 
-            # --> Create scene
-            scene = QtWidgets.QGraphicsScene()
-            scene.addItem(item)
+        # --> Create scene
+        scene = QtWidgets.QGraphicsScene()
+        scene.addItem(item)
 
-            # --> Set map view
-            gui.main_window.map_view.setScene(scene)
+        # --> Set map view
+        gui.main_window.map_view.setScene(scene)
 
-            return
-
-        else:
-            return
+        return
 
     @staticmethod
     def update_position_summary(gui):
@@ -89,3 +85,43 @@ class Map_view_GUI:
                 return
         else:
             return
+
+"""   
+1 import sys
+   2 from PyQt4.QtCore import *
+   3 from PyQt4.QtGui import *
+   4 
+   5 if __name__ == "__main__":x 
+   6 
+   7     app = QApplication(sys.argv)
+   8     
+   9     if len(app.arguments()) < 2:
+  10     
+  11         sys.stderr.write("Usage: %s <image file> <overlay file>\n" % sys.argv[0])
+  12         sys.exit(1)
+  13     
+  14     image = QImage(app.arguments()[1])
+  15     if image.isNull():
+  16         sys.stderr.write("Failed to read image: %s\n" % app.arguments()[1])
+  17         sys.exit(1)
+  18     
+  19     overlay = QImage(app.arguments()[2])
+  20     if overlay.isNull():
+  21         sys.stderr.write("Failed to read image: %s\n" % app.arguments()[2])
+  22         sys.exit(1)
+  23     
+  24     if overlay.size() > image.size():
+  25     
+  26         overlay = overlay.scaled(image.size(), Qt.KeepAspectRatio)
+  27     
+  28     painter = QPainter()
+  29     painter.begin(image)
+  30     painter.drawImage(0, 0, overlay)
+  31     painter.end()
+  32     
+  33     label = QLabel()
+  34     label.setPixmap(QPixmap.fromImage(image))
+  35     label.show()
+  36     
+  37     sys.exit(app.exec_())
+  """
