@@ -187,7 +187,12 @@ class RSAI_agent:
             self.world_pos, _ = convert_coordinates(self.simulation_origin, self.simulation_shape,
                                                     simulation_pos=self.simulation_pos)
 
+            # --> Remove step from path
             del self.simulation_path_to_goal[0]
+            # --> Find equivalent world path
+            self.world_path_to_goal, self.simulation_path_to_goal = \
+                convert_path_coordinates(self.simulation_origin, self.simulation_shape,
+                                         simulation_path=self.simulation_path_to_goal)
 
             # --> If arrived at goal
             if len(self.simulation_path_to_goal) == 0:
