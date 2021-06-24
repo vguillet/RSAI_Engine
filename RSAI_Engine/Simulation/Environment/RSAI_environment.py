@@ -11,8 +11,8 @@ import sys
 import matplotlib.pyplot as plt
 
 # Own modules
-from RSAI_Engine.Simulation.Environment.Grids_gen.Obstacle_grid_gen import gen_obstacle_grid
-from RSAI_Engine.Simulation.Environment.Grids_gen.POI_grid_gen import gen_POI_grid
+from RSAI_Engine.Simulation.Environment.Grids.Obstacle_grid_gen import gen_obstacle_grid
+from RSAI_Engine.Simulation.Environment.Grids.POI_grid_gen import gen_POI_grid
 
 # from RSAI_Engine.Visualiser.Visualiser import Visualiser
 # from RSAI_Engine.Visualiser.Visualiser_tools import Visualiser_tools

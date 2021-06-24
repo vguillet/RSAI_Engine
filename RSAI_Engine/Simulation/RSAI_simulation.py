@@ -10,13 +10,12 @@ import random
 
 # Libs
 import cv2
-import numpy as np
 from faker import Faker
 
 # Own modules
 from RSAI_Engine.Simulation.Environment.RSAI_environment import RSAI_environment
 from RSAI_Engine.Simulation.Agent.RSAI_agent import RSAI_agent
-from RSAI_Engine.Simulation.Tools.Item import Item
+from RSAI_Engine.Simulation.Items.Item import Item
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'

@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Own modules
-from RSAI_Engine.Simulation.Environment.Tools.POI import POI
+from RSAI_Engine.Simulation.Environment.POIs.POI import POI
 
 
 __version__ = '1.1.1'
@@ -78,8 +78,11 @@ def gen_POI_grid(simulation_origin, simulation_size):
 
     # --> Adding POIs to environment
     for i in range(len(POI_lst)):
-        POI_dict[POI_lst[i][0]] = POI(POI_lst[i][0], POI_lst[i][1], simulation_origin, simulation_size,
-                                      POI_lst[i][2])
+        POI_dict[POI_lst[i][0]] = POI(name=POI_lst[i][0],
+                                      ref=0,
+                                      simulation_origin=simulation_origin,
+                                      simulation_size=simulation_size,
+                                      world_pos=POI_lst[i][2])
 
         POI_array[POI_dict[POI_lst[i][0]].simulation_pos[1]][POI_dict[POI_lst[i][0]].simulation_pos[0]] = 1
 

@@ -24,13 +24,13 @@ __date__ = '31/01/2020'
 
 
 class POI:
-    def __init__(self, name, label,
+    def __init__(self, name, ref,
                  simulation_origin, simulation_size,
-                 world_pos: tuple = None, sim_pos: tuple = None, ef_dict=None):
+                 world_pos: tuple = None, sim_pos: tuple = None):
         # ----- Setup reference properties
+        self.ref = ref
+        self.type = ""
         self.name = name
-        self.type = "POI"
-        self.label = label
 
         # --> Setup POI position
         self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin=simulation_origin,
@@ -38,18 +38,8 @@ class POI:
                                                                   world_pos=world_pos,
                                                                   simulation_pos=sim_pos)
 
-        # ----- Setup POI content
-        # --> Generate ef dictionary
-        if ef_dict is None:
-            # TODO: Add ef_dict
-            pass
-
-        # --> Use provided ef dictionary
-        else:
-            self.ef_dict = ef_dict
-
     def __str__(self):
-        return self.name + " - " + self.label + " (POI)"
+        return f"{self.ref} - {self.name} ({self.type})"
 
     def __repr__(self):
         return self.__str__()
