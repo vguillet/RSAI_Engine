@@ -23,12 +23,49 @@ class Item:
         """
         Item class used to generate various item types
         Available items labels:  - Weapon
+                                     - Dagger
+                                     - Axe
+                                     - Mace
+                                     - Sword
+                                     - Longsword
+                                     - Scimitar
+                                     - Battleaxe
+                                     - Pickaxe
+
                                  - Helm
+                                     - Med_helm
+                                     - Full_helm
+
                                  - Chest
+                                     - Chainbody
+                                     - Platebody
+
                                  - Legs
+                                     - Platelegs
+                                     - Plateskirt
+
                                  - Shield
+                                     - Sq_shield
+                                     - Kiteshield
+
                                  - Boots
+                                     - Boots
+
                                  - Gloves
+                                     - Gloves
+
+                                 - Resource
+                                     - Ore
+                                     - Ingot
+                                     - Gems
+                                         - Opal
+                                         - Emerald
+                                         - Sapphire
+                                         - Diamond
+                                     - Food
+                                         - Small ration
+                                         - Medium ration
+                                         - Large ration
 
         Available items materials:    - Bronze
                                       - Iron
@@ -74,37 +111,38 @@ class Item:
                  "Legs": None,
                  "Shield": None,
                  "Boots": None,
-                 "Gloves": None
+                 "Gloves": None,
+                 "Resources": None
                  }
 
-        with open("RSAI_Engine/Simulation/Items/Weapons.json") as f:
+        with open("RSAI_Engine/Simulation/Items/Catalogue/Weapons.json") as f:
             items["Weapon"] = json.load(f)
 
-        with open("RSAI_Engine/Simulation/Items/Helms.json") as f:
+        with open("RSAI_Engine/Simulation/Items/Catalogue/Helms.json") as f:
             items["Helm"] = json.load(f)
 
-        with open("RSAI_Engine/Simulation/Items/Chests.json") as f:
+        with open("RSAI_Engine/Simulation/Items/Catalogue/Chests.json") as f:
             items["Chest"] = json.load(f)
 
-        with open("RSAI_Engine/Simulation/Items/Legs.json") as f:
+        with open("RSAI_Engine/Simulation/Items/Catalogue/Legs.json") as f:
             items["Legs"] = json.load(f)
 
-        with open("RSAI_Engine/Simulation/Items/Shields.json") as f:
+        with open("RSAI_Engine/Simulation/Items/Catalogue/Shields.json") as f:
             items["Shield"] = json.load(f)
 
-        with open("RSAI_Engine/Simulation/Items/Boots.json") as f:
+        with open("RSAI_Engine/Simulation/Items/Catalogue/Boots.json") as f:
             items["Boots"] = json.load(f)
 
-        with open("RSAI_Engine/Simulation/Items/Gloves.json") as f:
+        with open("RSAI_Engine/Simulation/Items/Catalogue/Gloves.json") as f:
             items["Gloves"] = json.load(f)
+
+        with open("RSAI_Engine/Simulation/Items/Catalogue/Resources.json") as f:
+            items["Resources"] = json.load(f)
 
         if type in items.keys():
             if name in items[type].keys():
-                properties_dict = items[type][name][material]
-
+                return items[type][name][material]
             else:
-                properties_dict = None
+                return None
         else:
-            properties_dict = None
-
-        return properties_dict
+            return None

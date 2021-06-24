@@ -1,0 +1,173 @@
+{
+"Chainbody": {
+             "Bronze": {"Stab_attack": 0,
+                        "Slash_attack": 0,
+                        "Crush_attack": 0,
+                        "Magic_attack": -15,
+                        "Ranged_attack": 0,
+
+                        "Stab_defence": 7,
+                        "Slash_defence": 11,
+                        "Crush_defence": 13,
+                        "Magic_defence": -3,
+                        "Ranged_defence": 6,
+
+                        "Strength": 0,
+                        "Ranged_strength": 0,
+                        "Magic_damage": 0,
+                        "Prayer": 0},
+
+             "Iron": {"Stab_attack": 0,
+                      "Slash_attack": 0,
+                      "Crush_attack": 0,
+                      "Magic_attack": -15,
+                      "Ranged_attack": 0,
+
+                      "Stab_defence": 10,
+                      "Slash_defence": 15,
+                      "Crush_defence": 19,
+                      "Magic_defence": -3,
+                      "Ranged_defence": 12,
+
+                      "Strength": 0,
+                      "Ranged_strength": 0,
+                      "Magic_damage": 0,
+                      "Prayer": 0},
+
+             "Steel": {"Stab_attack": 0,
+                       "Slash_attack": 0,
+                       "Crush_attack": 0,
+                       "Magic_attack": -15,
+                       "Ranged_attack": 0,
+
+                       "Stab_defence": 17,
+                       "Slash_defence": 25,
+                       "Crush_defence": 30,
+                       "Magic_defence": -3,
+                       "Ranged_defence": 19,
+
+                       "Strength": 0,
+                       "Ranged_strength": 0,
+                       "Magic_damage": 0,
+                       "Prayer": 0},
+
+             "Black": {"Stab_attack": 0,
+                       "Slash_attack": 0,
+                       "Crush_attack": 0,
+                       "Magic_attack": -15,
+                       "Ranged_attack": 0,
+
+                       "Stab_defence": 22,
+                       "Slash_defence": 32,
+                       "Crush_defence": 39,
+                       "Magic_defence": -3,
+                       "Ranged_defence": 24,
+
+                       "Strength": 0,
+                       "Ranged_strength": 0,
+                       "Magic_damage": 0,
+                       "Prayer": 0},
+
+             "Mithril": {"Stab_attack": 0,
+                         "Slash_attack": 0,
+                         "Crush_attack": 0,
+                         "Magic_attack": -15,
+                         "Ranged_attack": 0,
+
+                         "Stab_defence": 25,
+                         "Slash_defence": 35,
+                         "Crush_defence": 42,
+                         "Magic_defence": -3,
+                         "Ranged_defence": 19,
+
+                         "Strength": 0,
+                         "Ranged_strength": 0,
+                         "Magic_damage": 0,
+                         "Prayer": 0}},
+
+"Platebody": {
+             "Bronze": {"Stab_attack": 0,
+                        "Slash_attack": 0,
+                        "Crush_attack": 0,
+                        "Magic_attack": -30,
+                        "Ranged_attack": -10,
+
+                        "Stab_defence": 15,
+                        "Slash_defence": 14,
+                        "Crush_defence": 9,
+                        "Magic_defence": -6,
+                        "Ranged_defence": 14,
+
+                        "Strength": 0,
+                        "Ranged_strength": 0,
+                        "Magic_damage": 0,
+                        "Prayer": 0},
+
+             "Iron": {"Stab_attack": 0,
+                      "Slash_attack": 0,
+                      "Crush_attack": 0,
+                      "Magic_attack": -30,
+                      "Ranged_attack": -10,
+
+                      "Stab_defence": 21,
+                      "Slash_defence": 20,
+                      "Crush_defence": 12,
+                      "Magic_defence": -6,
+                      "Ranged_defence": 20,
+
+                      "Strength": 0,
+                      "Ranged_strength": 0,
+                      "Magic_damage": 0,
+                      "Prayer": 0},
+
+             "Steel": {"Stab_attack": 0,
+                       "Slash_attack": 0,
+                       "Crush_attack": 0,
+                       "Magic_attack": -30,
+                       "Ranged_attack": -10,
+
+                       "Stab_defence": 32,
+                       "Slash_defence": 31,
+                       "Crush_defence": 24,
+                       "Magic_defence": -6,
+                       "Ranged_defence": 31,
+
+                       "Strength": 0,
+                       "Ranged_strength": 0,
+                       "Magic_damage": 0,
+                       "Prayer": 0},
+
+             "Black": {"Stab_attack": 0,
+                       "Slash_attack": 0,
+                       "Crush_attack": 0,
+                       "Magic_attack": -30,
+                       "Ranged_attack": -10,
+
+                       "Stab_defence": 41,
+                       "Slash_defence": 40,
+                       "Crush_defence": 30,
+                       "Magic_defence": -6,
+                       "Ranged_defence": 40,
+
+                       "Strength": 0,
+                       "Ranged_strength": 0,
+                       "Magic_damage": 0,
+                       "Prayer": 0},
+
+             "Mithril": {"Stab_attack": 0,
+                         "Slash_attack": 0,
+                         "Crush_attack": 0,
+                         "Magic_attack": -30,
+                         "Ranged_attack": -10,
+
+                         "Stab_defence": 46,
+                         "Slash_defence": 44,
+                         "Crush_defence": 38,
+                         "Magic_defence": -6,
+                         "Ranged_defence": 44,
+
+                         "Strength": 0,
+                         "Ranged_strength": 0,
+                         "Magic_damage": 0,
+                         "Prayer": 0}}
+}

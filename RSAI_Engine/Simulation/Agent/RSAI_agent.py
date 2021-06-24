@@ -13,11 +13,11 @@ import random
 # Own modules
 from RSAI_Engine.Settings.SETTINGS import SETTINGS
 
-from RSAI_Engine.Simulation.Agent.Tools.Skills import Skills
-from RSAI_Engine.Simulation.Agent.Tools.States import States
-from RSAI_Engine.Simulation.Agent.Tools.Equipment import Equipment
+from RSAI_Engine.Simulation.Agent.States.Skills import Skills
+from RSAI_Engine.Simulation.Agent.States.Statistics import Statistics
+from RSAI_Engine.Simulation.States.Equipment import Equipment
 
-from RSAI_Engine.Simulation.Agent.Tools.Inventory import Inventory
+from RSAI_Engine.Simulation.States.Inventory import Inventory
 from RSAI_Engine.Simulation.Agent.Tools.Pathfinder import Pathfinder
 
 from RSAI_Engine.Simulation.Tools.Coordinate_system_converter import *
@@ -72,7 +72,7 @@ class RSAI_agent:
 
         # --> Setup skills/inventory/interests/characteristics dicts
         self.skills = Skills(start_skills)
-        self.states = States(start_states)
+        self.states = Statistics(start_states)
         self.equipment = Equipment(start_equipment)
         self.inventory = Inventory(start_inventory)
         

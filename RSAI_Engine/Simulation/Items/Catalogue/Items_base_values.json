@@ -1,0 +1,35 @@
+{
+  "Dagger": 10,
+  "Axe": 12,
+  "Mace": 15,
+  "Sword": 15,
+  "Longsword": 15,
+  "Scimitar": 15,
+  "Battleaxe": 15,
+  "Pickaxe": 12,
+
+  "Med_helm": 12,
+  "Full_helm": 15,
+
+  "Chainbody": 13,
+  "Platebody": 15,
+
+  "Platelegs": 13,
+  "Plateskirt": 13,
+
+  "Sq_shield": 15,
+  "Kiteshield": 15,
+
+  "Boots": 10,
+  "Gloves": 10,
+
+  "Lumber": 3,
+  "Wheat": 3,
+  "Meat": 6,
+
+  "Ore": 5,
+  "Ingot": 10,
+  "Gem": 1,
+  "Food": 1
+
+}

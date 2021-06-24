@@ -36,7 +36,7 @@ class Pathfinder:
         path = self.__find_path(start, end, grid)
 
         if len(path) == 0:
-            print("!!!! No path found to POI !!!!")
+            print(f"!!!! No path found to {POI.name} !!!!")
             return None
 
         # --> Show path on grid

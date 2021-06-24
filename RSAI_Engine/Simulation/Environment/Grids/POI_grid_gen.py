@@ -12,7 +12,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Own modules
-from RSAI_Engine.Simulation.Environment.POIs.POI import POI
+from RSAI_Engine.Simulation.Environment.POIs.Core.POI import POI
+from RSAI_Engine.Simulation.Environment.POIs.Shop import Shop
 
 
 __version__ = '1.1.1'
@@ -26,47 +27,47 @@ def gen_POI_grid(simulation_origin, simulation_size):
 
     # --> Listing POIs to be added (coordinate in Exploded map coordinates)
     POI_lst = [
-               ["Varrock E Blacksmith", "Converter", (3248, 3411)],
-               ["Varrock C Blacksmith", "Converter", (3231, 3432)],
-               ["Varrock W Blacksmith", "Converter", (3184, 3424)],
-               ["Varrock Grand Exchange", "Converter", (3164, 3467)],
-               ["Varrock General shop", "Converter", (3212, 3415)],
-               ["Varrock C Clothes shop", "Converter", (3209, 3415)],
-               ["Varrock E Clothes shop", "Converter", (3277, 3397)],
-               ["Varrock Sword shop", "Converter", (3209, 3399)],
-               ["Varrock Archery shop", "Converter", (3233, 3428)],
-               ["Varrock W Bank", "Sink", (3182, 3430)],
-               ["Varrock E Bank", "Sink", (3254, 3426)],
-               ["Varrock SW mine", "Source", (3180, 3369)],
-               ["Varrock SE mine", "Source", (3284, 3364)],
+               ["Converter", "Varrock E Blacksmith", ["Ingot"], (3248, 3411)],
+               ["Converter", "Varrock C Blacksmith", ["Ingot"], (3231, 3432)],
+               ["Converter", "Varrock W Blacksmith", ["Ingot"], (3184, 3424)],
+               ["Shop", "Varrock Grand Exchange", ["Weapon", "Helm", "Chest", "Legs", "Shield", "Boots", "Gloves", "Resource", "Ingot", "Food"], (3164, 3467)],
+               ["Shop", "Varrock General shop", ["Weapon", "Helm", "Chest", "Legs", "Shield", "Boots", "Gloves", "Resource", "Ingot", "Food"], (3212, 3415)],
+               ["Shop", "Varrock C Clothes shop", ["Boots", "Gloves"], (3209, 3415)],
+               ["Shop", "Varrock E Clothes shop", ["Boots", "Gloves"], (3277, 3397)],
+               ["Shop", "Varrock Sword shop", ["Weapon"], (3209, 3399)],
+               ["Shop", "Varrock Archery shop", ["Weapon"], (3233, 3428)],
+               ["Bank", "Varrock W Bank", [""], (3182, 3430)],
+               ["Bank", "Varrock E Bank", [""], (3254, 3426)],
+               ["Mine", "Varrock SW mine", [""], (3180, 3369)],
+               ["Mine", "Varrock SE mine", [""], (3284, 3364)],
 
-               ["Edgeville Foundry", "Converter", (3112, 3498)],
-               ["Edgeville General shop", "Converter", (3080, 3506)],
-               ["Edgeville Bank", "Sink", (3099, 3496)],
+               ["Converter", "Edgeville Foundry", ["Ore"], (3112, 3498)],
+               ["Shop", "Edgeville General shop", ["Weapon", "Helm", "Chest", "Legs", "Shield", "Boots", "Gloves", "Resource", "Ingot", "Food"], (3080, 3506)],
+               ["Bank", "Edgeville Bank", [""], (3099, 3496)],
 
-               ["Cooks' Guild Bank", "Sink", (3143, 3342)],
+               ["Bank", "Cooks' Guild Bank", [""], (3143, 3342)],
 
-               ["Barabarian Village Helm shop", "Converter", (3085, 3412)],
-               ["Barabarian Village Blacksmith", "Converter", (3085, 3412)],
+               ["Shop", "Barbarian Village Helm shop", ["Helm"], (3085, 3412)],
+               ["Converter", "Barbarian Village Blacksmith", ["Ingot"], (3085, 3412)],
 
-               ["Lumbridge Foundry", "Converter", (3220, 3255)],
-               ["Lumbridge SW mine", "Source", (3150, 3152)],
-               ["Lumbridge SE mine", "Source", (3227, 3150)],
+               ["Converter", "Lumbridge Foundry", ["Ore"], (3220, 3255)],
+               ["Mine", "Lumbridge SW mine", [""], (3150, 3152)],
+               ["Mine", "Lumbridge SE mine", [""], (3227, 3150)],
 
-               ["Cows field", "Source", (3252, 3267)],
+               ["Cows field", "Source", [""], (3252, 3267)],
 
-               ["Draynor Bank", "Sink", (3093, 3247)],
+               ["Bank", "Draynor Bank", [""], (3093, 3247)],
 
-               ["Rimmington General shop", "Converter", (2944, 3218)],
-               ["Rimmington NE Mine", "Source", (2975, 3240)],
+               ["Shop", "Rimmington General shop", ["Weapon", "Helm", "Chest", "Legs", "Shield", "Boots", "Gloves", "Resource", "Ingot", "Food"], (2944, 3218)],
+               ["Mine", "Rimmington NE Mine", [""], (2975, 3240)],
 
-               ["Falador Foundry", "Converter", (2978, 3373)],
-               ["Falador Armoury", "Converter", (2972, 3315)],
-               ["Falador General shop", "Converter", (2958, 3384)],
-               ["Falador Jeweller’s shop", "Converter", (2945, 3338)],
-               ["Falador Shield shop", "Converter", (2971, 3383)],
-               ["Falador W Bank", "Sink", (2946, 3374)],
-               ["Falador E Bank", "Sink", (3012, 3359)],
+               ["Converter", "Falador Foundry", ["Ore"], (2978, 3373)],
+               ["Shop", "Falador General shop", ["Weapon", "Helm", "Chest", "Legs", "Shield", "Boots", "Gloves", "Resource", "Ingot", "Food"], (2958, 3384)],
+               ["Shop", "Falador Armoury", ["Chest", "Legs"], (2972, 3315)],
+               ["Shop", "Falador Jeweller’s shop", ["Gems"], (2945, 3338)],
+               ["Shop", "Falador Shield shop", ["Shield"], (2971, 3383)],
+               ["Bank", "Falador W Bank", [""], (2946, 3374)],
+               ["Bank", "Falador E Bank", [""], (3012, 3359)],
 
                ]
 
@@ -78,11 +79,20 @@ def gen_POI_grid(simulation_origin, simulation_size):
 
     # --> Adding POIs to environment
     for i in range(len(POI_lst)):
-        POI_dict[POI_lst[i][0]] = POI(name=POI_lst[i][0],
-                                      ref=0,
-                                      simulation_origin=simulation_origin,
-                                      simulation_size=simulation_size,
-                                      world_pos=POI_lst[i][2])
+        if POI_lst[i][1] == "Shop":
+            POI_dict[POI_lst[i][0]] = Shop(name=POI_lst[i][1],
+                                           ref=0,
+                                           simulation_origin=simulation_origin,
+                                           simulation_size=simulation_size,
+                                           world_pos=POI_lst[i][-1],
+                                           traded_item_types=POI_lst[i][2])
+
+        else:
+            POI_dict[POI_lst[i][0]] = POI(name=POI_lst[i][1],
+                                          ref=0,
+                                          simulation_origin=simulation_origin,
+                                          simulation_size=simulation_size,
+                                          world_pos=POI_lst[i][-1])
 
         POI_array[POI_dict[POI_lst[i][0]].simulation_pos[1]][POI_dict[POI_lst[i][0]].simulation_pos[0]] = 1
 

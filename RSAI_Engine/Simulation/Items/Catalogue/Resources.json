@@ -1,0 +1,27 @@
+{
+  "Ore": {
+          "Bronze": {},
+          "Iron": {},
+          "Steel": {},
+          "Black": {},
+          "Mithril": {}
+  },
+  "Ingot": {
+            "Bronze": {},
+            "Iron": {},
+            "Steel": {},
+            "Black": {},
+            "Mithril": {}
+  },
+  "Gem": {
+           "Opal": {},
+           "Emerald": {},
+           "Sapphire": {},
+           "Diamond": {}
+  },
+  "Food": {
+           "Small ration": {},
+           "Medium ration": {},
+           "Large ration": {}
+  }
+}
