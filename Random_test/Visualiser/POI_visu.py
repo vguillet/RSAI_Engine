@@ -26,7 +26,7 @@ class POI_visu(pg.sprite.Sprite):
         self.POI = POI
 
         # --> Load image
-        self.image = pg.image.load("RSAI_Engine/Data/Visualiser_Assets/POI.png").convert()
+        self.image = pg.image.load("src/Data/Visualiser_Assets/POI.png").convert()
         self.image = pg.transform.scale(self.image, (10, 10))
         self.image.set_colorkey((0, 0, 0))  # Don't display black
         self.image.set_colorkey((255, 255, 255))  # Don't display black

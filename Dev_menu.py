@@ -9,7 +9,7 @@
 # Libs
 
 # Own modules
-from RSAI_Engine.GUI.RSAI_GUI import RSAI_GUI
+from src.GUI.RSAI_GUI import RSAI_GUI
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'

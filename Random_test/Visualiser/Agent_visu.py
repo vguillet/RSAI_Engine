@@ -25,7 +25,7 @@ class Agent_visu(pg.sprite.Sprite):
 
         # ----- Setup reference properties
         self.agent = agent
-        self.original_image = pg.image.load("RSAI_Engine/Data/Visualiser_Assets/agent.png").convert()
+        self.original_image = pg.image.load("src/Data/Visualiser_Assets/agent.png").convert()
         self.original_image = pg.transform.scale(self.original_image, (20, 20))
         self.original_image.set_colorkey((0, 0, 0))  # Don't display black
 
