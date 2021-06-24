@@ -11,6 +11,7 @@ import random
 # Libs
 import cv2
 import numpy as np
+from faker import Faker
 
 # Own modules
 from RSAI_Engine.Simulation.Environment.RSAI_environment import RSAI_environment
@@ -26,8 +27,8 @@ __date__ = '26/04/2020'
 
 class RSAI_simulation:
     def __init__(self,
-                 sim_origin: "World coordinates tuple" = (3136, 3136),
-                 world_image_path="RSAI_Engine\Data\Assets\Environment\World_image.png",
+                 sim_origin: "World coordinates tuple" = (2944, 3072),  # (2944, 3519) (3136, 3136), from bottom left
+                 world_image_path="RSAI_Engine\Data\Assets\Environment\World_image_L.png",
                  obstacle_image_path="RSAI_Engine\Data\Assets\Environment\Obstacle_image.png"):
 
         # --> Record image paths
@@ -41,11 +42,16 @@ class RSAI_simulation:
         self.environment = RSAI_environment(world_image=self.world_image,
                                             obstacle_image_path=self.obstacle_image_path,
                                             sim_origin=sim_origin)
-        # --> Create agent
-        self.agent = RSAI_agent("Bob",
-                                self.environment.origin,
-                                self.environment.shape,
-                                start_world_pos=(3216, 3219))
+        # --> Create agentS
+        self.agent_lst = []
+
+        fake = Faker()
+
+        for _ in range(5):
+            self.agent_lst.append(RSAI_agent(name=fake.name(),
+                                             simulation_origin=self.environment.origin,
+                                             simulation_shape=self.environment.shape,
+                                             start_world_pos=(3216, 3219)))
 
         # --> Equip some items
         equipment = [Item("Helm", "Med_helm", "Iron"),
@@ -56,30 +62,35 @@ class RSAI_simulation:
                      Item("Shield", "Kiteshield", "Black"),
                      Item("Weapon", "Scimitar", "Mithril")]
 
-        for item in equipment:
-            self.agent.inventory.add_item_to_inventory(item)
-            self.agent.equipment.equip_item(self.agent.inventory(),
-                                            self.agent.states(),
-                                            item)
+        for agent in self.agent_lst:
+            for item in equipment:
+                agent.inventory.add_item_to_inventory(item=item)
+                agent.equipment.equip_item(inventory_dict=agent.inventory(),
+                                           states_dict=agent.states(),
+                                           item=item)
 
-            self.agent.inventory.add_item_to_inventory(item)
-
-
+                agent.inventory.add_item_to_inventory(item=item)
 
     def run_simulation(self, progress_callback):
         print("---------------------- Simulation started ----------------------")
+        for agent in self.agent_lst:
+            agent.goal = None
+
         while True:
-            while self.agent.goal is None:
-                # --> Pick random goal
-                goal = random.choice(list(self.environment.POI_dict.keys()))
+            for agent in self.agent_lst:
+                if agent.goal is None:
+                    while agent.goal is None:
+                        # --> Pick random goal
+                        goal = random.choice(list(self.environment.POI_dict.keys()))
 
-                # --> Set goal
-                self.agent.set_goal_POI(self.environment.grids_dict,
-                                        self.environment.POI_dict[goal])
+                        # --> Set goal
+                        agent.set_goal_POI(grids_dict=self.environment.grids_dict,
+                                           POI=self.environment.POI_dict[goal])
 
-            print("- New Goal:", self.agent.goal)
+                    print(f"- {agent.name} - New Goal:", agent.goal)
 
-            while self.agent.goal is not None:
-                self.agent.move()
-                progress_callback.emit()
-                time.sleep(0.005)
+                else:
+                    agent.move()
+
+            time.sleep(0.005)
+            progress_callback.emit()

@@ -132,21 +132,24 @@ class RSAI_agent:
             # --> Record previous goal
             self.goal_history.append(self.goal)
 
-        # --> Set new goal
-        self.goal = POI
-        self.goal_type = "POI"
-
         # --> Find path for new goal
-        self.simulation_path_to_goal = self.pathfinder.find_path_to_POI(grids_dict["Obstacle"],
-                                                                        self.simulation_pos, POI)
+        self.simulation_path_to_goal = self.pathfinder.find_path_to_POI(obstacle_grid=grids_dict["Obstacle"],
+                                                                        start_coordinates=self.simulation_pos,
+                                                                        POI=POI)
 
-        # --> Find equivalent world path
-        self.world_path_to_goal, self.simulation_path_to_goal = \
-            convert_path_coordinates(self.simulation_origin, self.simulation_shape,
-                                     simulation_path=self.simulation_path_to_goal)
+        # --> Set new goal
+        if self.simulation_path_to_goal is not None:
+            self.goal = POI
+            self.goal_type = "POI"
 
-        # --> Set path length
-        self.total_path_len = len(self.simulation_path_to_goal)
+            # --> Find equivalent world path
+            self.world_path_to_goal, self.simulation_path_to_goal = \
+                convert_path_coordinates(simulation_origin=self.simulation_origin,
+                                         simulation_size=self.simulation_shape,
+                                         simulation_path=self.simulation_path_to_goal)
+
+            # --> Set path length
+            self.total_path_len = len(self.simulation_path_to_goal)
 
     def set_goal_coordinates(self, grids_dict, coordinates):
         if coordinates == self.simulation_pos:
@@ -184,14 +187,16 @@ class RSAI_agent:
 
             # --> Step according to path
             self.simulation_pos = self.simulation_path_to_goal[0]
-            self.world_pos, _ = convert_coordinates(self.simulation_origin, self.simulation_shape,
+            self.world_pos, _ = convert_coordinates(simulation_origin=self.simulation_origin,
+                                                    simulation_size=self.simulation_shape,
                                                     simulation_pos=self.simulation_pos)
 
             # --> Remove step from path
             del self.simulation_path_to_goal[0]
             # --> Find equivalent world path
             self.world_path_to_goal, self.simulation_path_to_goal = \
-                convert_path_coordinates(self.simulation_origin, self.simulation_shape,
+                convert_path_coordinates(simulation_origin=self.simulation_origin,
+                                         simulation_size=self.simulation_shape,
                                          simulation_path=self.simulation_path_to_goal)
 
             # --> If arrived at goal

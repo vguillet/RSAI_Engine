@@ -68,8 +68,9 @@ class Equipment:
         # --> Add item to equipment
         if self.equipment_dict[item.type] is not None:
             # --> Remove current equipped item
-            inventory_dict, states_dict = \
-                self.unequip_item(inventory_dict, states_dict, self.equipment_dict[item.type])
+            inventory_dict, states_dict = self.unequip_item(inventory_dict=inventory_dict,
+                                                            states_dict=states_dict,
+                                                            item=self.equipment_dict[item.type])
 
         # --> Equip item
         self.equipment_dict[item.type] = item
@@ -106,7 +107,11 @@ class Equipment:
         :return: Updated inventory_dict and states_dict
         """
         if len(inventory_dict["Content"]) + 1 > 4*7:
-            print("Inventory is full")
+            print("!!!! Inventory is full !!!!")
+            return inventory_dict, states_dict
+
+        elif self.equipment_dict[item.type] is None or self.equipment_dict[item.type] != item:
+            print("!!!! Item is not equipped !!!!")
             return inventory_dict, states_dict
 
         else:

@@ -34,8 +34,32 @@ class Map_view_GUI:
                                "Agent": QPixmap(array2qimage(gui.views.agent_view, normalize=True))}
                 }
 
+    @staticmethod
+    def update_views_dict(gui):
+        if gui.current_view == "world":
+            gui.views_dict["world"]["Map"] = QPixmap(gui.simulation.world_image_path)
+            gui.views_dict["world"]["Obstacles"] = QPixmap(gui.simulation.obstacle_image_path)
+            return
+
+        else:
+            if gui.current_sim_view == "Overview":
+                gui.views_dict["simulation"]["Overview"] = QPixmap(array2qimage(gui.views.overview, normalize=True))
+                return
+
+            elif gui.current_sim_view == "Obstacles":
+                gui.views_dict["simulation"]["Obstacles"] = QPixmap(array2qimage(gui.views.obstacle_view, normalize=True))
+                return
+
+            elif gui.current_sim_view == "POIs":
+                gui.views_dict["simulation"]["POIs"] = QPixmap(array2qimage(gui.views.POI_view, normalize=True))
+                return
+
+            elif gui.current_sim_view == "Agent":
+                gui.views_dict["simulation"]["Agent"] = QPixmap(array2qimage(gui.views.agent_view, normalize=True))
+                return
+
     def update_map_view(self, gui):
-        gui.views_dict = self.gen_views_dict(gui)
+        self.update_views_dict(gui)
 
         # --> Scale pixmap
         x_scale, y_scale = gui.scale

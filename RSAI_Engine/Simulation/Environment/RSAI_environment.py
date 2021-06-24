@@ -43,10 +43,12 @@ class RSAI_environment:
             sys.exit()
 
         # --> Setup obstacle grid
-        obstacle_grid = gen_obstacle_grid(world_image, obstacle_image_path)
+        obstacle_grid = gen_obstacle_grid(world_image=world_image,
+                                          obstacle_image_path=obstacle_image_path)
 
         # --> Setup POI grid and dict
-        POI_grid, self.POI_dict = gen_POI_grid(self.origin, obstacle_grid.shape)
+        POI_grid, self.POI_dict = gen_POI_grid(simulation_origin=self.origin,
+                                               simulation_size=obstacle_grid.shape)
 
         self.shape = obstacle_grid.shape
 

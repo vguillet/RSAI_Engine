@@ -30,18 +30,17 @@ class Views:
         # --> Adding obstacles to overview
         overview = self.simulation.environment.grids_dict["Obstacle"].copy()
 
-        # --> Adding paths to overview
+        for agent in self.simulation.agent_lst:
+            # --> Adding agent path to overview
+            if agent.goal is not None:
+                for step in agent.simulation_path_to_goal:
+                    overview[step[1]][step[0]] = 5
 
-        # --> Adding agent path to overview
-        if self.simulation.agent.goal is not None:
-            for step in self.simulation.agent.simulation_path_to_goal:
-                overview[step[1]][step[0]] = 5
+            # --> Adding agent to overview
+            overview[agent.simulation_pos[1]][agent.simulation_pos[0]] = 15
 
         # --> Adding POIs to overview
         overview += self.simulation.environment.grids_dict["POI"] * 10
-
-        # --> Adding agent to overview
-        overview[self.simulation.agent.simulation_pos[1]][self.simulation.agent.simulation_pos[0]] = 15
 
         return overview
 
@@ -57,14 +56,13 @@ class Views:
     def agent_view(self):
         agent_view = np.zeros(self.simulation.environment.shape)
 
-        # --> Adding agent path to overview
-        if self.simulation.agent.goal is not None:
-            for step in self.simulation.agent.simulation_path_to_goal:
-                agent_view[step[1]][step[0]] = 1
+        for agent in self.simulation.agent_lst:
+            # --> Adding agent path
+            if agent.goal is not None:
+                for step in agent.simulation_path_to_goal:
+                    agent_view[step[1]][step[0]] = 1
 
-        # --> Add agent position
-        agent_view[self.simulation.agent.simulation_pos[1]][self.simulation.agent.simulation_pos[0]] = 10
-
-        # --> Add agent path
+            # --> Add agent position
+            agent_view[agent.simulation_pos[1]][agent.simulation_pos[0]] = 10
 
         return agent_view

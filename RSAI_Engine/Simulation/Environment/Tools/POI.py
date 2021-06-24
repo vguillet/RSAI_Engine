@@ -33,8 +33,10 @@ class POI:
         self.label = label
 
         # --> Setup POI position
-        self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin, simulation_size,
-                                                                  world_pos, sim_pos)
+        self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin=simulation_origin,
+                                                                  simulation_size=simulation_size,
+                                                                  world_pos=world_pos,
+                                                                  simulation_pos=sim_pos)
 
         # ----- Setup POI content
         # --> Generate ef dictionary
