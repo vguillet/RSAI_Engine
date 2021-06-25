@@ -11,7 +11,7 @@ import cv2
 import numpy as np
 
 # Own modules
-from src.Simulation.Environment.RSAI_environment import RSAI_environment
+from src.Simulation.Environment.Environment import Environment
 from src.Simulation.Agent.RSAI_agent import RSAI_agent
 
 __version__ = '1.1.1'

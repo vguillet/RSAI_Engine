@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 # Own modules
 from src.Simulation.Environment.Grids.Obstacle_grid_gen import gen_obstacle_grid
 from src.Simulation.Environment.Grids.POI_grid_gen import gen_POI_grid
+from src.Simulation.Environment.Grids.Path_grid_gen import gen_path_grid
 
 # from src.Visualiser.Visualiser import Visualiser
 # from src.Visualiser.Visualiser_tools import Visualiser_tools
@@ -25,10 +26,12 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-class RSAI_environment:
+class Environment:
     def __init__(self,
                  world_image=None,
-                 obstacle_image_path="src\Data\Environment\Obstacle_image.png",
+                 obstacle_image_path="src\Data\Assets\Environment\Obstacle_image.png",
+                 path_image_path="src\Data\Assets\Environment\Path_image.png",
+
                  sim_origin: "World coordinates tuple" = (3136, 3136)):
         """
         RSAI environment class, used to generate RSAI environments
@@ -46,6 +49,10 @@ class RSAI_environment:
         obstacle_grid = gen_obstacle_grid(world_image=world_image,
                                           obstacle_image_path=obstacle_image_path)
 
+        # --> Setup path grid
+        path_grid = gen_path_grid(world_image=world_image,
+                                  path_image_path=path_image_path)
+
         # --> Setup POI grid and dict
         POI_grid, self.POI_dict = gen_POI_grid(simulation_origin=self.origin,
                                                simulation_size=obstacle_grid.shape)
@@ -54,6 +61,7 @@ class RSAI_environment:
 
         # --> Setup grids dictionary
         self.grids_dict = {"Obstacle": obstacle_grid,
+                           "Path": path_grid,
                            "POI": POI_grid}
 
         print("- Environment initiated:", self)

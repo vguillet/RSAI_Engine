@@ -25,29 +25,29 @@ __date__ = '26/04/2020'
 ##################################################################################################################
 
 
-def gen_obstacle_grid(world_image, obstacle_image_path=None):
+def gen_path_grid(world_image, path_image_path=None):
     # --> Load image
     img_hsv = cv2.cvtColor(world_image, cv2.COLOR_BGR2HSV)
 
     # --> Filter image colors
-    # -> Create Walls/icon mask
-    walls_low = np.asarray([0, 0, 150])
-    walls_high = np.asarray([150, 150, 255])
+    # -> Create stone_road mask
+    stone_road_low = np.asarray([0, 0, 0])
+    stone_road_high = np.asarray([360, 50, 100])
 
-    walls_mask = cv2.inRange(img_hsv, walls_low, walls_high)
+    stone_road_mask = cv2.inRange(img_hsv, stone_road_low, stone_road_high)
 
-    # -> Create Water mask
-    water_low = np.asarray([50, 50, 50])
-    water_high = np.asarray([118, 143, 193])
+    # -> Create dirt_road mask
+    dirt_road_low = np.asarray([0, 0, 0])
+    dirt_road_high = np.asarray([180, 21, 50])
 
-    water_mask = cv2.inRange(img_hsv, water_low, water_high)
+    dirt_road_mask = cv2.inRange(img_hsv, dirt_road_low, dirt_road_high)
 
     # -> Add masks
-    mask = cv2.bitwise_or(walls_mask, water_mask)
+    mask = cv2.bitwise_or(stone_road_mask, dirt_road_mask)
 
     # --> Save obstacle image if path provided
-    if obstacle_image_path is not None:
-        cv2.imwrite(obstacle_image_path, mask)
+    if path_image_path is not None:
+        cv2.imwrite(path_image_path, mask)
 
     # cv2.imshow("mask", mask)
     # cv2.waitKey(0)
@@ -84,13 +84,4 @@ def gen_obstacle_grid(world_image, obstacle_image_path=None):
     # np.save("world_array", world_obstacles_array)
 
     return world_obstacles_array
-
-
-if __name__ == "__main__":
-    world_obstacles_array = gen_obstacle_grid(world_image=cv2.imread("src\Data\Assets\Environment\World_image_L.png", cv2.IMREAD_UNCHANGED),
-                                              obstacle_image_path="src\Data\Environment\Obstacle_image.png")
-
-    plt.imshow(world_obstacles_array)
-    plt.colorbar()
-    plt.show()
 

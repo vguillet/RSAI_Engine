@@ -13,7 +13,7 @@ import cv2
 from faker import Faker
 
 # Own modules
-from src.Simulation.Environment.RSAI_environment import RSAI_environment
+from src.Simulation.Environment.Environment import Environment
 from src.Simulation.Agent.RSAI_agent import RSAI_agent
 from src.Simulation.Items.Item import Item
 
@@ -38,15 +38,15 @@ class RSAI_simulation:
         self.world_image = cv2.imread(world_image_path, cv2.IMREAD_UNCHANGED)
 
         # --> Create environment
-        self.environment = RSAI_environment(world_image=self.world_image,
-                                            obstacle_image_path=self.obstacle_image_path,
-                                            sim_origin=sim_origin)
+        self.environment = Environment(world_image=self.world_image,
+                                       obstacle_image_path=self.obstacle_image_path,
+                                       sim_origin=sim_origin)
         # --> Create agentS
         self.agent_lst = []
 
         fake = Faker()
 
-        for _ in range(5):
+        for _ in range(1):
             self.agent_lst.append(RSAI_agent(name=fake.name(),
                                              simulation_origin=self.environment.origin,
                                              simulation_shape=self.environment.shape,
@@ -93,3 +93,8 @@ class RSAI_simulation:
 
             time.sleep(0.005)
             progress_callback.emit()
+
+
+if __name__ == "__main__":
+    RSAI_simulation()
+    print("Done")
