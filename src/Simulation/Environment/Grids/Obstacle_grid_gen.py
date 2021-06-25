@@ -30,20 +30,27 @@ def gen_obstacle_grid(world_image, obstacle_image_path=None):
     img_hsv = cv2.cvtColor(world_image, cv2.COLOR_BGR2HSV)
 
     # --> Filter image colors
-    # -> Create Walls/icon mask
-    walls_low = np.asarray([0, 0, 150])
-    walls_high = np.asarray([150, 150, 255])
+    # -> Create Walls mask
+    walls_low = np.asarray([0, 0, 255])
+    walls_high = np.asarray([0, 0, 255])
 
     walls_mask = cv2.inRange(img_hsv, walls_low, walls_high)
 
     # -> Create Water mask
-    water_low = np.asarray([50, 50, 50])
-    water_high = np.asarray([118, 143, 193])
+    water_low = np.asarray([110, 99, 193])
+    water_high = np.asarray([110, 99, 193])
 
     water_mask = cv2.inRange(img_hsv, water_low, water_high)
 
+    # -> Create Icons mask
+    icons_low = np.asarray([120, 255, 1])
+    icons_high = np.asarray([120, 255, 1])
+
+    icons_mask = cv2.inRange(img_hsv, icons_low, icons_high)
+
     # -> Add masks
     mask = cv2.bitwise_or(walls_mask, water_mask)
+    mask = cv2.bitwise_or(icons_mask, mask)
 
     # --> Save obstacle image if path provided
     if obstacle_image_path is not None:

@@ -31,19 +31,33 @@ def gen_path_grid(world_image, path_image_path=None):
 
     # --> Filter image colors
     # -> Create stone_road mask
-    stone_road_low = np.asarray([0, 0, 0])
-    stone_road_high = np.asarray([360, 50, 100])
+    stone_road_low = np.asarray([0, 0, 80])
+    stone_road_high = np.asarray([0, 0, 80])
 
     stone_road_mask = cv2.inRange(img_hsv, stone_road_low, stone_road_high)
 
-    # -> Create dirt_road mask
-    dirt_road_low = np.asarray([0, 0, 0])
-    dirt_road_high = np.asarray([180, 21, 50])
+    # -> Create desert_road mask
+    desert_road_low = np.asarray([26, 122, 130])
+    desert_road_high = np.asarray([26, 122, 130])
 
-    dirt_road_mask = cv2.inRange(img_hsv, dirt_road_low, dirt_road_high)
+    desert_road_mask = cv2.inRange(img_hsv, desert_road_low, desert_road_high)
+
+    # -> Create dirt_road_1 mask
+    dirt_road_1_low = np.asarray([20, 51, 120])
+    dirt_road_1_high = np.asarray([20, 51, 120])
+
+    dirt_road_1_mask = cv2.inRange(img_hsv, dirt_road_1_low, dirt_road_1_high)
+
+    # -> Create dirt_road_2 mask
+    dirt_road_2_low = np.asarray([0, 0, 120])
+    dirt_road_2_high = np.asarray([255, 255, 120])
+
+    dirt_road_2_mask = cv2.inRange(img_hsv, dirt_road_2_low, dirt_road_2_high)
 
     # -> Add masks
-    mask = cv2.bitwise_or(stone_road_mask, dirt_road_mask)
+    mask = cv2.bitwise_or(stone_road_mask, desert_road_mask)
+    mask = cv2.bitwise_or(dirt_road_1_mask, mask)
+    mask = cv2.bitwise_or(dirt_road_2_mask, mask)
 
     # --> Save obstacle image if path provided
     if path_image_path is not None:

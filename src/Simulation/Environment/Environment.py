@@ -46,8 +46,8 @@ class Environment:
             sys.exit()
 
         # --> Setup obstacle grid
-        obstacle_grid = gen_obstacle_grid(world_image=world_image,
-                                          obstacle_image_path=obstacle_image_path)
+        # obstacle_grid = gen_obstacle_grid(world_image=world_image,
+        #                                   obstacle_image_path=obstacle_image_path)
 
         # --> Setup path grid
         path_grid = gen_path_grid(world_image=world_image,
