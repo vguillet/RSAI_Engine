@@ -27,6 +27,13 @@ class Views:
         # --> Adding obstacles to overview
         overview = self.simulation.environment.grids_dict["Obstacle"].copy()
 
+        overview[overview == 0] = int(2)
+        overview[overview == 1] = int(0)
+        overview[overview == 0] = int(1)
+
+        # --> Adding paths to overview
+        overview += self.simulation.environment.grids_dict["Path"] * 2
+
         for agent in self.simulation.swarm.population:
             # --> Adding agent path to overview
             if agent.goal is not None:
@@ -44,6 +51,10 @@ class Views:
     @property
     def obstacle_view(self):
         return self.simulation.environment.grids_dict["Obstacle"]
+
+    @property
+    def path_view(self):
+        return self.simulation.environment.grids_dict["Path"]
 
     @property
     def POI_view(self):

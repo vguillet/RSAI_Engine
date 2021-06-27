@@ -64,7 +64,15 @@ class Swarm:
 
             else:
                 agent.move(environments_grids=environments_grids,
-                           swarm_grids=self.grids_dict)
+                           swarm_grids=self.grids_dict,
+                           pheromone_weight=1,
+                           path_weight=0)
+
+                # --> If arrived at goal
+                if agent.simulation_pos == agent.goal.simulation_pos:
+                    print("Route found:", len(agent.simulation_route_to_goal))
+
+                    agent.clear_goal()
 
     def reset_pheromones(self):
         for POI in self.grids_dict["Path pheromone"].keys():
@@ -83,11 +91,11 @@ class Swarm:
         # --> Update pheromone linearly increasing from start to POI
         for index, step in enumerate(route):
             self.grids_dict["Path pheromone"][POI][step[0], step[1]] += throttle(current_iteration=index,
-                                                                                  nb_of_iterations=len(route),
-                                                                                  max_value=pheromone_update,
-                                                                                  min_value=0,
-                                                                                  direction="up",
-                                                                                  decay_function=1)
+                                                                                 nb_of_iterations=len(route),
+                                                                                 max_value=pheromone_update,
+                                                                                 min_value=0,
+                                                                                 direction="up",
+                                                                                 decay_function=1)
         return
 
     def evaporate_path_pheromones(self, evaporation_rate):

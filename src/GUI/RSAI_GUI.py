@@ -129,7 +129,7 @@ class RSAI_GUI():
         if self.current_scale == "fit":
             return 10000, 635
         else:
-            return 530, 10000
+            return 1590, 30000
 
     @property
     def view_pixmap(self):

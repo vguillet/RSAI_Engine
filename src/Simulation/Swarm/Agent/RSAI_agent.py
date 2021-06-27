@@ -137,7 +137,7 @@ class Agent:
         # --> Set new goal
         self.goal = POI
 
-    def move(self, environments_grids, swarm_grids):
+    def move(self, environments_grids, swarm_grids, pheromone_weight=1, path_weight=1):
         if self.goal is None:
             print("!!!!! No goal specified !!!!!")
 
@@ -148,71 +148,81 @@ class Agent:
             #   d x e
             #   f g h
 
+            # =================================
             # ----- a
-            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1] != 1:
-                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] + 1])
-
-            # --> b
-            if environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] + 1] != 1:
-                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] + 1])
-
-            # --> c
-            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1] != 1:
-                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] + 1])
-
-            # --> d
-            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1]] != 1:
-                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1]])
-
-            # --> e
-            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1]] != 1:
-                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1]])
-
-            # --> f
             if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1] != 1:
                 possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] - 1])
 
-            # --> g
-            if environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] - 1] != 1:
-                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] - 1])
+            # --> b
+            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1]] != 1:
+                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1]])
 
-            # --> h
+            # --> c
+            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1] != 1:
+                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] + 1])
+
+            # =================================
+            # --> d
+            if environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] - 1] != 1:
+                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1]])
+
+            # --> e
+            if environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] + 1] != 1:
+                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] + 1])
+
+            # =================================
+            # --> f
             if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1] != 1:
                 possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] - 1])
+
+            # --> g
+            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1]] != 1:
+                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1]])
+
+            # --> h
+            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1] != 1:
+                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] + 1])
 
             # --> Remove previous direction as option
             if len(self.simulation_route_to_goal) > 1:
                 possible_steps.remove(self.simulation_route_to_goal[-1])
 
-            possible_steps_pheromone = []
-            total_surrounding_pheromone = 0
+            possible_steps_appeal = []
+            total_surrounding_appeal = 0
 
+            # --> Determine step appeal
             for possible_step in possible_steps:
-                step_pheromone = swarm_grids["Path pheromone"][self.goal.name][possible_step[0], possible_step[1]]
-                possible_steps_pheromone.append(step_pheromone)
-                total_surrounding_pheromone += step_pheromone
+                # --> Pheromone + path bias
+                step_appeal = swarm_grids["Path pheromone"][self.goal.name][possible_step[0], possible_step[1]] * pheromone_weight + \
+                              environments_grids["Path"][possible_step[0], possible_step[1]] * path_weight
 
-            possible_steps = list(zip(possible_steps, possible_steps_pheromone))
+                possible_steps_appeal.append(step_appeal)
+                total_surrounding_appeal += step_appeal
+
+            possible_steps = list(zip(possible_steps, possible_steps_appeal))
+
+            print(possible_steps)
 
             # --> Randomize the order in which possible steps will be evaluated
             random.shuffle(possible_steps)
 
             # --> Pick a step to take
             random_number = random.random()
+
             for step in possible_steps:
                 # --> Compute probability this step should be taken
-                relative_pheromone = step[-1] / total_surrounding_pheromone
+
+                if total_surrounding_appeal != 0:
+                    relative_pheromone = step[-1] / total_surrounding_appeal
+                else:
+                    relative_pheromone = step[-1]
 
                 # --> Take this step if the probability roll picked this step
                 if relative_pheromone >= random_number:
+                    self.simulation_route_to_goal.append(step[0])
                     self.simulation_pos = step[0]
                 else:
                     random_number -= relative_pheromone
-
-            # --> If arrived at goal
-            if self.simulation_pos == self.goal.simulation_pos:
-                print("Route found:", len(self.simulation_route_to_goal))
-                self.clear_goal()
 
             # --> Increase age
             self.age += 1

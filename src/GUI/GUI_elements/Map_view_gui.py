@@ -26,10 +26,11 @@ class Map_view_GUI:
     @staticmethod
     def gen_views_dict(gui):
         return {"world": {"Map": QPixmap(gui.simulation.world_image_path),
-                          "Obstacles": QPixmap(gui.simulation.obstacle_image_path)},
+                          "Obstacle": QPixmap(gui.simulation.obstacle_image_path)},
 
                 "simulation": {"Overview": QPixmap(array2qimage(gui.views.overview, normalize=True)),
                                "Obstacles": QPixmap(array2qimage(gui.views.obstacle_view, normalize=True)),
+                               "Paths": QPixmap(array2qimage(gui.views.path_view, normalize=True)),
                                "POIs": QPixmap(array2qimage(gui.views.POI_view, normalize=True)),
                                "Agent": QPixmap(array2qimage(gui.views.agent_view, normalize=True))}
                 }
@@ -48,6 +49,10 @@ class Map_view_GUI:
 
             elif gui.current_sim_view == "Obstacles":
                 gui.views_dict["simulation"]["Obstacles"] = QPixmap(array2qimage(gui.views.obstacle_view, normalize=True))
+                return
+
+            elif gui.current_sim_view == "Paths":
+                gui.views_dict["simulation"]["Paths"] = QPixmap(array2qimage(gui.views.path_view, normalize=True))
                 return
 
             elif gui.current_sim_view == "POIs":

@@ -95,21 +95,30 @@ def gen_path_grid(world_image, path_image_path=None):
         mask = cv2.bitwise_or(dirt_road_5_mask, mask)
         mask = cv2.bitwise_or(dirt_road_6_mask, mask)
 
-        # --> Save obstacle image if path provided
+        # --> Save path image if path provided
         if path_image_path is not None:
             cv2.imwrite(path_image_path, mask)
 
-        # cv2.imshow("mask", mask)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
+    # cv2.imshow("mask", mask)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
-        # -> Set obstacles to 1 and rest to 0 on mask
-        mask[mask == 0] = int(0)
-        mask[mask == 255] = int(1)
+    # -> Set paths to 1 and rest to 0 on mask
+    mask[mask == 0] = int(1)
+    mask[mask == 255] = int(0)
 
     # --> Reduce mask to world scale
     world_path_array = reduce_grid_scale(array=mask, scale_factor=4)
     # np.save("world_array", world_path_array)
 
     return world_path_array
+
+
+if __name__ == "__main__":
+    path_obstacles_array = gen_path_grid(world_image=cv2.imread("src\Data\Assets\Environment\World_image_L.png", cv2.IMREAD_UNCHANGED),
+                                         path_image_path="src\Data\Environment\Path_image.png")
+
+    plt.imshow(path_obstacles_array)
+    plt.colorbar()
+    plt.show()
 

@@ -69,12 +69,14 @@ def gen_obstacle_grid(world_image, obstacle_image_path=None):
     # cv2.destroyAllWindows()
 
     # -> Set obstacles to 1 and rest to 0 on mask
-    mask[mask == 0] = int(0)
-    mask[mask == 255] = int(1)
+    mask[mask == 0] = int(1)
+    mask[mask == 255] = int(0)
 
     # --> Reduce mask to world scale
     world_obstacles_array = reduce_grid_scale(array=mask, scale_factor=4)
     # np.save("world_array", world_obstacles_array)
+
+    print(world_obstacles_array)
 
     return world_obstacles_array
 
