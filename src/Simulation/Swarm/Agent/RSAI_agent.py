@@ -7,6 +7,7 @@
 # Built-in/Generic Imports
 import math
 import random
+import sys
 
 # Libs
 
@@ -18,6 +19,8 @@ from src.Simulation.Swarm.Agent.States.Statistics import Statistics
 from src.Simulation.States.Equipment import Equipment
 from src.Simulation.States.Inventory import Inventory
 from src.Simulation.States.Interests import Interests
+
+from src.Simulation.Swarm.Agent.Path_finding.Route import Route
 
 from src.Simulation.Swarm.Agent.Path_finding.ASTAR_pathfinder import ASTAR_pathfinder
 from src.Simulation.Swarm.Agent.Path_finding.ACO_pathfinder import AOC_pathfinder
@@ -82,18 +85,12 @@ class Agent:
         
         # --> Setup goal tracker
         self.goal = None
-        self.goal_type = None
-        self.total_path_len = None
 
-        self.world_path_to_goal = None
-        self.simulation_path_to_goal = None
-
-        # self.pathfinder = ASTAR_pathfinder()
-        self.pathfinder = AOC_pathfinder()
+        self.simulation_route_to_goal = Route()
 
         # --> Setup memory
         self.goal_history = []
-        self.simulation_pos_history = []
+        self.simulation_route_history = []
 
         print("- Agent initiated:", self)
 
@@ -128,7 +125,7 @@ class Agent:
 
         return math.floor(base + max([self.melee_level, self.range_level, self.mage_level]))
 
-    def set_goal_POI(self, environments_grids, swarm_grids, POI):
+    def set_goal_POI(self, POI):
         if POI.simulation_pos == self.simulation_pos:
             print("!!!!! Already at goal!!!!")
             return
@@ -137,103 +134,99 @@ class Agent:
             # --> Record previous goal
             self.clear_goal()
 
-        # --> Find path for new goal
-        self.simulation_path_to_goal = self.pathfinder.find_route_to_POI(environments_grids=environments_grids,
-                                                                         swarm_grids=swarm_grids,
-                                                                         start_coordinates=self.simulation_pos,
-                                                                         POI=POI)
-
         # --> Set new goal
-        if self.simulation_path_to_goal is not None:
-            self.goal = POI
-            self.goal_type = "POI"
+        self.goal = POI
 
-            # --> Find equivalent world path
-            self.world_path_to_goal, self.simulation_path_to_goal = \
-                convert_path_coordinates(simulation_origin=self.simulation_origin,
-                                         simulation_size=self.simulation_shape,
-                                         simulation_path=self.simulation_path_to_goal)
-
-            # --> Set path length
-            self.total_path_len = len(self.simulation_path_to_goal)
-
-    def set_goal_coordinates(self, environments_grids, swarm_grids, coordinates):
-        if coordinates == self.simulation_pos:
-            print("!!!!! Already at goal!!!!")
-            return
-
-        if self.goal is not None:
-            # --> Record previous goal
-            self.clear_goal()
-
-        # --> Set new goal
-        self.goal = coordinates
-        self.goal_type = "Coordinates"
-
-        # --> Find path for new goal
-        self.simulation_path_to_goal = self.pathfinder.find_route_to_coordinate(environments_grids=environments_grids,
-                                                                                swarm_grids=swarm_grids,
-                                                                                start_coordinates=self.simulation_pos,
-                                                                                goal_coordinates=coordinates)
-        # --> Find equivalent world path
-        self.world_path_to_goal, self.simulation_path_to_goal = \
-            convert_path_coordinates(self.simulation_origin, self.simulation_shape,
-                                     simulation_path=self.simulation_path_to_goal)
-
-        # --> Set path length
-        self.total_path_len = len(self.simulation_path_to_goal)
-
-    def move(self):
+    def move(self, environments_grids, swarm_grids):
         if self.goal is None:
             print("!!!!! No goal specified !!!!!")
 
         else:
-            # --> Record position
-            self.simulation_pos_history.append(self.simulation_pos)
+            possible_steps = []
 
-            # --> Step according to path
-            self.simulation_pos = self.simulation_path_to_goal[0]
-            self.world_pos, _ = convert_coordinates(simulation_origin=self.simulation_origin,
-                                                    simulation_size=self.simulation_shape,
-                                                    simulation_pos=self.simulation_pos)
+            #   a b c
+            #   d x e
+            #   f g h
 
-            # --> Remove step from path
-            del self.simulation_path_to_goal[0]
+            # ----- a
+            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1] != 1:
+                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] + 1])
 
-            # --> Find equivalent world path
-            self.world_path_to_goal, self.simulation_path_to_goal = \
-                convert_path_coordinates(simulation_origin=self.simulation_origin,
-                                         simulation_size=self.simulation_shape,
-                                         simulation_path=self.simulation_path_to_goal)
+            # --> b
+            if environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] + 1] != 1:
+                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] + 1])
+
+            # --> c
+            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1] != 1:
+                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] + 1])
+
+            # --> d
+            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1]] != 1:
+                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1]])
+
+            # --> e
+            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1]] != 1:
+                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1]])
+
+            # --> f
+            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1] != 1:
+                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] - 1])
+
+            # --> g
+            if environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] - 1] != 1:
+                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] - 1])
+
+            # --> h
+            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1] != 1:
+                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] - 1])
+
+            # --> Remove previous direction as option
+            if len(self.simulation_route_to_goal) > 1:
+                possible_steps.remove(self.simulation_route_to_goal[-1])
+
+            possible_steps_pheromone = []
+            total_surrounding_pheromone = 0
+
+            for possible_step in possible_steps:
+                step_pheromone = swarm_grids["Path pheromone"][self.goal.name][possible_step[0], possible_step[1]]
+                possible_steps_pheromone.append(step_pheromone)
+                total_surrounding_pheromone += step_pheromone
+
+            possible_steps = list(zip(possible_steps, possible_steps_pheromone))
+
+            # --> Randomize the order in which possible steps will be evaluated
+            random.shuffle(possible_steps)
+
+            # --> Pick a step to take
+            random_number = random.random()
+            for step in possible_steps:
+                # --> Compute probability this step should be taken
+                relative_pheromone = step[-1] / total_surrounding_pheromone
+
+                # --> Take this step if the probability roll picked this step
+                if relative_pheromone >= random_number:
+                    self.simulation_pos = step[0]
+                else:
+                    random_number -= relative_pheromone
 
             # --> If arrived at goal
-            if len(self.simulation_path_to_goal) == 0:
-                # --> Record previous goal
-                self.goal_history.append(self.goal)
+            if self.simulation_pos == self.goal.simulation_pos:
+                print("Route found:", len(self.simulation_route_to_goal))
+                self.clear_goal()
 
-                # --> Reset goal trackers
-                self.goal = None
-                self.goal_type = None
-                self.total_path_len = None
-
-                self.world_path_to_goal = None
-                self.simulation_path_to_goal = None
+            # --> Increase age
+            self.age += 1
 
     def clear_goal(self):
         # --> Record previous goal
         self.goal_history.append(self.goal)
+        self.simulation_route_history.append(self.simulation_route_to_goal)
 
         # --> Reset goal trackers
         self.goal = None
-        self.goal_type = None
-        self.total_path_len = None
 
-        self.world_path_to_goal = None
-        self.simulation_path_to_goal = None
-
-    def check_final_state(self):
-        # TODO: Implement check final state
-        return False
+        # --> Rest route
+        self.simulation_route_to_goal = Route()
 
     def reset(self):
         # TODO: Implement reset agent/sim

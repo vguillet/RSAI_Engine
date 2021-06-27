@@ -88,8 +88,8 @@ class Map_view_GUI:
             # --> If goal is set
             if gui.simulation.agent.goal is not None:
                 # --> Set step text
-                gui.main_window.step_pos_world_coordinates.setText(str(gui.simulation.swarm.population[0].world_path_to_goal[0]))
-                gui.main_window.step_pos_simulation_coordinates.setText(str(gui.simulation.swarm.population[0].simulation_path_to_goal[0]))
+                gui.main_window.step_pos_world_coordinates.setText(str(gui.simulation.swarm.population[0].world_route_to_goal[0]))
+                gui.main_window.step_pos_simulation_coordinates.setText(str(gui.simulation.swarm.population[0].simulation_route_to_goal[0]))
 
                 # --> Set name text
                 if gui.simulation.agent.goal_type == "POI":
@@ -104,7 +104,7 @@ class Map_view_GUI:
 
                 # --> Set path text
                 gui.main_window.total_path_length.setText(str(gui.simulation.swarm.population[0].total_path_len))
-                gui.main_window.steps_to_goal.setText(str(len(gui.simulation.swarm.population[0].simulation_path_to_goal) - 1))
+                gui.main_window.steps_to_goal.setText(str(len(gui.simulation.swarm.population[0].simulation_route_to_goal) - 1))
 
                 return
         else:

@@ -28,53 +28,61 @@ class Swarm:
     def __init__(self,
                  simulation_origin,
                  simulation_shape,
-                 start_world_pos=(3216, 3219),
+                 start_world_pos: tuple = (3216, 3219),
+                 start_simulation_pos: tuple = None,
                  population_size=1):
+
+        # --> Environment
+        self.simulation_origin = simulation_origin
+        self.simulation_shape = simulation_shape
 
         # --> Generate swarm population
         self.population = []
         self.generate_population(population_size=population_size,
                                  simulation_origin=simulation_origin,
                                  simulation_shape=simulation_shape,
-                                 start_world_pos=start_world_pos)
+                                 start_world_pos=start_world_pos,
+                                 start_simulation_pos=start_simulation_pos)
 
         # --> Setup swarm grids
-        self.grids_dict = {"Path pheromones": {}}
+        self.grids_dict = {"Path pheromone": {}}
 
-    def step(self, POI_dict, environments_grids, swarm_grids):
+    def step(self, POI_dict, environments_grids):
+        # TODO: Deal with unreachable goals
         for agent in self.population:
             if agent.goal is None:
-                while agent.goal is None:
-                    # --> Pick random goal
-                    goal = random.choice(list(POI_dict.keys()))
+                # --> Pick random goal
+                goal = random.choice(list(POI_dict.keys()))
 
-                    # --> Set goal
-                    agent.set_goal_POI(environments_grids=environments_grids,
-                                       swarm_grids=swarm_grids,
-                                       POI=POI_dict[goal])
+                if goal not in self.grids_dict["Path pheromone"].keys():
+                    self.grids_dict["Path pheromone"][goal] = np.zeros(self.simulation_shape)
+
+                # --> Set goal
+                agent.set_goal_POI(POI=POI_dict[goal])
 
                 print(f"- {agent.name} - New Goal:", agent.goal)
 
             else:
-                agent.move()
-
-                if len(agent.simulation_path_to_goal) == 0:
-
-                    agent.clear_goal()
+                agent.move(environments_grids=environments_grids,
+                           swarm_grids=self.grids_dict)
 
     def reset_pheromones(self):
-        for POI in self.grids_dict["Path pheromones"]:
-            self.grids_dict["Path pheromones"][POI] = np.zeros(self.grids_dict["Path pheromones"][POI].shape)
+        for POI in self.grids_dict["Path pheromone"].keys():
+            self.grids_dict["Path pheromone"][POI] = np.zeros(self.simulation_shape)
 
     def update_path_pheromones(self, POI, route, energy_cost, q):
+        # --> Reduce route
+        route = route.reduced
+
         if len(route) == 0:
             return
 
+        # --> Calculate max pheromone
         pheromone_update = q / (len(route) + energy_cost)
 
-        # --> Update pheromone  with a linear decay from POI to start
+        # --> Update pheromone linearly increasing from start to POI
         for index, step in enumerate(route):
-            self.grids_dict["Path pheromones"][POI][step[0], step[1]] += throttle(current_iteration=index,
+            self.grids_dict["Path pheromone"][POI][step[0], step[1]] += throttle(current_iteration=index,
                                                                                   nb_of_iterations=len(route),
                                                                                   max_value=pheromone_update,
                                                                                   min_value=0,
@@ -84,20 +92,21 @@ class Swarm:
 
     def evaporate_path_pheromones(self, evaporation_rate):
         # print("Evaporating")
-        for POI in self.grids_dict["Path pheromones"]:
-            for x in range(len(self.grids_dict["Path pheromones"][POI])):
-                for y in range(len(self.grids_dict["Path pheromones"][POI][x])):
-                    if self.grids_dict["Path pheromones"][POI][x, y] <= 1:
+        for POI in self.grids_dict["Path pheromone"]:
+            for x in range(len(self.grids_dict["Path pheromone"][POI])):
+                for y in range(len(self.grids_dict["Path pheromone"][POI][x])):
+                    if self.grids_dict["Path pheromone"][POI][x, y] <= 1:
                         continue
                     else:
-                        self.grids_dict["Path pheromones"][POI][x, y] = \
-                            max(self.grids_dict["Path pheromones"][POI][x, y] * (1 - evaporation_rate), 1)
+                        self.grids_dict["Path pheromone"][POI][x, y] = \
+                            max(self.grids_dict["Path pheromone"][POI][x, y] * (1 - evaporation_rate), 1)
 
     def generate_population(self,
                             population_size,
                             simulation_origin,
                             simulation_shape,
-                            start_world_pos):
+                            start_world_pos,
+                            start_simulation_pos):
         fake = Faker()
 
         # --> Add agents to list
@@ -105,7 +114,8 @@ class Swarm:
             self.population.append(Agent(name=fake.name(),
                                          simulation_origin=simulation_origin,
                                          simulation_shape=simulation_shape,
-                                         start_world_pos=start_world_pos))
+                                         start_world_pos=start_world_pos,
+                                         start_simulation_pos=start_simulation_pos))
 
         # --> Equip some items
         equipment = [Item("Helm", "Med_helm", "Iron"),

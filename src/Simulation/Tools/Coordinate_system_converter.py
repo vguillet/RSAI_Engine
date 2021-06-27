@@ -50,9 +50,9 @@ def convert_coordinates(simulation_origin, simulation_size,
         sys.exit()
 
 
-def convert_path_coordinates(simulation_origin, simulation_size,
-                             world_path: tuple = None,
-                             simulation_path: tuple = None):
+def convert_route_coordinates(simulation_origin, simulation_size,
+                              world_path: tuple = None,
+                              simulation_path: tuple = None):
     """
     Used to convert from both from world coordinates to sim coordinates and back.
     Specify known path.

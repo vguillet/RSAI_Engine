@@ -30,7 +30,7 @@ class Views:
         for agent in self.simulation.swarm.population:
             # --> Adding agent path to overview
             if agent.goal is not None:
-                for step in agent.simulation_path_to_goal:
+                for step in agent.simulation_route_to_goal:
                     overview[step[1]][step[0]] = 5
 
             # --> Adding agent to overview
@@ -56,7 +56,7 @@ class Views:
         for agent in self.simulation.swarm.population:
             # --> Adding agent path
             if agent.goal is not None:
-                for step in agent.simulation_path_to_goal:
+                for step in agent.simulation_route_to_goal:
                     agent_view[step[1]][step[0]] = 1
 
             # --> Add agent position

@@ -99,7 +99,7 @@ class RSAI_GUI():
     def run_simulation(self):
         self.main_window.engine_state.setText("Running")
 
-        worker = Worker(self.simulation.run_simulation)
+        worker = Worker(self.simulation.gui_run_simulation)
         worker.signals.progress.connect(self.update_gui)
 
         self.threadpool.start(worker)

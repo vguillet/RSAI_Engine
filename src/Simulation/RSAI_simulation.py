@@ -31,11 +31,8 @@ class RSAI_simulation:
 
         self.simulation_origin = (2944, 3072)   # (2944, 3519) (3136, 3136), from bottom left
 
-        # --> Load images
-        self.world_image = cv2.imread(self.world_image_path, cv2.IMREAD_UNCHANGED)
-
         # --> Create environment
-        self.environment = Environment(world_image=self.world_image,
+        self.environment = Environment(world_image_path=self.world_image_path,
                                        obstacle_image_path=self.obstacle_image_path,
                                        path_image_path=self.path_image_path,
                                        simulation_origin=self.simulation_origin)
@@ -44,17 +41,29 @@ class RSAI_simulation:
         self.swarm = Swarm(simulation_origin=self.environment.origin,
                            simulation_shape=self.environment.shape,
                            start_world_pos=(3216, 3219),
+                           start_simulation_pos=None,
                            population_size=10)
 
-    def run_simulation(self, progress_callback):
+        print("---------------------- Simulation started ----------------------")
+
+
+    def run_simulation(self):
         print("---------------------- Simulation started ----------------------")
         for agent in self.swarm.population:
             agent.goal = None
 
         while True:
             self.swarm.step(POI_dict=self.environment.POI_dict,
-                            environments_grids=self.environment.grids_dict,
-                            swarm_grids=self.swarm.grids_dict)
+                            environments_grids=self.environment.grids_dict)
+
+    def gui_run_simulation(self, progress_callback):
+        print("---------------------- Simulation started ----------------------")
+        for agent in self.swarm.population:
+            agent.goal = None
+
+        while True:
+            self.swarm.step(POI_dict=self.environment.POI_dict,
+                            environments_grids=self.environment.grids_dict)
 
             time.sleep(0.005)
 
@@ -62,6 +71,5 @@ class RSAI_simulation:
 
 
 if __name__ == "__main__":
-    RSAI_simulation()
-    RSAI_simulation.run_simulation()
-    print("Done")
+    simulation = RSAI_simulation()
+    simulation.run_simulation()

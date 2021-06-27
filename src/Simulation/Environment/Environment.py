@@ -9,6 +9,8 @@ import sys
 
 # Libs
 import matplotlib.pyplot as plt
+import cv2
+from pathlib import Path
 
 # Own modules
 from src.Simulation.Environment.Grids.Obstacle_grid_gen import gen_obstacle_grid
@@ -28,7 +30,7 @@ __date__ = '31/01/2020'
 
 class Environment:
     def __init__(self,
-                 world_image,
+                 world_image_path,
                  obstacle_image_path,
                  path_image_path,
                  simulation_origin: "World coordinates tuple" = (3136, 3136)):
@@ -40,7 +42,9 @@ class Environment:
         self.type = "Environment"
         self.origin = simulation_origin        # Origin coordinates of grid on the exploded map
 
-        if world_image is None:
+        if Path(world_image_path).is_file():
+            world_image = cv2.imread(world_image_path, cv2.IMREAD_UNCHANGED)
+        else:
             print("!!!!! Environment image is not provided !!!!!")
             sys.exit()
 
@@ -59,7 +63,8 @@ class Environment:
         self.shape = obstacle_grid.shape
 
         # --> Setup grids dictionary
-        self.grids_dict = {"Obstacle": obstacle_grid,
+        self.grids_dict = {"World": world_image,
+                           "Obstacle": obstacle_grid,
                            "Path": path_grid,
                            "POI": POI_grid}
 
