@@ -28,26 +28,25 @@ __date__ = '31/01/2020'
 
 class Environment:
     def __init__(self,
-                 world_image=None,
-                 obstacle_image_path="src\Data\Assets\Environment\Obstacle_image.png",
-                 path_image_path="src\Data\Assets\Environment\Path_image.png",
-
-                 sim_origin: "World coordinates tuple" = (3136, 3136)):
+                 world_image,
+                 obstacle_image_path,
+                 path_image_path,
+                 simulation_origin: "World coordinates tuple" = (3136, 3136)):
         """
         RSAI environment class, used to generate RSAI environments
         """
         # ----- Setup reference properties
         self.name = "RSAI environment"
         self.type = "Environment"
-        self.origin = sim_origin        # Origin coordinates of grid on the exploded map
+        self.origin = simulation_origin        # Origin coordinates of grid on the exploded map
 
         if world_image is None:
             print("!!!!! Environment image is not provided !!!!!")
             sys.exit()
 
         # --> Setup obstacle grid
-        # obstacle_grid = gen_obstacle_grid(world_image=world_image,
-        #                                   obstacle_image_path=obstacle_image_path)
+        obstacle_grid = gen_obstacle_grid(world_image=world_image,
+                                          obstacle_image_path=obstacle_image_path)
 
         # --> Setup path grid
         path_grid = gen_path_grid(world_image=world_image,
@@ -55,7 +54,7 @@ class Environment:
 
         # --> Setup POI grid and dict
         POI_grid, self.POI_dict = gen_POI_grid(simulation_origin=self.origin,
-                                               simulation_size=obstacle_grid.shape)
+                                               simulation_shape=obstacle_grid.shape)
 
         self.shape = obstacle_grid.shape
 

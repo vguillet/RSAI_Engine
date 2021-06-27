@@ -81,30 +81,30 @@ class Map_view_GUI:
     def update_position_summary(gui):
         if gui.main_window.enable_render.isChecked():
             # --> Update agent labels
-            gui.main_window.map_agent_name.setText(gui.simulation.agent_lst[0].name)
-            gui.main_window.agent_pos_world_coordinates.setText(str(gui.simulation.agent_lst[0].world_pos))
-            gui.main_window.agent_pos_simulation_coordinates.setText(str(gui.simulation.agent_lst[0].simulation_pos))
+            gui.main_window.map_agent_name.setText(gui.simulation.swarm.population[0].name)
+            gui.main_window.agent_pos_world_coordinates.setText(str(gui.simulation.swarm.population[0].world_pos))
+            gui.main_window.agent_pos_simulation_coordinates.setText(str(gui.simulation.swarm.population[0].simulation_pos))
 
             # --> If goal is set
             if gui.simulation.agent.goal is not None:
                 # --> Set step text
-                gui.main_window.step_pos_world_coordinates.setText(str(gui.simulation.agent_lst[0].world_path_to_goal[0]))
-                gui.main_window.step_pos_simulation_coordinates.setText(str(gui.simulation.agent_lst[0].simulation_path_to_goal[0]))
+                gui.main_window.step_pos_world_coordinates.setText(str(gui.simulation.swarm.population[0].world_path_to_goal[0]))
+                gui.main_window.step_pos_simulation_coordinates.setText(str(gui.simulation.swarm.population[0].simulation_path_to_goal[0]))
 
                 # --> Set name text
                 if gui.simulation.agent.goal_type == "POI":
-                    gui.main_window.goal_name.setText(str(gui.simulation.agent_lst[0].goal.name))
+                    gui.main_window.goal_name.setText(str(gui.simulation.swarm.population[0].goal.name))
 
                 elif gui.simulation.agent.goal_type == "Coordinates":
                     gui.main_window.goal_name.setText("Coordinates")
 
                 # --> Set goal coordinates
-                gui.main_window.goal_pos_world_coordinates.setText(str(gui.simulation.agent_lst[0].goal.world_pos))
-                gui.main_window.goal_pos_simulation_coordinates.setText(str(gui.simulation.agent_lst[0].goal.simulation_pos))
+                gui.main_window.goal_pos_world_coordinates.setText(str(gui.simulation.swarm.population[0].goal.world_pos))
+                gui.main_window.goal_pos_simulation_coordinates.setText(str(gui.simulation.swarm.population[0].goal.simulation_pos))
 
                 # --> Set path text
-                gui.main_window.total_path_length.setText(str(gui.simulation.agent_lst[0].total_path_len))
-                gui.main_window.steps_to_goal.setText(str(len(gui.simulation.agent_lst[0].simulation_path_to_goal) - 1))
+                gui.main_window.total_path_length.setText(str(gui.simulation.swarm.population[0].total_path_len))
+                gui.main_window.steps_to_goal.setText(str(len(gui.simulation.swarm.population[0].simulation_path_to_goal) - 1))
 
                 return
         else:

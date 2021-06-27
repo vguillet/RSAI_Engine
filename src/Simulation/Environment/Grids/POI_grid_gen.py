@@ -23,7 +23,7 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-def gen_POI_grid(simulation_origin, simulation_size):
+def gen_POI_grid(simulation_origin, simulation_shape):
 
     # --> Listing POIs to be added (coordinate in Exploded map coordinates)
     POI_lst = [
@@ -72,7 +72,7 @@ def gen_POI_grid(simulation_origin, simulation_size):
                ]
 
     # --> Creating POI array
-    POI_array = np.zeros(simulation_size)
+    POI_array = np.zeros(simulation_shape)
 
     # --> Creating environment POI dictionary
     POI_dict = {}
@@ -83,7 +83,7 @@ def gen_POI_grid(simulation_origin, simulation_size):
             POI_dict[POI_lst[i][1]] = Shop(name=POI_lst[i][1],
                                            ref=0,
                                            simulation_origin=simulation_origin,
-                                           simulation_size=simulation_size,
+                                           simulation_size=simulation_shape,
                                            world_pos=POI_lst[i][-1],
                                            traded_item_types=POI_lst[i][2])
 
@@ -91,7 +91,7 @@ def gen_POI_grid(simulation_origin, simulation_size):
             POI_dict[POI_lst[i][1]] = POI(name=POI_lst[i][1],
                                           ref=0,
                                           simulation_origin=simulation_origin,
-                                          simulation_size=simulation_size,
+                                          simulation_size=simulation_shape,
                                           world_pos=POI_lst[i][-1])
 
         POI_array[POI_dict[POI_lst[i][1]].simulation_pos[1]][POI_dict[POI_lst[i][1]].simulation_pos[0]] = 1

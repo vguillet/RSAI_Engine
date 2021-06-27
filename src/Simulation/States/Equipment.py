@@ -20,11 +20,7 @@ __date__ = '31/01/2020'
 
 class Equipment:
     def __init__(self, start_equipment_dict=None):
-        if start_equipment_dict is None:
-            self.equipment_dict = self.gen_equipment_dict()
-
-        else:
-            self.equipment_dict = start_equipment_dict
+        self.equipment_dict = start_equipment_dict or self.gen_equipment_dict()
 
     def __call__(self):
         """

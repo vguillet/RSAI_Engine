@@ -19,10 +19,7 @@ __date__ = '31/01/2020'
 
 class Inventory:
     def __init__(self, start_inventory_dict=None):
-        if start_inventory_dict is None:
-            self.inventory_dict = self.gen_inventory_dict()
-        else:
-            self.inventory_dict = start_inventory_dict
+        self.inventory_dict = start_inventory_dict or self.gen_inventory_dict()
 
         self.max_size = 4 * 7
 

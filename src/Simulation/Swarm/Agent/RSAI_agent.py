@@ -13,13 +13,14 @@ import random
 # Own modules
 from src.Settings.SETTINGS import SETTINGS
 
-from src.Simulation.Agent.States.Skills import Skills
-from src.Simulation.Agent.States.Statistics import Statistics
+from src.Simulation.Swarm.Agent.States.Skills import Skills
+from src.Simulation.Swarm.Agent.States.Statistics import Statistics
 from src.Simulation.States.Equipment import Equipment
 from src.Simulation.States.Inventory import Inventory
 from src.Simulation.States.Interests import Interests
 
-from src.Simulation.Agent.Tools.Pathfinder import Pathfinder
+from src.Simulation.Swarm.Agent.Path_finding.ASTAR_pathfinder import ASTAR_pathfinder
+from src.Simulation.Swarm.Agent.Path_finding.ACO_pathfinder import AOC_pathfinder
 
 from src.Simulation.Tools.Coordinate_system_converter import *
 
@@ -30,7 +31,7 @@ __date__ = '31/01/2020'
 ################################################################################################################
 
 
-class RSAI_agent:
+class Agent:
     def __init__(self,
                  name: "Bot name",
                  simulation_origin, simulation_shape,
@@ -87,7 +88,8 @@ class RSAI_agent:
         self.world_path_to_goal = None
         self.simulation_path_to_goal = None
 
-        self.pathfinder = Pathfinder()
+        # self.pathfinder = ASTAR_pathfinder()
+        self.pathfinder = AOC_pathfinder()
 
         # --> Setup memory
         self.goal_history = []
@@ -126,19 +128,20 @@ class RSAI_agent:
 
         return math.floor(base + max([self.melee_level, self.range_level, self.mage_level]))
 
-    def set_goal_POI(self, grids_dict, POI):
+    def set_goal_POI(self, environments_grids, swarm_grids, POI):
         if POI.simulation_pos == self.simulation_pos:
             print("!!!!! Already at goal!!!!")
             return
 
         if self.goal is not None:
             # --> Record previous goal
-            self.goal_history.append(self.goal)
+            self.clear_goal()
 
         # --> Find path for new goal
-        self.simulation_path_to_goal = self.pathfinder.find_path_to_POI(obstacle_grid=grids_dict["Obstacle"],
-                                                                        start_coordinates=self.simulation_pos,
-                                                                        POI=POI)
+        self.simulation_path_to_goal = self.pathfinder.find_route_to_POI(environments_grids=environments_grids,
+                                                                         swarm_grids=swarm_grids,
+                                                                         start_coordinates=self.simulation_pos,
+                                                                         POI=POI)
 
         # --> Set new goal
         if self.simulation_path_to_goal is not None:
@@ -154,23 +157,24 @@ class RSAI_agent:
             # --> Set path length
             self.total_path_len = len(self.simulation_path_to_goal)
 
-    def set_goal_coordinates(self, grids_dict, coordinates):
+    def set_goal_coordinates(self, environments_grids, swarm_grids, coordinates):
         if coordinates == self.simulation_pos:
             print("!!!!! Already at goal!!!!")
             return
 
         if self.goal is not None:
             # --> Record previous goal
-            self.goal_history.append(self.goal)
+            self.clear_goal()
 
         # --> Set new goal
         self.goal = coordinates
         self.goal_type = "Coordinates"
 
         # --> Find path for new goal
-        self.simulation_path_to_goal = self.pathfinder.find_path_to_coordinate(grids_dict["Obstacle"],
-                                                                               self.simulation_pos,
-                                                                               coordinates)
+        self.simulation_path_to_goal = self.pathfinder.find_route_to_coordinate(environments_grids=environments_grids,
+                                                                                swarm_grids=swarm_grids,
+                                                                                start_coordinates=self.simulation_pos,
+                                                                                goal_coordinates=coordinates)
         # --> Find equivalent world path
         self.world_path_to_goal, self.simulation_path_to_goal = \
             convert_path_coordinates(self.simulation_origin, self.simulation_shape,
@@ -184,7 +188,6 @@ class RSAI_agent:
             print("!!!!! No goal specified !!!!!")
 
         else:
-            # print(len(self.simulation_path_to_goal))
             # --> Record position
             self.simulation_pos_history.append(self.simulation_pos)
 
@@ -196,6 +199,7 @@ class RSAI_agent:
 
             # --> Remove step from path
             del self.simulation_path_to_goal[0]
+
             # --> Find equivalent world path
             self.world_path_to_goal, self.simulation_path_to_goal = \
                 convert_path_coordinates(simulation_origin=self.simulation_origin,
@@ -215,7 +219,17 @@ class RSAI_agent:
                 self.world_path_to_goal = None
                 self.simulation_path_to_goal = None
 
-        return
+    def clear_goal(self):
+        # --> Record previous goal
+        self.goal_history.append(self.goal)
+
+        # --> Reset goal trackers
+        self.goal = None
+        self.goal_type = None
+        self.total_path_len = None
+
+        self.world_path_to_goal = None
+        self.simulation_path_to_goal = None
 
     def check_final_state(self):
         # TODO: Implement check final state

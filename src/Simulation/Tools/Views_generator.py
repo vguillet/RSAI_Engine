@@ -7,12 +7,9 @@ This script contains the class used for generating the different views used by t
 # Built-in/Generic Imports
 
 # Libs
-import cv2
 import numpy as np
 
 # Own modules
-from src.Simulation.Environment.Environment import Environment
-from src.Simulation.Agent.RSAI_agent import RSAI_agent
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -30,7 +27,7 @@ class Views:
         # --> Adding obstacles to overview
         overview = self.simulation.environment.grids_dict["Obstacle"].copy()
 
-        for agent in self.simulation.agent_lst:
+        for agent in self.simulation.swarm.population:
             # --> Adding agent path to overview
             if agent.goal is not None:
                 for step in agent.simulation_path_to_goal:
@@ -56,7 +53,7 @@ class Views:
     def agent_view(self):
         agent_view = np.zeros(self.simulation.environment.shape)
 
-        for agent in self.simulation.agent_lst:
+        for agent in self.simulation.swarm.population:
             # --> Adding agent path
             if agent.goal is not None:
                 for step in agent.simulation_path_to_goal:

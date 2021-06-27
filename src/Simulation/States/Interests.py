@@ -21,11 +21,7 @@ __date__ = '31/01/2020'
 
 class Interests:
     def __init__(self, traded_item_types=[""], start_interests_dict=None):
-        if start_interests_dict is None:
-            self.interests_dict = self.gen_interests_dict(traded_item_types)
-
-        else:
-            self.interests_dict = start_interests_dict
+        self.interests_dict = start_interests_dict or self.gen_interests_dict(traded_item_types)
 
         # self.increase_interests = self.__monkey_patch_pass
         # self.decrease_interests = self.__monkey_patch_pass
