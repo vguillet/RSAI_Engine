@@ -28,7 +28,7 @@ class Shop(Converter):
                  name: "Converter name",
                  ref,
                  simulation_origin,
-                 simulation_size,
+                 simulation_shape,
                  world_pos,
 
                  traded_item_types: list = [],
@@ -39,7 +39,7 @@ class Shop(Converter):
         super().__init__(name=name,
                          ref=ref,
                          simulation_origin=simulation_origin,
-                         simulation_size=simulation_size,
+                         simulation_shape=simulation_shape,
                          world_pos=world_pos)
 
         self.label = "Market"

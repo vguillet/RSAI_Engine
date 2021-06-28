@@ -103,13 +103,19 @@ def gen_path_grid(world_image, path_image_path=None):
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
-    # -> Set paths to 1 and rest to 0 on mask
-    mask[mask == 0] = int(1)
-    mask[mask == 255] = int(0)
+    if Path(path_image_path[:-4] + ".npy").is_file():
+        world_path_array = np.load(path_image_path[:-4] + ".npy")
 
-    # --> Reduce mask to world scale
-    world_path_array = reduce_grid_scale(array=mask, scale_factor=4)
-    # np.save("world_array", world_path_array)
+    else:
+        # -> Set paths to 1 and rest to 0 on mask
+        mask[mask == 0] = int(1)
+        mask[mask == 255] = int(0)
+
+        # --> Reduce mask to world scale
+        world_path_array = reduce_grid_scale(array=mask, scale_factor=4)
+
+        # --> Save generated array
+        np.save(path_image_path[:-4], world_path_array)
 
     return world_path_array
 

@@ -12,6 +12,8 @@ import sys
 # Libs
 
 # Own modules
+import numpy as np
+
 from src.Settings.SETTINGS import SETTINGS
 
 from src.Simulation.Swarm.Agent.States.Skills import Skills
@@ -73,8 +75,10 @@ class Agent:
         self.simulation_shape = simulation_shape
 
         # --> Setup position
-        self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin, simulation_shape,
-                                                                  start_world_pos, start_simulation_pos)
+        self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin=simulation_origin,
+                                                                  simulation_shape=simulation_shape,
+                                                                  world_pos=start_world_pos,
+                                                                  simulation_pos=start_simulation_pos)
 
         # --> Setup states dicts
         self.skills = Skills(start_skills_dict=start_skills)
@@ -145,43 +149,70 @@ class Agent:
             possible_steps = []
 
             #   a b c
-            #   d x e
-            #   f g h
+            #   d e f
+            #   g h i
 
             # =================================
-            # ----- a
-            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1] != 1:
+            step_array = np.array([[environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
+                                    environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1]],
+                                    environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
+
+                                   [environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] - 1],
+                                    1,
+                                    environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] + 1]],
+
+                                   [environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
+                                    environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1]],
+                                    environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]])
+
+            # --> a
+            if step_array[0, 0] != 1 \
+                    and self.simulation_pos[0] - 1 >= 0 \
+                    and self.simulation_pos[1] - 1 >= 0:
                 possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] - 1])
 
             # --> b
-            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1]] != 1:
+            if step_array[0, 1] != 1 \
+                    and self.simulation_pos[0] - 1 >= 0:
                 possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1]])
 
             # --> c
-            if environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1] != 1:
+            if step_array[0, 2] != 1 \
+                    and self.simulation_pos[0] - 1 >= 0 \
+                    and self.simulation_pos[1] + 1 <= self.simulation_shape[1]:
                 possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] + 1])
 
             # =================================
             # --> d
-            if environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] - 1] != 1:
-                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1]])
+            if step_array[1, 0] != 1 \
+                    and self.simulation_pos[1] - 1 >= 0:
+                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] - 1])
 
-            # --> e
-            if environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] + 1] != 1:
+            # --> f
+            if step_array[1, 2] != 1 \
+                    and self.simulation_pos[1] + 1 <= self.simulation_shape[1]:
                 possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] + 1])
 
             # =================================
-            # --> f
-            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1] != 1:
+            # --> g
+            if step_array[2, 0] != 1 \
+                    and self.simulation_pos[0] + 1 <= self.simulation_shape[0] \
+                    and self.simulation_pos[1] - 1 >= 0:
                 possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] - 1])
 
-            # --> g
-            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1]] != 1:
+            # --> h
+            if step_array[2, 1] != 1 \
+                    and self.simulation_pos[0] + 1 <= self.simulation_shape[0]:
                 possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1]])
 
-            # --> h
-            if environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1] != 1:
+            # --> i
+            if step_array[2, 2] != 1 \
+                    and self.simulation_pos[0] + 1 <= self.simulation_shape[0] \
+                    and self.simulation_pos[1] + 1 <= self.simulation_shape[1]:
                 possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] + 1])
+
+            # print(step_array)
+            # print(possible_steps, "\n")
 
             # --> Remove previous direction as option
             if len(self.simulation_route_to_goal) > 1:
@@ -194,14 +225,15 @@ class Agent:
             for possible_step in possible_steps:
                 # --> Pheromone + path bias
                 step_appeal = swarm_grids["Path pheromone"][self.goal.name][possible_step[0], possible_step[1]] * pheromone_weight + \
-                              environments_grids["Path"][possible_step[0], possible_step[1]] * path_weight
+                              (environments_grids["Path"][possible_step[0], possible_step[1]]) * path_weight
 
                 possible_steps_appeal.append(step_appeal)
                 total_surrounding_appeal += step_appeal
 
+            # --> Zip steps with respective appeal
             possible_steps = list(zip(possible_steps, possible_steps_appeal))
 
-            print(possible_steps)
+            # new_pos = possible_steps[0]
 
             # --> Randomize the order in which possible steps will be evaluated
             random.shuffle(possible_steps)
@@ -209,20 +241,29 @@ class Agent:
             # --> Pick a step to take
             random_number = random.random()
 
+            new_pos = None
+
             for step in possible_steps:
                 # --> Compute probability this step should be taken
 
                 if total_surrounding_appeal != 0:
-                    relative_pheromone = step[-1] / total_surrounding_appeal
+                    relative_appeal = step[-1] / total_surrounding_appeal
                 else:
-                    relative_pheromone = step[-1]
+                    relative_appeal = step[-1]
 
                 # --> Take this step if the probability roll picked this step
-                if relative_pheromone >= random_number:
-                    self.simulation_route_to_goal.append(step[0])
-                    self.simulation_pos = step[0]
+                if relative_appeal >= random_number:
+                    new_pos = step
+                    break
+
                 else:
-                    random_number -= relative_pheromone
+                    random_number -= relative_appeal
+
+            if new_pos is None:
+                new_pos = random.choice(possible_steps)
+
+            # self.simulation_route_to_goal.append(new_pos[0])
+            self.simulation_pos = new_pos[0]
 
             # --> Increase age
             self.age += 1

@@ -66,7 +66,7 @@ class Swarm:
                 agent.move(environments_grids=environments_grids,
                            swarm_grids=self.grids_dict,
                            pheromone_weight=1,
-                           path_weight=0)
+                           path_weight=0.7)
 
                 # --> If arrived at goal
                 if agent.simulation_pos == agent.goal.simulation_pos:

@@ -66,7 +66,7 @@ class RSAI_GUI():
         # ============================== Initiate GUI
         # --> Initiate views trackers
         self.current_scale = "fit"
-        self.current_view = "world"
+        self.current_view = "simulation"
 
         self.current_world_view = "Map"
         self.current_sim_view = "Overview"

@@ -26,8 +26,8 @@ class RSAI_simulation:
     def __init__(self):
         # --> Record image paths
         self.world_image_path = "src\Data\Assets\Environment\World_image_L.png"
-        self.obstacle_image_path = "src\Data\Assets\Environment\Obstacle_image.png"
-        self.path_image_path = "src\Data\Assets\Environment\Path_image.png"
+        self.obstacle_image_path = "src\Data\Assets\Environment\Obstacle_image_L.png"
+        self.path_image_path = "src\Data\Assets\Environment\Path_image_L.png"
 
         self.simulation_origin = (2944, 3072)   # (2944, 3519) (3136, 3136), from bottom left
 
@@ -42,7 +42,7 @@ class RSAI_simulation:
                            simulation_shape=self.environment.shape,
                            start_world_pos=(3216, 3219),
                            start_simulation_pos=None,
-                           population_size=1)
+                           population_size=10)
 
         print("---------------------- Simulation started ----------------------")
 

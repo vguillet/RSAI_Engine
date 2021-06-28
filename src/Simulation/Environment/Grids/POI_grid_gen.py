@@ -83,7 +83,7 @@ def gen_POI_grid(simulation_origin, simulation_shape):
             POI_dict[POI_lst[i][1]] = Shop(name=POI_lst[i][1],
                                            ref=0,
                                            simulation_origin=simulation_origin,
-                                           simulation_size=simulation_shape,
+                                           simulation_shape=simulation_shape,
                                            world_pos=POI_lst[i][-1],
                                            traded_item_types=POI_lst[i][2])
 
@@ -91,7 +91,7 @@ def gen_POI_grid(simulation_origin, simulation_shape):
             POI_dict[POI_lst[i][1]] = POI(name=POI_lst[i][1],
                                           ref=0,
                                           simulation_origin=simulation_origin,
-                                          simulation_size=simulation_shape,
+                                          simulation_shape=simulation_shape,
                                           world_pos=POI_lst[i][-1])
 
         POI_array[POI_dict[POI_lst[i][1]].simulation_pos[1]][POI_dict[POI_lst[i][1]].simulation_pos[0]] = 1

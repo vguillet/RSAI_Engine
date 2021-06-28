@@ -68,15 +68,19 @@ def gen_obstacle_grid(world_image, obstacle_image_path=None):
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
-    # -> Set obstacles to 1 and rest to 0 on mask
-    mask[mask == 0] = int(1)
-    mask[mask == 255] = int(0)
+    if Path(obstacle_image_path[:-4] + ".npy").is_file():
+        world_obstacles_array = np.load(obstacle_image_path[:-4] + ".npy")
 
-    # --> Reduce mask to world scale
-    world_obstacles_array = reduce_grid_scale(array=mask, scale_factor=4)
-    # np.save("world_array", world_obstacles_array)
+    else:
+        # -> Set obstacles to 1 and rest to 0 on mask
+        mask[mask == 0] = int(1)
+        mask[mask == 255] = int(0)
 
-    print(world_obstacles_array)
+        # --> Reduce mask to world scale
+        world_obstacles_array = reduce_grid_scale(array=mask, scale_factor=4)
+
+        # --> Save generated array
+        np.save(obstacle_image_path[:-4], world_obstacles_array)
 
     return world_obstacles_array
 
