@@ -141,7 +141,17 @@ class Agent:
         # --> Set new goal
         self.goal = POI
 
-    def move(self, environments_grids, swarm_grids, pheromone_weight=1, path_weight=1):
+    def move(self,
+             environments_grids, swarm_grids,
+             compass_weight=1,
+             path_weight=1,
+             pheromone_weight=1):
+
+        def calc_step_appeal(arrays, array_step_ref, weights):
+            return arrays["Compass"][tuple(array_step_ref)] * weights[0] \
+                   + arrays["Path"][tuple(array_step_ref)] * weights[1] \
+                   + arrays["Path pheromone"][tuple(array_step_ref)] * weights[2]
+
         if self.goal is None:
             print("!!!!! No goal specified !!!!!")
 
@@ -151,103 +161,143 @@ class Agent:
             possible_steps = []
             possible_steps_appeal = []
 
+            # --> Compile weight list
+            weights_lst = [compass_weight, path_weight, pheromone_weight]
+
+            # --> Compile arrays dictionary
+
             #   a b c
             #   d e f
             #   g h i
 
-            # =================================
-            step_obstacle_array = \
-                np.array([[environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
-                           environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1]],
-                           environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
+            step_arrays = {
+                "Obstacle": np.array(
+                    [[environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
+                      environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1]],
+                      environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
 
-                          [environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] - 1],
-                           1,
-                           environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] + 1]],
+                     [environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] - 1],
+                      1,
+                      environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] + 1]],
 
-                          [environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
-                           environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1]],
-                           environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]])
+                     [environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
+                      environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1]],
+                      environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]]),
 
-            step_path_array = \
-                np.array([[environments_grids["Path"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
-                           environments_grids["Path"][self.simulation_pos[0] - 1, self.simulation_pos[1]],
-                           environments_grids["Path"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
+                "Compass": np.array(
+                    [[environments_grids["Compass"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
+                      environments_grids["Compass"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1]],
+                      environments_grids["Compass"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
 
-                          [environments_grids["Path"][self.simulation_pos[0], self.simulation_pos[1] - 1],
-                           1,
-                           environments_grids["Path"][self.simulation_pos[0], self.simulation_pos[1] + 1]],
+                     [environments_grids["Compass"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] - 1],
+                      1,
+                      environments_grids["Compass"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] + 1]],
 
-                          [environments_grids["Path"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
-                           environments_grids["Path"][self.simulation_pos[0] + 1, self.simulation_pos[1]],
-                           environments_grids["Path"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]])
+                     [environments_grids["Compass"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
+                      environments_grids["Compass"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1]],
+                      environments_grids["Compass"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]]),
 
-            step_pheromone_array = np.array(
-                [[swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
-                  swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1]],
-                  swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
+                "Path": np.array(
+                    [[environments_grids["Path"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
+                      environments_grids["Path"][self.simulation_pos[0] - 1, self.simulation_pos[1]],
+                      environments_grids["Path"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
 
-                 [swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] - 1],
-                  1,
-                  swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] + 1]],
+                     [environments_grids["Path"][self.simulation_pos[0], self.simulation_pos[1] - 1],
+                      1,
+                      environments_grids["Path"][self.simulation_pos[0], self.simulation_pos[1] + 1]],
 
-                 [swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
-                  swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1]],
-                  swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]])
+                     [environments_grids["Path"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
+                      environments_grids["Path"][self.simulation_pos[0] + 1, self.simulation_pos[1]],
+                      environments_grids["Path"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]]),
+
+                "Path pheromone": np.array(
+                    [[swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
+                      swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1]],
+                      swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
+
+                     [swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] - 1],
+                      1,
+                      swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] + 1]],
+
+                     [swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
+                      swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1]],
+                      swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]])
+            }
 
             # --> a
-            if step_obstacle_array[0, 0] != 1 and self.simulation_pos[0] - 1 >= 0 \
+            if step_arrays["Obstacle"][0, 0] != 1 and self.simulation_pos[0] - 1 >= 0 \
                     and self.simulation_pos[1] - 1 >= 0:
-                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] - 1])
-                possible_steps_appeal.append(step_path_array[0, 0] * path_weight + step_pheromone_array[0, 0] * pheromone_weight)
 
+                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] - 1])
+                possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
+                                                              array_step_ref=[0, 0],
+                                                              weights=weights_lst))
             # --> b
-            if step_obstacle_array[0, 1] != 1 \
+            if step_arrays["Obstacle"][0, 1] != 1 \
                     and self.simulation_pos[0] - 1 >= 0:
+
                 possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1]])
-                possible_steps_appeal.append(step_path_array[0, 1] * path_weight + step_pheromone_array[0, 1] * pheromone_weight)
+                possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
+                                                              array_step_ref=[0, 1],
+                                                              weights=weights_lst))
 
             # --> c
-            if step_obstacle_array[0, 2] != 1 \
+            if step_arrays["Obstacle"][0, 2] != 1 \
                     and self.simulation_pos[0] - 1 >= 0 \
                     and self.simulation_pos[1] + 1 <= self.simulation_shape[1]:
+
                 possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] + 1])
-                possible_steps_appeal.append(step_path_array[0, 2] * path_weight + step_pheromone_array[0, 2] * pheromone_weight)
+                possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
+                                                              array_step_ref=[0, 2],
+                                                              weights=weights_lst))
 
             # =================================
             # --> d
-            if step_obstacle_array[1, 0] != 1 \
+            if step_arrays["Obstacle"][1, 0] != 1 \
                     and self.simulation_pos[1] - 1 >= 0:
-                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] - 1])
-                possible_steps_appeal.append(step_path_array[1, 0] * path_weight + step_pheromone_array[1, 0] * pheromone_weight)
 
+                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] - 1])
+                possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
+                                                              array_step_ref=[1, 0],
+                                                              weights=weights_lst))
             # --> f
-            if step_obstacle_array[1, 2] != 1 \
+            if step_arrays["Obstacle"][1, 2] != 1 \
                     and self.simulation_pos[1] + 1 <= self.simulation_shape[1]:
+
                 possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] + 1])
-                possible_steps_appeal.append(step_path_array[1, 2] * path_weight + step_pheromone_array[1, 2] * pheromone_weight)
+                possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
+                                                              array_step_ref=[1, 2],
+                                                              weights=weights_lst))
 
             # =================================
             # --> g
-            if step_obstacle_array[2, 0] != 1 \
+            if step_arrays["Obstacle"][2, 0] != 1 \
                     and self.simulation_pos[0] + 1 <= self.simulation_shape[0] \
                     and self.simulation_pos[1] - 1 >= 0:
+
                 possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] - 1])
-                possible_steps_appeal.append(step_path_array[2, 0] * path_weight + step_pheromone_array[2, 0] * pheromone_weight)
+                possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
+                                                              array_step_ref=[2, 0],
+                                                              weights=weights_lst))
 
             # --> h
-            if step_obstacle_array[2, 1] != 1 \
+            if step_arrays["Obstacle"][2, 1] != 1 \
                     and self.simulation_pos[0] + 1 <= self.simulation_shape[0]:
+
                 possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1]])
-                possible_steps_appeal.append(step_path_array[2, 1] * path_weight + step_pheromone_array[2, 1] * pheromone_weight)
+                possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
+                                                              array_step_ref=[2, 1],
+                                                              weights=weights_lst))
 
             # --> i
-            if step_obstacle_array[2, 2] != 1 \
+            if step_arrays["Obstacle"][2, 2] != 1 \
                     and self.simulation_pos[0] + 1 <= self.simulation_shape[0] \
                     and self.simulation_pos[1] + 1 <= self.simulation_shape[1]:
 
                 possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] + 1])
-                possible_steps_appeal.append(step_path_array[2, 2] * path_weight + step_pheromone_array[2, 2] * pheromone_weight)
+                possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
+                                                              array_step_ref=[2, 2],
+                                                              weights=weights_lst))
 
             for step in possible_steps:
                 # --> Remove previous direction as option

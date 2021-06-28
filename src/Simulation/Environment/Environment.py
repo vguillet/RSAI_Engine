@@ -13,9 +13,10 @@ import cv2
 from pathlib import Path
 
 # Own modules
-from src.Simulation.Environment.Grids.Obstacle_grid_gen import gen_obstacle_grid
-from src.Simulation.Environment.Grids.POI_grid_gen import gen_POI_grid
-from src.Simulation.Environment.Grids.Path_grid_gen import gen_path_grid
+from src.Simulation.Environment.Grids.gen_obstacle_grid import gen_obstacle_grid
+from src.Simulation.Environment.Grids.gen_path_grid import gen_path_grid
+from src.Simulation.Environment.Grids.gen_POI_grid import gen_POI_grid
+from src.Simulation.Environment.Grids.gen_compass_grid import gen_compass_grid
 
 # from src.Visualiser.Visualiser import Visualiser
 # from src.Visualiser.Visualiser_tools import Visualiser_tools
@@ -60,13 +61,18 @@ class Environment:
         POI_grid, self.POI_dict = gen_POI_grid(simulation_origin=self.origin,
                                                simulation_shape=obstacle_grid.shape)
 
+        # --> Setup compass grid
+        compass_grids_dict = gen_compass_grid(simulation_shape=obstacle_grid.shape,
+                                        POI_dict=self.POI_dict)
+
         self.shape = obstacle_grid.shape
 
         # --> Setup grids dictionary
         self.grids_dict = {"World": world_image,
                            "Obstacle": obstacle_grid,
                            "Path": path_grid,
-                           "POI": POI_grid}
+                           "POI": POI_grid,
+                           "Compass": compass_grids_dict}
 
         print("- Environment initiated:", self)
 

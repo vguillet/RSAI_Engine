@@ -69,26 +69,32 @@ class Swarm:
 
             agent.move(environments_grids=environments_grids,
                        swarm_grids=self.grids_dict,
-                       pheromone_weight=0,
-                       path_weight=0.02)
+                       compass_weight=0,
+                       path_weight=0.02,
+                       pheromone_weight=0)
 
             # --> If arrived at goal
             if agent.simulation_pos == agent.goal.simulation_pos:
                 print(f"-> Route to {agent.goal.name} found:", len(agent.simulation_route_to_goal))
-                self.update_path_pheromones(POI_name=agent.goal.name,
-                                            route=agent.simulation_route_to_goal,
-                                            energy_cost=0,
-                                            q=100)
+
+                self.evaporate_path_pheromone(evaporation_rate=0.1,
+                                              POI_name=agent.goal.name)
+
+                self.update_path_pheromone(POI_name=agent.goal.name,
+                                           route=agent.simulation_route_to_goal,
+                                           energy_cost=0,
+                                           q=100)
+
                 agent.clear_goal()
 
             elif agent.age > 400:
                 agent.reset()
 
-    def reset_pheromones(self):
+    def reset_pheromone(self):
         for POI in self.grids_dict["Path pheromone"].keys():
             self.grids_dict["Path pheromone"][POI] = np.zeros(self.simulation_shape)
 
-    def update_path_pheromones(self, POI_name, route, energy_cost, q):
+    def update_path_pheromone(self, POI_name, route, energy_cost, q):
         # --> Reduce route
         route = route.reduced
 
@@ -108,16 +114,14 @@ class Swarm:
                                                                                       decay_function=1)
         return
 
-    def evaporate_path_pheromones(self, evaporation_rate):
-        # print("Evaporating")
-        for POI in self.grids_dict["Path pheromone"]:
-            for x in range(len(self.grids_dict["Path pheromone"][POI])):
-                for y in range(len(self.grids_dict["Path pheromone"][POI][x])):
-                    if self.grids_dict["Path pheromone"][POI][x, y] <= 1:
-                        continue
-                    else:
-                        self.grids_dict["Path pheromone"][POI][x, y] = \
-                            max(self.grids_dict["Path pheromone"][POI][x, y] * (1 - evaporation_rate), 1)
+    def evaporate_path_pheromone(self, evaporation_rate, POI_name):
+        for x in range(len(self.grids_dict["Path pheromone"][POI_name])):
+            for y in range(len(self.grids_dict["Path pheromone"][POI_name][x])):
+                if self.grids_dict["Path pheromone"][POI_name][x, y] <= 1:
+                    continue
+                else:
+                    self.grids_dict["Path pheromone"][POI_name][x, y] = \
+                        max(self.grids_dict["Path pheromone"][POI_name][x, y] * (1 - evaporation_rate), 1)
 
     def generate_population(self,
                             population_size,
