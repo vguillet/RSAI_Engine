@@ -30,7 +30,11 @@ class Swarm:
                  simulation_shape,
                  start_world_pos=[3216, 3219],
                  start_simulation_pos=None,
-                 population_size=1):
+                 population_size=1,
+                 verbose=1):
+
+        # --> Settings
+        self.verbose = verbose
 
         # --> Environment
         self.simulation_origin = simulation_origin
@@ -50,41 +54,41 @@ class Swarm:
     def step(self, POI_dict, environments_grids):
         # TODO: Deal with unreachable goals
         for agent in self.population:
-            if agent.goal is None:
+            while agent.goal is None:
                 # --> Pick random goal
-                goal = random.choice(list(POI_dict.keys()))
+                goal_name = random.choice(list(POI_dict.keys()))
 
-                if goal not in self.grids_dict["Path pheromone"].keys():
-                    self.grids_dict["Path pheromone"][goal] = np.zeros(self.simulation_shape)
+                if goal_name not in self.grids_dict["Path pheromone"].keys():
+                    self.grids_dict["Path pheromone"][goal_name] = np.zeros(self.simulation_shape)
 
                 # --> Set goal
-                agent.set_goal_POI(POI=POI_dict[goal])
+                agent.set_goal_POI(POI=POI_dict[goal_name])
 
-                print(f"- {agent.name} - New Goal:", agent.goal)
+                if self.verbose > 1:
+                    print(f"- {agent.name} - New Goal:", agent.goal)
 
-            else:
-                agent.move(environments_grids=environments_grids,
-                           swarm_grids=self.grids_dict,
-                           pheromone_weight=0,
-                           path_weight=0.02)
+            agent.move(environments_grids=environments_grids,
+                       swarm_grids=self.grids_dict,
+                       pheromone_weight=0,
+                       path_weight=0.02)
 
-                # --> If arrived at goal
-                if agent.simulation_pos == agent.goal.simulation_pos:
-                    print("-> Route found:", len(agent.simulation_route_to_goal))
-                    self.update_path_pheromones(POI=agent.goal,
-                                                route=agent.simulation_route_to_goal,
-                                                energy_cost=0,
-                                                q=100)
-                    agent.clear_goal()
+            # --> If arrived at goal
+            if agent.simulation_pos == agent.goal.simulation_pos:
+                print(f"-> Route to {agent.goal.name} found:", len(agent.simulation_route_to_goal))
+                self.update_path_pheromones(POI_name=agent.goal.name,
+                                            route=agent.simulation_route_to_goal,
+                                            energy_cost=0,
+                                            q=100)
+                agent.clear_goal()
 
-                elif agent.age > 300:
-                    agent.reset()
+            elif agent.age > 400:
+                agent.reset()
 
     def reset_pheromones(self):
         for POI in self.grids_dict["Path pheromone"].keys():
             self.grids_dict["Path pheromone"][POI] = np.zeros(self.simulation_shape)
 
-    def update_path_pheromones(self, POI, route, energy_cost, q):
+    def update_path_pheromones(self, POI_name, route, energy_cost, q):
         # --> Reduce route
         route = route.reduced
 
@@ -96,12 +100,12 @@ class Swarm:
 
         # --> Update pheromone linearly increasing from start to POI
         for index, step in enumerate(route):
-            self.grids_dict["Path pheromone"][POI][step[0], step[1]] += throttle(current_iteration=index,
-                                                                                 nb_of_iterations=len(route),
-                                                                                 max_value=pheromone_update,
-                                                                                 min_value=0,
-                                                                                 direction="up",
-                                                                                 decay_function=1)
+            self.grids_dict["Path pheromone"][POI_name][step[0], step[1]] += throttle(current_iteration=index,
+                                                                                      nb_of_iterations=len(route),
+                                                                                      max_value=pheromone_update,
+                                                                                      min_value=0,
+                                                                                      direction="up",
+                                                                                      decay_function=1)
         return
 
     def evaporate_path_pheromones(self, evaporation_rate):

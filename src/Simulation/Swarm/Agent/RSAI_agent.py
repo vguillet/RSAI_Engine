@@ -132,7 +132,6 @@ class Agent:
 
     def set_goal_POI(self, POI):
         if POI.simulation_pos == self.simulation_pos:
-            print("!!!!! Already at goal!!!!")
             return
 
         if self.goal is not None:
@@ -264,33 +263,6 @@ class Agent:
                                      weights=possible_steps_appeal,
                                      k=1)
 
-            # random_number = random.random()
-            #
-            # new_pos = None
-            #
-            # for step in possible_steps:
-            #     # --> Compute probability this step should be taken
-            #
-            #     if total_surrounding_appeal != 0:
-            #         relative_appeal = step[-1] / total_surrounding_appeal
-            #     else:
-            #         relative_appeal = step[-1]
-            #
-            #     # --> Take this step if the probability roll picked this step
-            #     if relative_appeal >= random_number:
-            #         new_pos = step
-            #         break
-            #
-            #     else:
-            #         random_number -= relative_appeal
-
-            # max_step = possible_steps[0]
-            # for step in possible_steps:
-            #     if step[-1] > max_step[-1]:
-            #         max_step = step
-            #
-            # new_pos = max_step
-
             if new_pos is None:
                 new_pos = random.choice(possible_steps)
 
@@ -314,9 +286,12 @@ class Agent:
         # --> Rest route
         self.simulation_route_to_goal = Route()
 
-    def reset(self):
-        self.simulation_pos = self.simulation_route_to_goal[0]
+        # --> Reset age
+        self.age = 0
 
+    def reset(self):
+        # --> Reset position trackers
+        self.simulation_pos = self.simulation_route_to_goal[0]
         self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin=self.simulation_origin,
                                                                   simulation_shape=self.simulation_shape,
                                                                   world_pos=None,
@@ -324,7 +299,14 @@ class Agent:
 
         self.prev_simulation_pos = self.simulation_pos
 
-        self.clear_goal()
+        # --> Reset goal trackers
+        self.goal = None
+
+        # --> Rest route
+        self.simulation_route_to_goal = Route()
+
+        # --> Reset age
+        self.age = 0
 
         return
 

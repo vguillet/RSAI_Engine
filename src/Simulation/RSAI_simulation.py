@@ -42,7 +42,8 @@ class RSAI_simulation:
                            simulation_shape=self.environment.shape,
                            start_world_pos=(3216, 3219),
                            start_simulation_pos=None,
-                           population_size=100)
+                           population_size=100,
+                           verbose=0)
 
         print("---------------------- Simulation started ----------------------")
 
@@ -54,9 +55,6 @@ class RSAI_simulation:
         while True:
             self.swarm.step(POI_dict=self.environment.POI_dict,
                             environments_grids=self.environment.grids_dict)
-
-            print('\n===========================================\n')
-            time.sleep(0.01)
 
     def gui_run_simulation(self, progress_callback):
         print("---------------------- Simulation started ----------------------")
