@@ -66,13 +66,19 @@ class Swarm:
                 agent.move(environments_grids=environments_grids,
                            swarm_grids=self.grids_dict,
                            pheromone_weight=0,
-                           path_weight=0)
+                           path_weight=0.02)
 
                 # --> If arrived at goal
                 if agent.simulation_pos == agent.goal.simulation_pos:
-                    print("Route found:", len(agent.simulation_route_to_goal))
-
+                    print("-> Route found:", len(agent.simulation_route_to_goal))
+                    self.update_path_pheromones(POI=agent.goal,
+                                                route=agent.simulation_route_to_goal,
+                                                energy_cost=0,
+                                                q=100)
                     agent.clear_goal()
+
+                elif agent.age > 300:
+                    agent.reset()
 
     def reset_pheromones(self):
         for POI in self.grids_dict["Path pheromone"].keys():

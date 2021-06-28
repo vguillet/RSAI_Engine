@@ -56,7 +56,7 @@ class Route(list):
             if len(repeated_step_index) > 1:
                 reduced_route = reduced_route[:repeated_step_index[0]] + reduced_route[repeated_step_index[-1]:]
 
-        return reduced_route
+        return Route(reduced_route)
 
 
 if __name__ == "__main__":

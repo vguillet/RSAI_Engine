@@ -80,6 +80,8 @@ class Agent:
                                                                   world_pos=start_world_pos,
                                                                   simulation_pos=start_simulation_pos)
 
+        self.prev_simulation_pos = self.simulation_pos
+
         # --> Setup states dicts
         self.skills = Skills(start_skills_dict=start_skills)
         self.statistics = Statistics(start_statistics_dict=start_statistics)
@@ -89,7 +91,6 @@ class Agent:
         
         # --> Setup goal tracker
         self.goal = None
-
         self.simulation_route_to_goal = Route()
 
         # --> Setup memory
@@ -146,7 +147,10 @@ class Agent:
             print("!!!!! No goal specified !!!!!")
 
         else:
+            self.prev_simulation_pos = self.simulation_pos
+
             possible_steps = []
+            possible_steps_appeal = []
 
             #   a b c
             #   d e f
@@ -195,107 +199,106 @@ class Agent:
             # --> a
             if step_obstacle_array[0, 0] != 1 and self.simulation_pos[0] - 1 >= 0 \
                     and self.simulation_pos[1] - 1 >= 0:
-                possible_steps.append([[self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
-                                      step_path_array[0, 0] * path_weight + step_pheromone_array[0, 0] * pheromone_weight])
+                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] - 1])
+                possible_steps_appeal.append(step_path_array[0, 0] * path_weight + step_pheromone_array[0, 0] * pheromone_weight)
 
             # --> b
             if step_obstacle_array[0, 1] != 1 \
                     and self.simulation_pos[0] - 1 >= 0:
-                possible_steps.append([[self.simulation_pos[0] - 1, self.simulation_pos[1]],
-                                      step_path_array[0, 1] * path_weight + step_pheromone_array[0, 1] * pheromone_weight])
+                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1]])
+                possible_steps_appeal.append(step_path_array[0, 1] * path_weight + step_pheromone_array[0, 1] * pheromone_weight)
 
             # --> c
             if step_obstacle_array[0, 2] != 1 \
                     and self.simulation_pos[0] - 1 >= 0 \
                     and self.simulation_pos[1] + 1 <= self.simulation_shape[1]:
-                possible_steps.append([[self.simulation_pos[0] - 1, self.simulation_pos[1] + 1],
-                                      step_path_array[0, 2] * path_weight + step_pheromone_array[0, 2] * pheromone_weight])
+                possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] + 1])
+                possible_steps_appeal.append(step_path_array[0, 2] * path_weight + step_pheromone_array[0, 2] * pheromone_weight)
 
             # =================================
             # --> d
             if step_obstacle_array[1, 0] != 1 \
                     and self.simulation_pos[1] - 1 >= 0:
-                possible_steps.append([[self.simulation_pos[0], self.simulation_pos[1] - 1],
-                                      step_path_array[1, 0] * path_weight + step_pheromone_array[1, 0] * pheromone_weight])
+                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] - 1])
+                possible_steps_appeal.append(step_path_array[1, 0] * path_weight + step_pheromone_array[1, 0] * pheromone_weight)
 
             # --> f
             if step_obstacle_array[1, 2] != 1 \
                     and self.simulation_pos[1] + 1 <= self.simulation_shape[1]:
-                possible_steps.append([[self.simulation_pos[0], self.simulation_pos[1] + 1],
-                                      step_path_array[1, 2] * path_weight + step_pheromone_array[1, 2] * pheromone_weight])
+                possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] + 1])
+                possible_steps_appeal.append(step_path_array[1, 2] * path_weight + step_pheromone_array[1, 2] * pheromone_weight)
 
             # =================================
             # --> g
             if step_obstacle_array[2, 0] != 1 \
                     and self.simulation_pos[0] + 1 <= self.simulation_shape[0] \
                     and self.simulation_pos[1] - 1 >= 0:
-                possible_steps.append([[self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
-                                      step_path_array[2, 0] * path_weight + step_pheromone_array[2, 0] * pheromone_weight])
+                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] - 1])
+                possible_steps_appeal.append(step_path_array[2, 0] * path_weight + step_pheromone_array[2, 0] * pheromone_weight)
 
             # --> h
             if step_obstacle_array[2, 1] != 1 \
                     and self.simulation_pos[0] + 1 <= self.simulation_shape[0]:
-                possible_steps.append([[self.simulation_pos[0] + 1, self.simulation_pos[1]],
-                                      step_path_array[2, 1] * path_weight + step_pheromone_array[2, 1] * pheromone_weight])
+                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1]])
+                possible_steps_appeal.append(step_path_array[2, 1] * path_weight + step_pheromone_array[2, 1] * pheromone_weight)
 
             # --> i
             if step_obstacle_array[2, 2] != 1 \
                     and self.simulation_pos[0] + 1 <= self.simulation_shape[0] \
                     and self.simulation_pos[1] + 1 <= self.simulation_shape[1]:
-                possible_steps.append([[self.simulation_pos[0] + 1, self.simulation_pos[1] + 1],
-                                      step_path_array[2, 2] * path_weight + step_pheromone_array[2, 2] * pheromone_weight])
 
-            # --> Remove previous direction as option
-            if len(self.simulation_route_to_goal) > 1:
-                possible_steps.remove(self.simulation_route_to_goal[-1])
-
-            total_surrounding_appeal = 0
+                possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] + 1])
+                possible_steps_appeal.append(step_path_array[2, 2] * path_weight + step_pheromone_array[2, 2] * pheromone_weight)
 
             for step in possible_steps:
-                total_surrounding_appeal += step[-1]
+                # --> Remove previous direction as option
+                if step == self.prev_simulation_pos:
+                    possible_steps.remove(step)
 
-            # new_pos = possible_steps[0]
-            # print(step_obstacle_array)
-            # print(step_path_array)
-            # print(step_pheromone_array)
-            # print("\n")
-
-            # --> Randomize the order in which possible steps will be evaluated
-            random.shuffle(possible_steps)
+            # --. Provide a baseline appeal
+            for i in range(len(possible_steps_appeal)):
+                possible_steps_appeal[i] += 0.001
 
             # --> Pick a step to take
-            random_number = random.random()
+            new_pos = random.choices(possible_steps,
+                                     weights=possible_steps_appeal,
+                                     k=1)
 
-            new_pos = None
+            # random_number = random.random()
+            #
+            # new_pos = None
+            #
+            # for step in possible_steps:
+            #     # --> Compute probability this step should be taken
+            #
+            #     if total_surrounding_appeal != 0:
+            #         relative_appeal = step[-1] / total_surrounding_appeal
+            #     else:
+            #         relative_appeal = step[-1]
+            #
+            #     # --> Take this step if the probability roll picked this step
+            #     if relative_appeal >= random_number:
+            #         new_pos = step
+            #         break
+            #
+            #     else:
+            #         random_number -= relative_appeal
 
-            for step in possible_steps:
-                # --> Compute probability this step should be taken
-
-                if total_surrounding_appeal != 0:
-                    relative_appeal = step[-1] / total_surrounding_appeal
-                else:
-                    relative_appeal = step[-1]
-
-                # --> Take this step if the probability roll picked this step
-                if relative_appeal >= random_number:
-                    new_pos = step
-                    break
-
-                else:
-                    random_number -= relative_appeal
-
-            max_step = possible_steps[0]
-            for step in possible_steps:
-                if step[-1] > max_step[-1]:
-                    max_step = step
-
-            new_pos = max_step
+            # max_step = possible_steps[0]
+            # for step in possible_steps:
+            #     if step[-1] > max_step[-1]:
+            #         max_step = step
+            #
+            # new_pos = max_step
 
             if new_pos is None:
                 new_pos = random.choice(possible_steps)
 
-            # self.simulation_route_to_goal.append(new_pos[0])
             self.simulation_pos = new_pos[0]
+
+            # --> Record route
+            self.simulation_route_to_goal.append(new_pos[0])
+            self.simulation_route_to_goal = self.simulation_route_to_goal.reduced
 
             # --> Increase age
             self.age += 1
@@ -312,7 +315,17 @@ class Agent:
         self.simulation_route_to_goal = Route()
 
     def reset(self):
-        # TODO: Implement reset agent/sim
+        self.simulation_pos = self.simulation_route_to_goal[0]
+
+        self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin=self.simulation_origin,
+                                                                  simulation_shape=self.simulation_shape,
+                                                                  world_pos=None,
+                                                                  simulation_pos=self.simulation_pos)
+
+        self.prev_simulation_pos = self.simulation_pos
+
+        self.clear_goal()
+
         return
 
     def hit(self, target):
