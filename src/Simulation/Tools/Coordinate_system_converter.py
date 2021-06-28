@@ -21,8 +21,8 @@ __date__ = '31/01/2020'
 
 def convert_coordinates(simulation_origin,
                         simulation_shape,
-                        world_pos: tuple = None,
-                        simulation_pos: tuple = None):
+                        world_pos=None,
+                        simulation_pos=None):
     """
     Used to convert from both from world coordinates to sim coordinates and back.
     Specify known coordinates.
@@ -38,13 +38,13 @@ def convert_coordinates(simulation_origin,
         translated_x_coordinate = world_pos[0] - simulation_origin[0]
         translated_y_coordinate = simulation_shape[0] - (world_pos[1] - simulation_origin[1])
 
-        return world_pos, (translated_y_coordinate, translated_x_coordinate)
+        return world_pos, [translated_y_coordinate, translated_x_coordinate]
 
     elif world_pos is None:
         translated_x_coordinate = simulation_pos[0] + simulation_origin[0]
         translated_y_coordinate = simulation_origin[1] + (simulation_shape[0] - simulation_pos[0])
 
-        return (translated_x_coordinate, translated_y_coordinate), simulation_pos
+        return [translated_x_coordinate, translated_y_coordinate], simulation_pos
 
     else:
         print("!!!!! Pos need to be specified in at least one coordinate system")
@@ -52,8 +52,8 @@ def convert_coordinates(simulation_origin,
 
 
 def convert_route_coordinates(simulation_origin, simulation_size,
-                              world_path: tuple = None,
-                              simulation_path: tuple = None):
+                              world_path=None,
+                              simulation_path=None):
     """
     Used to convert from both from world coordinates to sim coordinates and back.
     Specify known path.

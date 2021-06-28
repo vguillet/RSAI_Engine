@@ -33,7 +33,7 @@ class Environment:
                  world_image_path,
                  obstacle_image_path,
                  path_image_path,
-                 simulation_origin: "World coordinates tuple" = (3136, 3136)):
+                 simulation_origin: "World coordinates tuple" = [3136, 3136]):
         """
         RSAI environment class, used to generate RSAI environments
         """

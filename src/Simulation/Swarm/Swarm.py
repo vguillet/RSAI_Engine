@@ -28,8 +28,8 @@ class Swarm:
     def __init__(self,
                  simulation_origin,
                  simulation_shape,
-                 start_world_pos: tuple = (3216, 3219),
-                 start_simulation_pos: tuple = None,
+                 start_world_pos=[3216, 3219],
+                 start_simulation_pos=None,
                  population_size=1):
 
         # --> Environment
@@ -65,8 +65,8 @@ class Swarm:
             else:
                 agent.move(environments_grids=environments_grids,
                            swarm_grids=self.grids_dict,
-                           pheromone_weight=1,
-                           path_weight=0.7)
+                           pheromone_weight=0,
+                           path_weight=0)
 
                 # --> If arrived at goal
                 if agent.simulation_pos == agent.goal.simulation_pos:
