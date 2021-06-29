@@ -23,11 +23,7 @@ __date__ = '26/04/2020'
 ##################################################################################################################
 
 
-def gen_compass_grid(simulation_shape, POI_dict, variance_coef=50, plot=1):
-    # --> Set multivariate variance
-    variance_x = simulation_shape[1] * variance_coef
-    variance_y = simulation_shape[0] * variance_coef
-
+def gen_compass_grid(simulation_shape, POI_dict, plot=1):
     # --> Create grids and multivariate normal
     compass_grids_dict = {}
 
@@ -37,15 +33,15 @@ def gen_compass_grid(simulation_shape, POI_dict, variance_coef=50, plot=1):
         # --> Getting max shape dimension
         max_dim = max(simulation_shape)
 
-        x = np.linspace(0, max_dim, max_dim)
-        y = np.linspace(0, max_dim, max_dim)
+        x = np.linspace(0, max_dim-1, max_dim)
+        y = np.linspace(0, max_dim-1, max_dim)
 
         # x = np.linspace(0, simulation_shape[1], simulation_shape[1])
         # y = np.linspace(0, simulation_shape[0], simulation_shape[0])
         xx, yy = np.meshgrid(x, y)
 
         grid = -np.sqrt((xx - POI_dict[POI_name].simulation_pos[1])**2 +
-                        (yy - POI_dict[POI_name].simulation_pos[1])**2)
+                        (yy - POI_dict[POI_name].simulation_pos[0])**2)
 
         grid += np.amax(np.absolute(grid))
 
@@ -58,6 +54,8 @@ def gen_compass_grid(simulation_shape, POI_dict, variance_coef=50, plot=1):
             ax.set_ylabel('Y axis')
             ax.set_zlabel('Z axis')
             plt.show()
+
+        compass_grids_dict[POI_name] = grid
 
     return compass_grids_dict
 

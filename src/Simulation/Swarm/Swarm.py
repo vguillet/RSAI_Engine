@@ -68,28 +68,39 @@ class Swarm:
                 if self.verbose > 1:
                     print(f"- {agent.name} - New Goal:", agent.goal)
 
+            # --> Take a step
             agent.move(environments_grids=environments_grids,
                        swarm_grids=self.grids_dict,
-                       compass_weight=1,
-                       path_weight=0,
-                       pheromone_weight=0)
+                       compass_weight=2,
+                       path_weight=100,
+                       pheromone_weight=100)
 
             # --> If arrived at goal
             if agent.simulation_pos == agent.goal.simulation_pos:
                 print(f"-> Route to {agent.goal.name} found: {len(agent.simulation_route_to_goal)} steps")
 
-                self.evaporate_path_pheromone(evaporation_rate=0.01,
+                self.evaporate_path_pheromone(evaporation_rate=10,
                                               POI_name=agent.goal.name)
 
                 self.update_path_pheromone(POI_name=agent.goal.name,
                                            route=agent.simulation_route_to_goal,
                                            energy_cost=0,
-                                           q=100)
+                                           q=10000)
 
+                # --> Visualise potential grid
+                # potential_grid = environments_grids["Compass"][agent.goal.name][:self.simulation_shape[0], self.simulation_shape[1]] * 1.5 \
+                #                  + environments_grids["Path"] * 100 \
+                #                  + self.grids_dict["Path pheromone"][agent.goal.name] * 100
+                #
+                # plt.imshow(potential_grid, cmap='hot', interpolation='nearest')
+                # plt.show()
+
+                # --> Clear agent goal
                 agent.clear_goal()
 
-            elif agent.age > 10000:
+            elif agent.age > 500:
                 agent.reset()
+                print("> Agent reset")
 
     def reset_pheromone(self):
         for POI in self.grids_dict["Path pheromone"].keys():
@@ -113,9 +124,6 @@ class Swarm:
                                                                                       min_value=0,
                                                                                       direction="up",
                                                                                       decay_function=1)
-
-        # plt.imshow(self.grids_dict["Path pheromone"][POI_name], cmap='hot', interpolation='nearest')
-        # plt.show()
 
     def evaporate_path_pheromone(self, evaporation_rate, POI_name):
         for x in range(len(self.grids_dict["Path pheromone"][POI_name])):

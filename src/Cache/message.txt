@@ -1,106 +1,418 @@
 - Environment initiated: RSAI environment
-- Agent initiated: Kurt Torres (RSAI bot level 3)
-- Agent initiated: Maurice Powell (RSAI bot level 3)
-- Agent initiated: Arthur Cruz (RSAI bot level 3)
-- Agent initiated: Anthony Harrington (RSAI bot level 3)
-- Agent initiated: Eric Harris (RSAI bot level 3)
-- Agent initiated: Scott Garcia (RSAI bot level 3)
-- Agent initiated: Brandon Howard (RSAI bot level 3)
-- Agent initiated: Cynthia Davis (RSAI bot level 3)
-- Agent initiated: Jamie Williamson (RSAI bot level 3)
-- Agent initiated: Tammy David (RSAI bot level 3)
-- Agent initiated: Elizabeth Miller (RSAI bot level 3)
-- Agent initiated: John Vasquez (RSAI bot level 3)
-- Agent initiated: Peter Ford (RSAI bot level 3)
-- Agent initiated: Kelly Davis (RSAI bot level 3)
-- Agent initiated: Amber Castaneda (RSAI bot level 3)
-- Agent initiated: Donald Lynch (RSAI bot level 3)
-- Agent initiated: James Jimenez (RSAI bot level 3)
-- Agent initiated: James Rodriguez (RSAI bot level 3)
-- Agent initiated: Kevin Hoffman (RSAI bot level 3)
-- Agent initiated: Benjamin Smith PhD (RSAI bot level 3)
-- Agent initiated: Sandy Woods (RSAI bot level 3)
-- Agent initiated: Denise Morales (RSAI bot level 3)
-- Agent initiated: Steven Bryant (RSAI bot level 3)
-- Agent initiated: Jennifer Morgan (RSAI bot level 3)
-- Agent initiated: Jeffrey Williams (RSAI bot level 3)
-- Agent initiated: Jesse Leon (RSAI bot level 3)
-- Agent initiated: Dylan Davis (RSAI bot level 3)
-- Agent initiated: Maria Todd (RSAI bot level 3)
-- Agent initiated: Brian Young (RSAI bot level 3)
-- Agent initiated: Kylie Espinoza (RSAI bot level 3)
-- Agent initiated: William Hansen (RSAI bot level 3)
-- Agent initiated: Brett Henderson (RSAI bot level 3)
-- Agent initiated: Wayne Mcdonald (RSAI bot level 3)
-- Agent initiated: Charles Pope (RSAI bot level 3)
-- Agent initiated: Michael Gonzalez (RSAI bot level 3)
-- Agent initiated: Billy Cooley (RSAI bot level 3)
-- Agent initiated: Danielle Hawkins (RSAI bot level 3)
-- Agent initiated: Melissa Russell (RSAI bot level 3)
-- Agent initiated: Tony Collins (RSAI bot level 3)
-- Agent initiated: Paul Parker (RSAI bot level 3)
-- Agent initiated: Joseph Wilson (RSAI bot level 3)
-- Agent initiated: Meredith Carroll (RSAI bot level 3)
-- Agent initiated: Mr. Christopher Young (RSAI bot level 3)
-- Agent initiated: Jennifer Cunningham (RSAI bot level 3)
-- Agent initiated: Bradley Edwards (RSAI bot level 3)
-- Agent initiated: Sandy Kerr (RSAI bot level 3)
-- Agent initiated: Jonathan Snow (RSAI bot level 3)
-- Agent initiated: Brent Mcfarland (RSAI bot level 3)
-- Agent initiated: Sierra Clark (RSAI bot level 3)
-- Agent initiated: Gerald Thompson (RSAI bot level 3)
-- Agent initiated: Traci Mosley (RSAI bot level 3)
-- Agent initiated: Dr. Amber Decker (RSAI bot level 3)
-- Agent initiated: Patrick Curry (RSAI bot level 3)
-- Agent initiated: Gabrielle Wright (RSAI bot level 3)
-- Agent initiated: Matthew Keller (RSAI bot level 3)
-- Agent initiated: Gloria Suarez (RSAI bot level 3)
-- Agent initiated: Philip Brown (RSAI bot level 3)
-- Agent initiated: Karen Hamilton (RSAI bot level 3)
-- Agent initiated: Andrea Black (RSAI bot level 3)
-- Agent initiated: Brandi Richardson (RSAI bot level 3)
-- Agent initiated: Kelly Rodriguez (RSAI bot level 3)
-- Agent initiated: Christina Pratt (RSAI bot level 3)
-- Agent initiated: Mitchell Howard (RSAI bot level 3)
-- Agent initiated: Tanya Duncan (RSAI bot level 3)
-- Agent initiated: Corey Richards (RSAI bot level 3)
-- Agent initiated: Sandra Park (RSAI bot level 3)
-- Agent initiated: Anna Davis (RSAI bot level 3)
-- Agent initiated: Adam Patton (RSAI bot level 3)
-- Agent initiated: Kathryn Barnes (RSAI bot level 3)
-- Agent initiated: Carly Deleon (RSAI bot level 3)
-- Agent initiated: Sydney Bates (RSAI bot level 3)
-- Agent initiated: Christopher Watts (RSAI bot level 3)
-- Agent initiated: Robert Spencer (RSAI bot level 3)
-- Agent initiated: Robert Young (RSAI bot level 3)
-- Agent initiated: Gary Howard (RSAI bot level 3)
-- Agent initiated: Holly Johnson (RSAI bot level 3)
-- Agent initiated: Michael Moore (RSAI bot level 3)
-- Agent initiated: April Young (RSAI bot level 3)
-- Agent initiated: Kevin Scott (RSAI bot level 3)
-- Agent initiated: Paul Arnold (RSAI bot level 3)
-- Agent initiated: Michelle Johnson (RSAI bot level 3)
-- Agent initiated: Amber Smith (RSAI bot level 3)
-- Agent initiated: Melissa Young (RSAI bot level 3)
-- Agent initiated: John Robertson (RSAI bot level 3)
-- Agent initiated: Kimberly Perry (RSAI bot level 3)
-- Agent initiated: William Mora (RSAI bot level 3)
-- Agent initiated: Mark Guerra (RSAI bot level 3)
-- Agent initiated: Heather Porter (RSAI bot level 3)
-- Agent initiated: Robert Ruiz (RSAI bot level 3)
-- Agent initiated: Peter Delgado MD (RSAI bot level 3)
-- Agent initiated: Sarah Mitchell (RSAI bot level 3)
-- Agent initiated: Ricky Campbell (RSAI bot level 3)
-- Agent initiated: Philip Smith (RSAI bot level 3)
-- Agent initiated: Taylor Randall (RSAI bot level 3)
-- Agent initiated: Michael Roberts (RSAI bot level 3)
-- Agent initiated: Barbara Frederick (RSAI bot level 3)
-- Agent initiated: Wayne Edwards (RSAI bot level 3)
-- Agent initiated: Bradley Mendoza (RSAI bot level 3)
-- Agent initiated: Jennifer Gonzalez (RSAI bot level 3)
-- Agent initiated: Brian Anderson (RSAI bot level 3)
+- Agent initiated: Jennifer Murray (RSAI bot level 3)
+- Agent initiated: James Lynch (RSAI bot level 3)
+- Agent initiated: Mary Matthews (RSAI bot level 3)
+- Agent initiated: Derrick Diaz (RSAI bot level 3)
+- Agent initiated: Stephanie Johnston (RSAI bot level 3)
+- Agent initiated: Daniel Gonzales (RSAI bot level 3)
+- Agent initiated: Thomas Baldwin (RSAI bot level 3)
+- Agent initiated: Benjamin Jimenez (RSAI bot level 3)
+- Agent initiated: Theresa Anderson (RSAI bot level 3)
+- Agent initiated: Robin Johnson (RSAI bot level 3)
+- Agent initiated: Ariana Smith (RSAI bot level 3)
+- Agent initiated: Justin Lee (RSAI bot level 3)
+- Agent initiated: Jay Lynch (RSAI bot level 3)
+- Agent initiated: Jared Blanchard (RSAI bot level 3)
+- Agent initiated: Margaret Bowers (RSAI bot level 3)
+- Agent initiated: Ryan Hunter (RSAI bot level 3)
+- Agent initiated: Amanda Munoz (RSAI bot level 3)
+- Agent initiated: Alexandra Suarez (RSAI bot level 3)
+- Agent initiated: Rachel Garcia (RSAI bot level 3)
+- Agent initiated: Kathy Morrison (RSAI bot level 3)
+- Agent initiated: Cassidy Buck (RSAI bot level 3)
+- Agent initiated: John Smith (RSAI bot level 3)
+- Agent initiated: Lori Wiggins (RSAI bot level 3)
+- Agent initiated: Amanda Richardson (RSAI bot level 3)
+- Agent initiated: Kyle Kaufman (RSAI bot level 3)
+- Agent initiated: Jill Morrow (RSAI bot level 3)
+- Agent initiated: James Washington (RSAI bot level 3)
+- Agent initiated: Sarah Santana (RSAI bot level 3)
+- Agent initiated: Sean Lutz (RSAI bot level 3)
+- Agent initiated: Jessica Kelly (RSAI bot level 3)
+- Agent initiated: Jerome Heath (RSAI bot level 3)
+- Agent initiated: Casey Phillips (RSAI bot level 3)
+- Agent initiated: Micheal Combs (RSAI bot level 3)
+- Agent initiated: Matthew Hunter (RSAI bot level 3)
+- Agent initiated: Ms. Laura Phillips (RSAI bot level 3)
+- Agent initiated: Melissa Mercer (RSAI bot level 3)
+- Agent initiated: Randy Gray (RSAI bot level 3)
+- Agent initiated: Timothy Crawford (RSAI bot level 3)
+- Agent initiated: Karen Wells (RSAI bot level 3)
+- Agent initiated: Amanda Alvarez (RSAI bot level 3)
+- Agent initiated: Miguel Miller (RSAI bot level 3)
+- Agent initiated: Sarah Mullins (RSAI bot level 3)
+- Agent initiated: Marco Turner (RSAI bot level 3)
+- Agent initiated: Charles Holden (RSAI bot level 3)
+- Agent initiated: Olivia Carter (RSAI bot level 3)
+- Agent initiated: Stacy Roberson (RSAI bot level 3)
+- Agent initiated: Danny Jones (RSAI bot level 3)
+- Agent initiated: Christopher Floyd (RSAI bot level 3)
+- Agent initiated: Mark Schroeder (RSAI bot level 3)
+- Agent initiated: Kristen Marshall (RSAI bot level 3)
+- Agent initiated: Paige Williams (RSAI bot level 3)
+- Agent initiated: Patricia Mills (RSAI bot level 3)
+- Agent initiated: Brenda Perry (RSAI bot level 3)
+- Agent initiated: Katrina Kelly MD (RSAI bot level 3)
+- Agent initiated: Christian Cooper (RSAI bot level 3)
+- Agent initiated: Jessica Smith (RSAI bot level 3)
+- Agent initiated: Sean Garcia (RSAI bot level 3)
+- Agent initiated: Jeffrey Wolf (RSAI bot level 3)
+- Agent initiated: Jennifer Williams (RSAI bot level 3)
+- Agent initiated: Katherine Johnson (RSAI bot level 3)
+- Agent initiated: Judy Cobb (RSAI bot level 3)
+- Agent initiated: John Williams (RSAI bot level 3)
+- Agent initiated: Caitlin Young (RSAI bot level 3)
+- Agent initiated: Daisy Jacobs (RSAI bot level 3)
+- Agent initiated: Stephanie Padilla (RSAI bot level 3)
+- Agent initiated: David Diaz (RSAI bot level 3)
+- Agent initiated: Ashley Gomez (RSAI bot level 3)
+- Agent initiated: Ricardo Miller (RSAI bot level 3)
+- Agent initiated: Bryan Weeks (RSAI bot level 3)
+- Agent initiated: David Thornton (RSAI bot level 3)
+- Agent initiated: Jeff Harris (RSAI bot level 3)
+- Agent initiated: Edwin Nelson (RSAI bot level 3)
+- Agent initiated: Brian Allen (RSAI bot level 3)
+- Agent initiated: Destiny Boyd (RSAI bot level 3)
+- Agent initiated: Julie Stewart (RSAI bot level 3)
+- Agent initiated: Travis Cruz (RSAI bot level 3)
+- Agent initiated: Emily Baker (RSAI bot level 3)
+- Agent initiated: Felicia Robertson (RSAI bot level 3)
+- Agent initiated: Crystal Nelson (RSAI bot level 3)
+- Agent initiated: Daniel Gonzalez (RSAI bot level 3)
+- Agent initiated: Mr. Logan Martin Jr. (RSAI bot level 3)
+- Agent initiated: Angela Sawyer (RSAI bot level 3)
+- Agent initiated: Randy Lee (RSAI bot level 3)
+- Agent initiated: Vincent Henry (RSAI bot level 3)
+- Agent initiated: Casey Brown (RSAI bot level 3)
+- Agent initiated: Gary York (RSAI bot level 3)
+- Agent initiated: Erica Anderson MD (RSAI bot level 3)
+- Agent initiated: Jeffrey Hayden (RSAI bot level 3)
+- Agent initiated: Dr. Mike Dickson (RSAI bot level 3)
+- Agent initiated: Jordan Jones (RSAI bot level 3)
+- Agent initiated: John Pope (RSAI bot level 3)
+- Agent initiated: Anita Richards (RSAI bot level 3)
+- Agent initiated: Nicole Morrison (RSAI bot level 3)
+- Agent initiated: Diane Hurst (RSAI bot level 3)
+- Agent initiated: Timothy Sampson (RSAI bot level 3)
+- Agent initiated: Amanda Bowers (RSAI bot level 3)
+- Agent initiated: Chase Anderson (RSAI bot level 3)
+- Agent initiated: David Scott (RSAI bot level 3)
+- Agent initiated: Martin Lewis (RSAI bot level 3)
+- Agent initiated: Daniel Oliver (RSAI bot level 3)
 
  - RSAI Initialisation: Success 
 
 
 ---------------------- Simulation started ----------------------
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 10 steps
+-> Route to Lumbridge Foundry found: 12 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 18 steps
+-> Route to Lumbridge Foundry found: 24 steps
+-> Route to Lumbridge Foundry found: 50 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 13 steps
+-> Route to Lumbridge Foundry found: 12 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 11 steps
+-> Route to Lumbridge Foundry found: 16 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 11 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 26 steps
+-> Route to Lumbridge Foundry found: 21 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 9 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 13 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 10 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 7 steps
+-> Route to Lumbridge Foundry found: 15 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 13 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 12 steps
+-> Route to Lumbridge Foundry found: 18 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 10 steps
+-> Route to Lumbridge Foundry found: 49 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 9 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 26 steps
+-> Route to Lumbridge Foundry found: 10 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 23 steps
+-> Route to Lumbridge Foundry found: 53 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 56 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 7 steps
+-> Route to Lumbridge Foundry found: 13 steps
+-> Route to Lumbridge Foundry found: 9 steps
+-> Route to Lumbridge Foundry found: 7 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 9 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 21 steps
+-> Route to Lumbridge Foundry found: 23 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 43 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 13 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 25 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 26 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 10 steps
+-> Route to Lumbridge Foundry found: 7 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 18 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 9 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 21 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 13 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 67 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 7 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 13 steps
+-> Route to Lumbridge Foundry found: 9 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 9 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 39 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 15 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 11 steps
+-> Route to Lumbridge Foundry found: 11 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 41 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 7 steps
+-> Route to Lumbridge Foundry found: 11 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 23 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 2 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 8 steps
+-> Route to Lumbridge Foundry found: 9 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 7 steps
+-> Route to Lumbridge Foundry found: 15 steps
+-> Route to Lumbridge Foundry found: 10 steps
+-> Route to Lumbridge Foundry found: 5 steps
+-> Route to Lumbridge Foundry found: 33 steps
+-> Route to Lumbridge Foundry found: 9 steps
+-> Route to Lumbridge Foundry found: 6 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 20 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 18 steps
+-> Route to Lumbridge Foundry found: 37 steps
+-> Route to Lumbridge Foundry found: 1 steps
+-> Route to Lumbridge Foundry found: 34 steps
+-> Route to Lumbridge Foundry found: 4 steps
+-> Route to Lumbridge Foundry found: 3 steps
+-> Route to Lumbridge Foundry found: 20 steps
+-> Route to Lumbridge Foundry found: 1 steps

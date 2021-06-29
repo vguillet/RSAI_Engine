@@ -46,14 +46,14 @@ class RSAI_GUI():
 
         # ============================== Initiate Gui elements
         # --> Load gui element
-        self.console_gui = Console_GUI()
+        # self.console_gui = Console_GUI()
         self.map_view_gui = Map_view_GUI()
         self.game_view_gui = Game_view_GUI()
         self.overview_gui = Overview_GUI()
 
         # ============================== Initialise console
         # --> Reset log
-        self.console_gui.reset_log()
+        # self.console_gui.reset_log()
 
         # --> Initiate console observer
         worker = Worker(self.update_console)

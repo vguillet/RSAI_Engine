@@ -50,9 +50,16 @@ class RSAI_simulation:
         for agent in self.swarm.population:
             agent.goal = None
 
+        counter = 0
+
         while True:
             self.swarm.step(POI_dict=self.environment.POI_dict,
                             environments_grids=self.environment.grids_dict)
+
+            counter += 1
+
+            if counter % 100 == 0:
+                print(f"- Step counts: {counter} completed")
 
     def gui_run_simulation(self, progress_callback):
         print("\n---------------------- Simulation started ----------------------")
