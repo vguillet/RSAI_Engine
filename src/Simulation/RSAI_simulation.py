@@ -40,15 +40,13 @@ class RSAI_simulation:
         # --> Create swarm
         self.swarm = Swarm(simulation_origin=self.environment.origin,
                            simulation_shape=self.environment.shape,
-                           start_world_pos=(3216, 3219),
+                           start_world_pos=(3220, 3255),        # (3220, 3255) og: (3216, 3219)
                            start_simulation_pos=None,
                            population_size=100,
                            verbose=0)
 
-        print("---------------------- Simulation started ----------------------")
-
     def run_simulation(self):
-        print("---------------------- Simulation started ----------------------")
+        print("\n---------------------- Simulation started ----------------------")
         for agent in self.swarm.population:
             agent.goal = None
 
@@ -57,7 +55,7 @@ class RSAI_simulation:
                             environments_grids=self.environment.grids_dict)
 
     def gui_run_simulation(self, progress_callback):
-        print("---------------------- Simulation started ----------------------")
+        print("\n---------------------- Simulation started ----------------------")
         for agent in self.swarm.population:
             agent.goal = None
 

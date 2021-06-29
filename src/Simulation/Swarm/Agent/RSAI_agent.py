@@ -311,15 +311,14 @@ class Agent:
             # --> Pick a step to take
             new_pos = random.choices(possible_steps,
                                      weights=possible_steps_appeal,
-                                     k=1)
+                                     k=1)[0]
 
-            if new_pos is None:
-                new_pos = random.choice(possible_steps)
+            # new_pos = possible_steps[possible_steps_appeal.index(max(possible_steps_appeal))]
 
-            self.simulation_pos = new_pos[0]
+            self.simulation_pos = new_pos
 
             # --> Record route
-            self.simulation_route_to_goal.append(new_pos[0])
+            self.simulation_route_to_goal.append(new_pos)
             self.simulation_route_to_goal = self.simulation_route_to_goal.reduced
 
             # --> Increase age

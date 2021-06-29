@@ -63,7 +63,8 @@ class Environment:
 
         # --> Setup compass grid
         compass_grids_dict = gen_compass_grid(simulation_shape=obstacle_grid.shape,
-                                        POI_dict=self.POI_dict)
+                                              POI_dict=self.POI_dict,
+                                              plot=1)
 
         self.shape = obstacle_grid.shape
 

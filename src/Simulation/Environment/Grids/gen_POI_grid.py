@@ -51,12 +51,12 @@ def gen_POI_grid(simulation_origin, simulation_shape):
                # ["Converter", "Barbarian Village Blacksmith", ["Ingot"], (3085, 3412)],
 
                ["Converter", "Lumbridge Foundry", ["Ore"], (3220, 3255)],
-               ["Mine", "Lumbridge SW mine", [""], (3150, 3152)],
-               ["Mine", "Lumbridge SE mine", [""], (3227, 3150)],
+               # ["Mine", "Lumbridge SW mine", [""], (3150, 3152)],
+               # ["Mine", "Lumbridge SE mine", [""], (3227, 3150)],
 
                # ["Source", "Cows field", [""], (3252, 3267)],
                #
-               # ["Bank", "Draynor Bank", [""], (3093, 3247)],
+               ["Bank", "Draynor Bank", [""], (3093, 3247)],
                #
                # ["Shop", "Rimmington General shop", ["Weapon", "Helm", "Chest", "Legs", "Shield", "Boots", "Gloves", "Resource", "Ingot", "Food"], (2944, 3218)],
                # ["Mine", "Rimmington NE Mine", [""], (2975, 3240)],

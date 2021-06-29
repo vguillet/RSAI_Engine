@@ -11,6 +11,7 @@ import random
 # Libs
 import numpy as np
 from faker import Faker
+import matplotlib.pyplot as plt
 
 # Own modules
 from src.Simulation.Swarm.Agent.RSAI_agent import Agent
@@ -69,15 +70,15 @@ class Swarm:
 
             agent.move(environments_grids=environments_grids,
                        swarm_grids=self.grids_dict,
-                       compass_weight=0,
-                       path_weight=0.02,
+                       compass_weight=1,
+                       path_weight=0,
                        pheromone_weight=0)
 
             # --> If arrived at goal
             if agent.simulation_pos == agent.goal.simulation_pos:
-                print(f"-> Route to {agent.goal.name} found:", len(agent.simulation_route_to_goal))
+                print(f"-> Route to {agent.goal.name} found: {len(agent.simulation_route_to_goal)} steps")
 
-                self.evaporate_path_pheromone(evaporation_rate=0.1,
+                self.evaporate_path_pheromone(evaporation_rate=0.01,
                                               POI_name=agent.goal.name)
 
                 self.update_path_pheromone(POI_name=agent.goal.name,
@@ -87,7 +88,7 @@ class Swarm:
 
                 agent.clear_goal()
 
-            elif agent.age > 400:
+            elif agent.age > 10000:
                 agent.reset()
 
     def reset_pheromone(self):
@@ -112,7 +113,9 @@ class Swarm:
                                                                                       min_value=0,
                                                                                       direction="up",
                                                                                       decay_function=1)
-        return
+
+        # plt.imshow(self.grids_dict["Path pheromone"][POI_name], cmap='hot', interpolation='nearest')
+        # plt.show()
 
     def evaporate_path_pheromone(self, evaporation_rate, POI_name):
         for x in range(len(self.grids_dict["Path pheromone"][POI_name])):
