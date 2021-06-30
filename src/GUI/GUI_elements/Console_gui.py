@@ -26,7 +26,7 @@ __date__ = '26/04/2020'
 class Console_GUI:
     @staticmethod
     def reset_log():
-        with open("src/Cache/message.log", 'w') as file:
+        with open("src/Cache/message.txt", 'w') as file:
             # --> Output logfile content to gui
             file.write("")
 
@@ -36,14 +36,14 @@ class Console_GUI:
     @staticmethod
     def log_console_output():
         # --> Create the log file
-        log_file = open("src/Cache/message.log", "a")
+        log_file = open("src/Cache/message.txt", "a")
         sys.stdout = log_file
 
         return
 
     @staticmethod
     def update_console_output(gui):
-        with open("src/Cache/message.log", 'r') as file:
+        with open("src/Cache/message.txt", 'r') as file:
             # --> Output logfile content to gui
             text = file.read()
             gui.main_window.console_output.setText(text)

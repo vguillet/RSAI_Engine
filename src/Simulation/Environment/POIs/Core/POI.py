@@ -25,16 +25,18 @@ __date__ = '31/01/2020'
 
 class POI:
     def __init__(self, name, ref,
-                 simulation_origin, simulation_size,
+                 simulation_origin, simulation_shape,
                  world_pos: tuple = None, sim_pos: tuple = None):
         # ----- Setup reference properties
         self.ref = ref
         self.type = ""
         self.name = name
 
+        self.label = ""
+
         # --> Setup POI position
         self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin=simulation_origin,
-                                                                  simulation_size=simulation_size,
+                                                                  simulation_shape=simulation_shape,
                                                                   world_pos=world_pos,
                                                                   simulation_pos=sim_pos)
 

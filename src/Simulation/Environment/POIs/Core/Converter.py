@@ -23,13 +23,13 @@ class Converter(POI):
                  name,
                  ref,
                  simulation_origin,
-                 simulation_size,
+                 simulation_shape,
                  world_pos):
         # --> Initialising base class
         super().__init__(name=name,
                          ref=ref,
                          simulation_origin=simulation_origin,
-                         simulation_size=simulation_size,
+                         simulation_shape=simulation_shape,
                          world_pos=world_pos)
 
         # ----- Setup reference properties

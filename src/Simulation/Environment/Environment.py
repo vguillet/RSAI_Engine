@@ -9,11 +9,14 @@ import sys
 
 # Libs
 import matplotlib.pyplot as plt
+import cv2
+from pathlib import Path
 
 # Own modules
-from src.Simulation.Environment.Grids.Obstacle_grid_gen import gen_obstacle_grid
-from src.Simulation.Environment.Grids.POI_grid_gen import gen_POI_grid
-from src.Simulation.Environment.Grids.Path_grid_gen import gen_path_grid
+from src.Simulation.Environment.Grids.gen_obstacle_grid import gen_obstacle_grid
+from src.Simulation.Environment.Grids.gen_path_grid import gen_path_grid
+from src.Simulation.Environment.Grids.gen_POI_grid import gen_POI_grid
+from src.Simulation.Environment.Grids.gen_compass_grid import gen_compass_grid
 
 # from src.Visualiser.Visualiser import Visualiser
 # from src.Visualiser.Visualiser_tools import Visualiser_tools
@@ -28,10 +31,10 @@ __date__ = '31/01/2020'
 
 class Environment:
     def __init__(self,
-                 world_image,
+                 world_image_path,
                  obstacle_image_path,
                  path_image_path,
-                 simulation_origin: "World coordinates tuple" = (3136, 3136)):
+                 simulation_origin: "World coordinates tuple" = [3136, 3136]):
         """
         RSAI environment class, used to generate RSAI environments
         """
@@ -40,7 +43,9 @@ class Environment:
         self.type = "Environment"
         self.origin = simulation_origin        # Origin coordinates of grid on the exploded map
 
-        if world_image is None:
+        if Path(world_image_path).is_file():
+            world_image = cv2.imread(world_image_path, cv2.IMREAD_UNCHANGED)
+        else:
             print("!!!!! Environment image is not provided !!!!!")
             sys.exit()
 
@@ -56,12 +61,19 @@ class Environment:
         POI_grid, self.POI_dict = gen_POI_grid(simulation_origin=self.origin,
                                                simulation_shape=obstacle_grid.shape)
 
+        # --> Setup compass grid
+        compass_grids_dict = gen_compass_grid(simulation_shape=obstacle_grid.shape,
+                                              POI_dict=self.POI_dict,
+                                              plot=0)
+
         self.shape = obstacle_grid.shape
 
         # --> Setup grids dictionary
-        self.grids_dict = {"Obstacle": obstacle_grid,
+        self.grids_dict = {"World": world_image,
+                           "Obstacle": obstacle_grid,
                            "Path": path_grid,
-                           "POI": POI_grid}
+                           "POI": POI_grid,
+                           "Compass": compass_grids_dict}
 
         print("- Environment initiated:", self)
 

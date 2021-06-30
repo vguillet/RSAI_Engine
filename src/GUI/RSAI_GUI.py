@@ -46,30 +46,36 @@ class RSAI_GUI():
 
         # ============================== Initiate Gui elements
         # --> Load gui element
-        self.console_gui = Console_GUI()
+        # self.console_gui = Console_GUI()
         self.map_view_gui = Map_view_GUI()
         self.game_view_gui = Game_view_GUI()
         self.overview_gui = Overview_GUI()
 
         # ============================== Initialise console
         # --> Reset log
-        self.console_gui.reset_log()
+        # self.console_gui.reset_log()
 
         # --> Initiate console observer
-        worker = Worker(self.update_console)
-        self.threadpool.start(worker)
+        # worker = Worker(self.update_console)
+        # self.threadpool.start(worker)
 
         # ============================== Initiate RSAI simulation
         # --> Create RSAI sim
         self.simulation = RSAI_simulation()
 
         # ============================== Initiate GUI
+        # --> Fill comboboxes
+        self.fill_comboboxes()
+
+        self.agent_selection = self.main_window.agent_selection.currentText()
+        self.POI_selection = self.main_window.POI_selection.currentText()
+
         # --> Initiate views trackers
         self.current_scale = "fit"
-        self.current_view = "world"
+        self.current_view = "simulation"
 
-        self.current_world_view = "Map"
-        self.current_sim_view = "Overview"
+        self.current_world_view = self.main_window.world_combo.currentText()
+        self.current_sim_view = self.main_window.simulation_combo.currentText()
 
         # --> Create map views
         self.views = Views(self.simulation)
@@ -89,6 +95,9 @@ class RSAI_GUI():
         self.main_window.world_combo.currentIndexChanged.connect(self.change_world_sub_view)
         self.main_window.simulation_combo.currentIndexChanged.connect(self.change_sim_sub_view)
 
+        self.main_window.agent_selection.currentIndexChanged.connect(self.change_agent_selection)
+        self.main_window.POI_selection.currentIndexChanged.connect(self.change_POI_selection)
+
         # ============================== Display GUI
         self.main_window.show()
 
@@ -99,7 +108,7 @@ class RSAI_GUI():
     def run_simulation(self):
         self.main_window.engine_state.setText("Running")
 
-        worker = Worker(self.simulation.run_simulation)
+        worker = Worker(self.simulation.gui_run_simulation)
         worker.signals.progress.connect(self.update_gui)
 
         self.threadpool.start(worker)
@@ -107,15 +116,14 @@ class RSAI_GUI():
         return
 
     def update_gui(self):
-        try:
-            if self.main_window.enable_render.isChecked():
-                self.map_view_gui.update_map_view(self)
-                self.map_view_gui.update_position_summary(self)
+        if self.main_window.enable_render.isChecked():
+            # --> Right pane
+            self.map_view_gui.update_map_view(self)
+            self.map_view_gui.update_position_summary(self)
 
-                self.overview_gui.update_overview(self)
-                self.overview_gui.update_agent_overview_tab(self)
-        except:
-            pass
+            # --> Left pane
+            self.overview_gui.update_overview(self)
+            self.overview_gui.update_agent_overview_tab(self)
 
     def update_console(self, progress_callback):
         while True:
@@ -124,12 +132,33 @@ class RSAI_GUI():
             self.console_gui.update_console_output(self)
 
     # =======================================================================================================
+    def fill_comboboxes(self):
+        # --> Filling agent selection combobox
+        self.main_window.agent_selection.clear()
+
+        agent_selection_lst = ["All"]
+
+        for agent in self.simulation.swarm.population:
+            agent_selection_lst.append(agent.name)
+
+        self.main_window.agent_selection.addItems(agent_selection_lst)
+
+        # --> Filling poi selection combobox
+        self.main_window.POI_selection.clear()
+
+        POI_selection_lst = ["All"]
+
+        for poi_name in self.simulation.environment.POI_dict.keys():
+            POI_selection_lst.append(poi_name)
+
+        self.main_window.POI_selection.addItems(POI_selection_lst)
+
     @property
     def scale(self):
         if self.current_scale == "fit":
             return 10000, 635
         else:
-            return 530, 10000
+            return 1590, 30000
 
     @property
     def view_pixmap(self):
@@ -141,14 +170,14 @@ class RSAI_GUI():
     def change_scale(self):
         if self.current_scale == "fit":
             self.current_scale = "full"
-            self.map_view_gui.update_map_view(self)
+            self.map_view_gui.update_map_view(gui=self)
 
             # --> Adjust button text
             self.main_window.scale_toggle.setText("Scale view (Full screen)")
 
         else:
             self.current_scale = "fit"
-            self.map_view_gui.update_map_view(self)
+            self.map_view_gui.update_map_view(gui=self)
 
             # --> Adjust button text
             self.main_window.scale_toggle.setText("Scale view (Fit screen)")
@@ -157,27 +186,39 @@ class RSAI_GUI():
 
     def toggle_world_view(self):
         self.current_view = "world"
-        self.map_view_gui.update_map_view(self)
+        self.map_view_gui.update_map_view(gui=self)
         return
 
     def toggle_simulation_view(self):
         self.current_view = "simulation"
-        self.map_view_gui.update_map_view(self)
+        self.map_view_gui.update_map_view(gui=self)
         return
 
     def change_world_sub_view(self):
         self.current_world_view = self.main_window.world_combo.currentText()
 
         if self.current_view == "world":
-            self.map_view_gui.update_map_view(self)
+            self.map_view_gui.update_map_view(gui=self)
         return
 
     def change_sim_sub_view(self):
         self.current_sim_view = self.main_window.simulation_combo.currentText()
 
         if self.current_view == "simulation":
-            self.map_view_gui.update_map_view(self)
+            self.map_view_gui.update_map_view(gui=self)
         return
+
+    def change_POI_selection(self):
+        self.POI_selection = self.main_window.POI_selection.currentText()
+
+        self.update_gui()
+        self.map_view_gui.update_map_view(gui=self)
+
+    def change_agent_selection(self):
+        self.agent_selection = self.main_window.agent_selection.currentText()
+
+        self.update_gui()
+        self.map_view_gui.update_map_view(gui=self)
 
 
 # =======================================================================================================
