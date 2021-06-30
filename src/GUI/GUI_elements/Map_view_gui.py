@@ -26,15 +26,15 @@ class Map_view_GUI:
     @staticmethod
     def gen_views_dict(gui):
         return {"world": {"Map": QPixmap(gui.simulation.world_image_path),
-                          "Obstacle": QPixmap(gui.simulation.obstacle_image_path)},
+                          "Obstacle": QPixmap(gui.simulation.obstacle_image_path),
+                          "Paths": QPixmap(gui.simulation.path_image_path)},
 
-                "simulation": {"Overview": QPixmap(array2qimage(gui.views.overview, normalize=True)),
-                               "Agent": QPixmap(array2qimage(gui.views.agent_view, normalize=True)),
-                               "POIs": QPixmap(array2qimage(gui.views.POI_view, normalize=True)),
-                               "Appeal": QPixmap(array2qimage(gui.views.Appeal_map_view, normalize=True)),
-                               "Pheromone": QPixmap(array2qimage(gui.views.Pheromone_map_view, normalize=True)),
-                               "Obstacles": QPixmap(array2qimage(gui.views.obstacle_view, normalize=True)),
-                               "Paths": QPixmap(array2qimage(gui.views.path_view, normalize=True))}
+                "simulation": {"Overview": QPixmap(array2qimage(gui.views.overview(gui.POI_selection, gui.agent_selection), normalize=True)),
+                               "POIs": QPixmap(array2qimage(gui.views.POI_view(gui.POI_selection, gui.agent_selection), normalize=True)),
+                               "Appeal": QPixmap(array2qimage(gui.views.appeal_map_view(gui.POI_selection, gui.agent_selection), normalize=True)),
+                               "Pheromone": QPixmap(array2qimage(gui.views.pheromone_map_view(gui.POI_selection, gui.agent_selection), normalize=True)),
+                               "Obstacles": QPixmap(array2qimage(gui.views.obstacle_view(gui.POI_selection, gui.agent_selection), normalize=True)),
+                               "Paths": QPixmap(array2qimage(gui.views.path_view(gui.POI_selection, gui.agent_selection), normalize=True))}
                 }
 
     @staticmethod
@@ -42,35 +42,39 @@ class Map_view_GUI:
         if gui.current_view == "world":
             gui.views_dict["world"]["Map"] = QPixmap(gui.simulation.world_image_path)
             gui.views_dict["world"]["Obstacles"] = QPixmap(gui.simulation.obstacle_image_path)
+            gui.views_dict["world"]["Paths"] = QPixmap(gui.simulation.path_image_path)
+
             return
 
         else:
             if gui.current_sim_view == "Overview":
-                gui.views_dict["simulation"]["Overview"] = QPixmap(array2qimage(gui.views.overview, normalize=True))
-                return
-
-            elif gui.current_sim_view == "Agent":
-                gui.views_dict["simulation"]["Agent"] = QPixmap(array2qimage(gui.views.agent_view, normalize=True))
+                gui.views_dict["simulation"]["Overview"] = \
+                    QPixmap(array2qimage(gui.views.overview(gui.POI_selection, gui.agent_selection), normalize=True))
                 return
 
             elif gui.current_sim_view == "POIs":
-                gui.views_dict["simulation"]["POIs"] = QPixmap(array2qimage(gui.views.POI_view, normalize=True))
+                gui.views_dict["simulation"]["POIs"] = \
+                    QPixmap(array2qimage(gui.views.POI_view(gui.POI_selection, gui.agent_selection), normalize=True))
                 return
 
             elif gui.current_sim_view == "Appeal":
-                gui.views_dict["simulation"]["Appeal"] = QPixmap(array2qimage(gui.views.Appeal_map_view, normalize=True))
+                gui.views_dict["simulation"]["Appeal"] = \
+                    QPixmap(array2qimage(gui.views.appeal_map_view(gui.POI_selection, gui.agent_selection), normalize=True))
                 return
 
             elif gui.current_sim_view == "Pheromone":
-                gui.views_dict["simulation"]["Pheromone"] = QPixmap(array2qimage(gui.views.Pheromone_map_view, normalize=True))
+                gui.views_dict["simulation"]["Pheromone"] = \
+                    QPixmap(array2qimage(gui.views.pheromone_map_view(gui.POI_selection, gui.agent_selection), normalize=True))
                 return
 
             elif gui.current_sim_view == "Obstacles":
-                gui.views_dict["simulation"]["Obstacles"] = QPixmap(array2qimage(gui.views.obstacle_view, normalize=True))
+                gui.views_dict["simulation"]["Obstacles"] = \
+                    QPixmap(array2qimage(gui.views.obstacle_view(gui.POI_selection, gui.agent_selection), normalize=True))
                 return
 
             elif gui.current_sim_view == "Paths":
-                gui.views_dict["simulation"]["Paths"] = QPixmap(array2qimage(gui.views.path_view, normalize=True))
+                gui.views_dict["simulation"]["Paths"] = \
+                    QPixmap(array2qimage(gui.views.path_view(gui.POI_selection, gui.agent_selection), normalize=True))
                 return
 
     def update_map_view(self, gui):
@@ -95,72 +99,45 @@ class Map_view_GUI:
     @staticmethod
     def update_position_summary(gui):
         if gui.main_window.enable_render.isChecked():
+            if gui.agent_selection == "All":
+                selected_agent = gui.simulation.swarm.population[0]
+
+            else:
+                # --> Find selected agent
+                for agent in gui.simulation.swarm.population:
+                    if agent.name == gui.agent_selection:
+                        selected_agent = agent
+                        break
+
             # --> Update agent labels
-            gui.main_window.map_agent_name.setText(gui.simulation.swarm.population[0].name)
-            gui.main_window.agent_pos_world_coordinates.setText(str(gui.simulation.swarm.population[0].world_pos))
-            gui.main_window.agent_pos_simulation_coordinates.setText(str(gui.simulation.swarm.population[0].simulation_pos))
+            gui.main_window.map_agent_name.setText(selected_agent.name)
+            gui.main_window.agent_pos_world_coordinates.setText(str(selected_agent.world_pos))
+            gui.main_window.agent_pos_simulation_coordinates.setText(str(selected_agent.simulation_pos))
 
             # --> If goal is set
-            if gui.simulation.agent.goal is not None:
-                # --> Set step text
-                gui.main_window.step_pos_world_coordinates.setText(str(gui.simulation.swarm.population[0].world_route_to_goal[0]))
-                gui.main_window.step_pos_simulation_coordinates.setText(str(gui.simulation.swarm.population[0].simulation_route_to_goal[0]))
-
+            if selected_agent.goal is not None:
                 # --> Set name text
-                if gui.simulation.agent.goal_type == "POI":
-                    gui.main_window.goal_name.setText(str(gui.simulation.swarm.population[0].goal.name))
+                gui.main_window.goal_name.setText(selected_agent.goal.name)
 
-                elif gui.simulation.agent.goal_type == "Coordinates":
-                    gui.main_window.goal_name.setText("Coordinates")
+                # # --> Set prev goal coordinates
+                # gui.main_window.prev_goal_pos_world_coordinates.setText(str(selected_agent.goal_history[-1].world_pos))
+                # gui.main_window.prev_goal_pos_simulation_coordinates.setText(str(selected_agent.goal_history[-1].simulation_pos))
 
                 # --> Set goal coordinates
-                gui.main_window.goal_pos_world_coordinates.setText(str(gui.simulation.swarm.population[0].goal.world_pos))
-                gui.main_window.goal_pos_simulation_coordinates.setText(str(gui.simulation.swarm.population[0].goal.simulation_pos))
+                gui.main_window.goal_pos_world_coordinates.setText(str(selected_agent.goal.world_pos))
+                gui.main_window.goal_pos_simulation_coordinates.setText(str(selected_agent.goal.simulation_pos))
 
-                # --> Set path text
-                gui.main_window.total_path_length.setText(str(gui.simulation.swarm.population[0].total_path_len))
-                gui.main_window.steps_to_goal.setText(str(len(gui.simulation.swarm.population[0].simulation_route_to_goal) - 1))
+            else:
+                # --> Set name text
+                gui.main_window.goal_name.setText("None")
 
-                return
+                # # --> Set prev goal coordinates
+                # gui.main_window.prev_goal_pos_world_coordinates.setText("-")
+                # gui.main_window.prev_goal_pos_simulation_coordinates.setText("-")
+
+                # --> Set goal coordinates
+                gui.main_window.goal_pos_world_coordinates.setText("-")
+                gui.main_window.goal_pos_simulation_coordinates.setText("-")
+
         else:
             return
-
-"""   
-1 import sys
-   2 from PyQt4.QtCore import *
-   3 from PyQt4.QtGui import *
-   4 
-   5 if __name__ == "__main__":x 
-   6 
-   7     app = QApplication(sys.argv)
-   8     
-   9     if len(app.arguments()) < 2:
-  10     
-  11         sys.stderr.write("Usage: %s <image file> <overlay file>\n" % sys.argv[0])
-  12         sys.exit(1)
-  13     
-  14     image = QImage(app.arguments()[1])
-  15     if image.isNull():
-  16         sys.stderr.write("Failed to read image: %s\n" % app.arguments()[1])
-  17         sys.exit(1)
-  18     
-  19     overlay = QImage(app.arguments()[2])
-  20     if overlay.isNull():
-  21         sys.stderr.write("Failed to read image: %s\n" % app.arguments()[2])
-  22         sys.exit(1)
-  23     
-  24     if overlay.size() > image.size():
-  25     
-  26         overlay = overlay.scaled(image.size(), Qt.KeepAspectRatio)
-  27     
-  28     painter = QPainter()
-  29     painter.begin(image)
-  30     painter.drawImage(0, 0, overlay)
-  31     painter.end()
-  32     
-  33     label = QLabel()
-  34     label.setPixmap(QPixmap.fromImage(image))
-  35     label.show()
-  36     
-  37     sys.exit(app.exec_())
-  """

@@ -7,6 +7,7 @@
 # Built-in/Generic Imports
 import math
 import random
+from pathlib import Path
 
 # Libs
 import numpy as np
@@ -18,6 +19,7 @@ from src.Simulation.Swarm.Agent.RSAI_agent import Agent
 from src.Simulation.Items.Item import Item
 from src.Simulation.Tools.Throttle_tool import throttle
 from src.Simulation.Swarm.Agent.Path_finding.update_area import update_area
+from src.Simulation.Tools.Pickle_tools import *
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -32,6 +34,8 @@ class Swarm:
                  simulation_shape,
                  POI_dict,
                  population_size=1,
+                 grids_dict=None,
+                 name="1",
                  verbose=1):
 
         # --> Settings
@@ -49,7 +53,19 @@ class Swarm:
                                  POI_dict=POI_dict)
 
         # --> Setup swarm grids
-        self.grids_dict = {"Path pheromone": {}}
+        self.grids_dict_path = f"src/Data/Swarm/Swarm_{name}_grids_dict.pkl"
+
+        if grids_dict is None:
+            # --> Load grid object
+            if Path(self.grids_dict_path).is_file():
+                self.grids_dict = load_obj(self.grids_dict_path)
+
+            # --> Create grid dict
+            else:
+                self.grids_dict = {"Path pheromone": {}}
+
+        else:
+            self.grids_dict = grids_dict
 
     def step(self, POI_dict, environments_grids):
         # TODO: Deal with unreachable goals
@@ -72,13 +88,13 @@ class Swarm:
                        swarm_grids=self.grids_dict,
                        compass_weight=1,
                        path_weight=1.5,
-                       pheromone_weight=1)
+                       pheromone_weight=2.5)
 
             # --> If arrived at goal
             if agent.simulation_pos == agent.goal.simulation_pos:
                 print(f"-> Route to {agent.goal.name} found: {len(agent.simulation_route_to_goal)} steps")
 
-                self.evaporate_path_pheromone(evaporation_rate=0.10,
+                self.evaporate_path_pheromone(evaporation_rate=0.05,
                                               POI_name=agent.goal.name)
 
                 self.update_path_pheromone(POI_name=agent.goal.name,
@@ -97,7 +113,7 @@ class Swarm:
                 # --> Clear agent goal
                 agent.clear_goal()
 
-            elif agent.age > 2500:
+            elif agent.age > 5000:
                 agent.reset()
 
     def reset_pheromone(self):
@@ -131,10 +147,17 @@ class Swarm:
                         simulation_pos=[step[0], step[1]],
                         max_value=step_pheromone_update,
                         min_value=pheromone_update/3,
-                        radius=3,
+                        radius=2,
                         plot=0)
 
             # self.grids_dict["Path pheromone"][POI_name][step[0], step[1]] += step_pheromone_update
+
+        # --> Record swarm grid dict
+        try:
+            # self.grids_dict = load_obj(self.grids_dict_path)
+            save_obj(self.grids_dict, self.grids_dict_path)
+        except:
+            print("!!!! Saving swarm grid dict failed !!!!")
 
     def evaporate_path_pheromone(self, evaporation_rate, POI_name):
         for x in range(len(self.grids_dict["Path pheromone"][POI_name])):
@@ -159,7 +182,8 @@ class Swarm:
             self.population.append(Agent(name=fake.name(),
                                          simulation_origin=simulation_origin,
                                          simulation_shape=simulation_shape,
-                                         start_simulation_pos=POI_dict[POI_key].simulation_pos))
+                                         start_simulation_pos=POI_dict[POI_key].simulation_pos,
+                                         verbose=self.verbose))
 
         # --> Equip some items
         equipment = [Item("Helm", "Med_helm", "Iron"),

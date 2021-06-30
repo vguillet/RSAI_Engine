@@ -47,7 +47,8 @@ class Agent:
                  start_statistics: dict = None,
                  start_interests: dict = None,
                  start_equipment: dict = None,
-                 start_inventory: dict = None):
+                 start_inventory: dict = None,
+                 verbose=0):
         """
         Create RSAI agent objects to be used in RSAI simulations in the RSAI engine
 
@@ -100,7 +101,8 @@ class Agent:
         self.goal_history = []
         self.simulation_route_history = []
 
-        print("- Agent initiated:", self)
+        if verbose == 1:
+            print("- Agent initiated:", self)
 
     def __str__(self):
         return self.name + " (RSAI bot level " + str(self.combat_level) + ")"
@@ -179,12 +181,12 @@ class Agent:
             #   g h i
 
             kernel_dict = {
-                "a": {"step": [0, 0],
-                      "sim": [self.simulation_pos[0] - 1, self.simulation_pos[1] - 1] * (1 - top_edge) * (1 - left_edge)},
+                # "a": {"step": [0, 0],
+                #       "sim": [self.simulation_pos[0] - 1, self.simulation_pos[1] - 1] * (1 - top_edge) * (1 - left_edge)},
                 "b": {"step": [0, 1],
                       "sim": [self.simulation_pos[0] - 1, self.simulation_pos[1]] * (1 - top_edge)},
-                "c": {"step": [0, 2],
-                      "sim": [self.simulation_pos[0] - 1, self.simulation_pos[1] + 1] * (1 - top_edge) * (1 - right_edge)},
+                # "c": {"step": [0, 2],
+                #       "sim": [self.simulation_pos[0] - 1, self.simulation_pos[1] + 1] * (1 - top_edge) * (1 - right_edge)},
 
                 "d": {"step": [1, 0],
                       "sim": [self.simulation_pos[0], self.simulation_pos[1] - 1] * (1 - left_edge)},
@@ -193,12 +195,12 @@ class Agent:
                 "f": {"step": [1, 2],
                       "sim": [self.simulation_pos[0], self.simulation_pos[1] + 1] * (1 - right_edge)},
 
-                "g": {"step": [2, 0],
-                      "sim": [self.simulation_pos[0] + 1, self.simulation_pos[1] - 1] * (1 - bottom_edge) * (1 - left_edge)},
+                # "g": {"step": [2, 0],
+                #       "sim": [self.simulation_pos[0] + 1, self.simulation_pos[1] - 1] * (1 - bottom_edge) * (1 - left_edge)},
                 "h": {"step": [2, 1],
                       "sim": [self.simulation_pos[0] + 1, self.simulation_pos[1]] * (1 - bottom_edge)},
-                "i": {"step": [2, 2],
-                      "sim": [self.simulation_pos[0] + 1, self.simulation_pos[1] + 1] * (1 - bottom_edge) * (1 - right_edge)}
+                # "i": {"step": [2, 2],
+                #       "sim": [self.simulation_pos[0] + 1, self.simulation_pos[1] + 1] * (1 - bottom_edge) * (1 - right_edge)}
                 }
 
             # --> Create empty array dicts
@@ -240,7 +242,7 @@ class Agent:
                             for POI_name in swarm_grids[array_name].keys():
                                 if POI_name != self.goal.name:
                                     step_arrays[array_name][tuple(kernel_dict[array_position]["step"])] = \
-                                        swarm_grids[array_name][POI_name][tuple(kernel_dict[array_position]["sim"])] * 0.25
+                                        swarm_grids[array_name][POI_name][tuple(kernel_dict[array_position]["sim"])] * 0.5
 
             # --> Create possible step and possible step appeal lists
             possible_steps = []
@@ -282,7 +284,7 @@ class Agent:
 
             # --> Replace
             appeal_weights = [9, 7, 5, 4, 3, 2, 1, 1, 1]
-            appeal_weights = [1.5, 1.5, 1.5, 1.5, 1, 1, 1, 1, 1]
+            appeal_weights = [3, 2, 2, 2, 1.5, 1.5, 1, 1, 1]
 
             for step_appeal in range(len(possible_steps_appeal)):
                 possible_steps_appeal[step_appeal] = possible_steps_appeal[step_appeal] * appeal_weights[step_appeal]

@@ -32,6 +32,8 @@ class POI:
         self.type = ""
         self.name = name
 
+        self.label = ""
+
         # --> Setup POI position
         self.world_pos, self.simulation_pos = convert_coordinates(simulation_origin=simulation_origin,
                                                                   simulation_shape=simulation_shape,
