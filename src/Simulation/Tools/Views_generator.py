@@ -35,7 +35,7 @@ class Views:
         overview += self.simulation.environment.grids_dict["Path"] * 2
 
         for agent in self.simulation.swarm.population:
-            # --> Adding agent path to overview
+            # --> Adding agent route to overview
             if agent.goal is not None:
                 for step in agent.simulation_route_to_goal:
                     overview[step[0]][step[1]] = 5
@@ -65,20 +65,30 @@ class Views:
 
     @property
     def POI_view(self):
-        poi_grid = np.zeros(self.simulation.environment.shape)
+        # --> Adding obstacles to overview
+        poi_grid = self.simulation.environment.grids_dict["Obstacle"].copy()
+
+        poi_grid[poi_grid == 0] = int(2)
+        poi_grid[poi_grid == 1] = int(0)
+        poi_grid[poi_grid == 0] = int(1)
 
         # --> Add POIs location
         poi_grid += self.simulation.environment.grids_dict["POI"] * 10
 
         # --> Add agent position
         for agent in self.simulation.swarm.population:
-            poi_grid[agent.simulation_pos[0]][agent.simulation_pos[1]] = 3
+            poi_grid[agent.simulation_pos[0]][agent.simulation_pos[1]] = 5
 
         return poi_grid
 
     @property
     def Appeal_map_view(self):
-        appeal_grid = np.zeros(self.simulation.environment.shape)
+        # --> Adding obstacles to overview
+        appeal_grid = self.simulation.environment.grids_dict["Obstacle"].copy()
+
+        appeal_grid[appeal_grid == 0] = int(2)
+        appeal_grid[appeal_grid == 1] = int(0)
+        appeal_grid[appeal_grid == 0] = int(1)
 
         for POI in self.simulation.swarm.grids_dict["Path pheromone"].keys():
             # --> Add paths
@@ -98,7 +108,12 @@ class Views:
 
     @property
     def Pheromone_map_view(self):
-        pheromone_grid = np.zeros(self.simulation.environment.shape)
+        # --> Adding obstacles to overview
+        pheromone_grid = self.simulation.environment.grids_dict["Obstacle"].copy()
+
+        pheromone_grid[pheromone_grid == 0] = int(2)
+        pheromone_grid[pheromone_grid == 1] = int(0)
+        pheromone_grid[pheromone_grid == 0] = int(1)
 
         # --> Add POIs pheromone
         for POI in self.simulation.swarm.grids_dict["Path pheromone"].keys():
@@ -125,7 +140,12 @@ class Views:
 
     @property
     def path_view(self):
-        path_grid = np.zeros(self.simulation.environment.shape)
+        # --> Adding obstacles to overview
+        path_grid = self.simulation.environment.grids_dict["Obstacle"].copy()
+
+        path_grid[path_grid == 0] = int(2)
+        path_grid[path_grid == 1] = int(0)
+        path_grid[path_grid == 0] = int(1)
 
         # --> Add paths
         path_grid += self.simulation.environment.grids_dict["Path"] * 3

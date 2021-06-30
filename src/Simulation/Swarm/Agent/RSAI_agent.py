@@ -275,12 +275,11 @@ class Agent:
                                                                                  possible_steps_appeal[i]
 
             # --> Replace
-            appeal_weights = [50, 12, 12, 8, 5, 1, 1, 1, 1]
+            appeal_weights = [9, 7, 5, 4, 3, 2, 1, 1, 1]
+            appeal_weights = [2, 2, 2, 1, 1, 1, 1, 1, 1]
 
             for step_appeal in range(len(possible_steps_appeal)):
-                possible_steps_appeal[step_appeal] * appeal_weights[step_appeal]
-
-            possible_steps_appeal = [9, 7, 5, 4, 3, 2, 1, 1, 1][:len(possible_steps_appeal)]
+                possible_steps_appeal[step_appeal] = possible_steps_appeal[step_appeal] * appeal_weights[step_appeal]
 
             # --> Pick a step to take
             new_pos = random.choices(possible_steps,

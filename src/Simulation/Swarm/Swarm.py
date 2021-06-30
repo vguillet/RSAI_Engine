@@ -73,14 +73,14 @@ class Swarm:
             agent.move(environments_grids=environments_grids,
                        swarm_grids=self.grids_dict,
                        compass_weight=1,
-                       path_weight=1,
+                       path_weight=2,
                        pheromone_weight=1)
 
             # --> If arrived at goal
             if agent.simulation_pos == agent.goal.simulation_pos:
                 print(f"-> Route to {agent.goal.name} found: {len(agent.simulation_route_to_goal)} steps")
 
-                self.evaporate_path_pheromone(evaporation_rate=3,
+                self.evaporate_path_pheromone(evaporation_rate=0.25,
                                               POI_name=agent.goal.name)
 
                 self.update_path_pheromone(POI_name=agent.goal.name,
@@ -99,7 +99,7 @@ class Swarm:
                 # --> Clear agent goal
                 agent.clear_goal()
 
-            elif agent.age > 5000:
+            elif agent.age > 2500:
                 agent.reset()
 
     def reset_pheromone(self):
@@ -140,11 +140,10 @@ class Swarm:
     def evaporate_path_pheromone(self, evaporation_rate, POI_name):
         for x in range(len(self.grids_dict["Path pheromone"][POI_name])):
             for y in range(len(self.grids_dict["Path pheromone"][POI_name][x])):
-                if self.grids_dict["Path pheromone"][POI_name][x, y] <= 1:
+                if self.grids_dict["Path pheromone"][POI_name][x, y] <= 0:
                     continue
                 else:
-                    self.grids_dict["Path pheromone"][POI_name][x, y] = \
-                        max(self.grids_dict["Path pheromone"][POI_name][x, y] * (1 - evaporation_rate), 1)
+                    self.grids_dict["Path pheromone"][POI_name][x, y] -= evaporation_rate
 
     def generate_population(self,
                             population_size,
