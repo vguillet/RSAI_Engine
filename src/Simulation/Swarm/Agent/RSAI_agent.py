@@ -236,6 +236,12 @@ class Agent:
                             step_arrays[array_name][tuple(kernel_dict[array_position]["step"])] = \
                                 swarm_grids[array_name][self.goal.name][tuple(kernel_dict[array_position]["sim"])]
 
+                            # > Add small amount of pheromone from other path pheromone grids
+                            for POI_name in swarm_grids[array_name].keys():
+                                if POI_name != self.goal.name:
+                                    step_arrays[array_name][tuple(kernel_dict[array_position]["step"])] = \
+                                        swarm_grids[array_name][POI_name][tuple(kernel_dict[array_position]["sim"])] * 0.25
+
             # --> Create possible step and possible step appeal lists
             possible_steps = []
             possible_steps_appeal = []
@@ -276,7 +282,7 @@ class Agent:
 
             # --> Replace
             appeal_weights = [9, 7, 5, 4, 3, 2, 1, 1, 1]
-            appeal_weights = [2, 2, 2, 1, 1, 1, 1, 1, 1]
+            appeal_weights = [1.5, 1.5, 1.5, 1.5, 1, 1, 1, 1, 1]
 
             for step_appeal in range(len(possible_steps_appeal)):
                 possible_steps_appeal[step_appeal] = possible_steps_appeal[step_appeal] * appeal_weights[step_appeal]

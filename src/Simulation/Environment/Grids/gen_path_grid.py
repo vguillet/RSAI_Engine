@@ -108,8 +108,8 @@ def gen_path_grid(world_image, path_image_path=None):
 
     else:
         # -> Set paths to 1 and rest to 0 on mask
-        mask[mask == 0] = int(1)
-        mask[mask == 255] = int(0)
+        mask[mask == 0] = int(0)
+        mask[mask == 255] = int(1)
 
         # --> Reduce mask to world scale
         world_path_array = reduce_grid_scale(array=mask, scale_factor=4)

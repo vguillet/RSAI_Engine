@@ -24,33 +24,34 @@ class Views:
 
     @property
     def overview(self):
-        # --> Adding obstacles to overview
-        overview = self.simulation.environment.grids_dict["Obstacle"].copy()
+        overview = np.ones(self.simulation.environment.shape)
 
-        overview[overview == 0] = int(2)
-        overview[overview == 1] = int(0)
-        overview[overview == 0] = int(1)
+        # --> Add obstacles to overview
+        overview -= self.simulation.environment.grids_dict["Obstacle"]
 
-        # --> Adding paths to overview
+        # --> Add paths to overview
         overview += self.simulation.environment.grids_dict["Path"] * 2
 
         for agent in self.simulation.swarm.population:
-            # --> Adding agent route to overview
+            # --> Add agent route to overview
             if agent.goal is not None:
                 for step in agent.simulation_route_to_goal:
                     overview[step[0]][step[1]] = 5
 
-            # --> Adding agent to overview
+            # --> Add agent to overview
             overview[agent.simulation_pos[0]][agent.simulation_pos[1]] = 15
 
-        # --> Adding POIs to overview
+        # --> Add POIs to overview
         overview += self.simulation.environment.grids_dict["POI"] * 10
 
         return overview
 
     @property
     def agent_view(self):
-        agent_view = np.zeros(self.simulation.environment.shape)
+        agent_view = np.ones(self.simulation.environment.shape)
+
+        # --> Add obstacles to overview
+        agent_view -= self.simulation.environment.grids_dict["Obstacle"]
 
         for agent in self.simulation.swarm.population:
             # --> Adding agent path
@@ -65,12 +66,10 @@ class Views:
 
     @property
     def POI_view(self):
-        # --> Adding obstacles to overview
-        poi_grid = self.simulation.environment.grids_dict["Obstacle"].copy()
+        poi_grid = np.ones(self.simulation.environment.shape)
 
-        poi_grid[poi_grid == 0] = int(2)
-        poi_grid[poi_grid == 1] = int(0)
-        poi_grid[poi_grid == 0] = int(1)
+        # --> Add obstacles to overview
+        poi_grid -= self.simulation.environment.grids_dict["Obstacle"]
 
         # --> Add POIs location
         poi_grid += self.simulation.environment.grids_dict["POI"] * 10
@@ -83,12 +82,10 @@ class Views:
 
     @property
     def Appeal_map_view(self):
-        # --> Adding obstacles to overview
-        appeal_grid = self.simulation.environment.grids_dict["Obstacle"].copy()
+        appeal_grid = np.ones(self.simulation.environment.shape)
 
-        appeal_grid[appeal_grid == 0] = int(2)
-        appeal_grid[appeal_grid == 1] = int(0)
-        appeal_grid[appeal_grid == 0] = int(1)
+        # --> Add obstacles to overview
+        appeal_grid -= self.simulation.environment.grids_dict["Obstacle"]
 
         for POI in self.simulation.swarm.grids_dict["Path pheromone"].keys():
             # --> Add paths
@@ -108,12 +105,16 @@ class Views:
 
     @property
     def Pheromone_map_view(self):
-        # --> Adding obstacles to overview
-        pheromone_grid = self.simulation.environment.grids_dict["Obstacle"].copy()
+        pheromone_grid = np.ones(self.simulation.environment.shape)
 
-        pheromone_grid[pheromone_grid == 0] = int(2)
-        pheromone_grid[pheromone_grid == 1] = int(0)
-        pheromone_grid[pheromone_grid == 0] = int(1)
+        # --> Add obstacles to overview
+        pheromone_grid -= self.simulation.environment.grids_dict["Obstacle"]
+
+        # --> Add paths
+        pheromone_grid += self.simulation.environment.grids_dict["Path"] * 2
+
+        # --> Add POIs location
+        pheromone_grid += self.simulation.environment.grids_dict["POI"] * 10
 
         # --> Add POIs pheromone
         for POI in self.simulation.swarm.grids_dict["Path pheromone"].keys():
@@ -140,12 +141,10 @@ class Views:
 
     @property
     def path_view(self):
-        # --> Adding obstacles to overview
-        path_grid = self.simulation.environment.grids_dict["Obstacle"].copy()
+        path_grid = np.ones(self.simulation.environment.shape)
 
-        path_grid[path_grid == 0] = int(2)
-        path_grid[path_grid == 1] = int(0)
-        path_grid[path_grid == 0] = int(1)
+        # --> Add obstacles to overview
+        path_grid -= self.simulation.environment.grids_dict["Obstacle"]
 
         # --> Add paths
         path_grid += self.simulation.environment.grids_dict["Path"] * 3

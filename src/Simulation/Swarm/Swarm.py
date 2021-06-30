@@ -30,8 +30,7 @@ class Swarm:
     def __init__(self,
                  simulation_origin,
                  simulation_shape,
-                 start_world_pos=[3216, 3219],
-                 start_simulation_pos=None,
+                 POI_dict,
                  population_size=1,
                  verbose=1):
 
@@ -47,8 +46,7 @@ class Swarm:
         self.generate_population(population_size=population_size,
                                  simulation_origin=simulation_origin,
                                  simulation_shape=simulation_shape,
-                                 start_world_pos=start_world_pos,
-                                 start_simulation_pos=start_simulation_pos)
+                                 POI_dict=POI_dict)
 
         # --> Setup swarm grids
         self.grids_dict = {"Path pheromone": {}}
@@ -73,14 +71,14 @@ class Swarm:
             agent.move(environments_grids=environments_grids,
                        swarm_grids=self.grids_dict,
                        compass_weight=1,
-                       path_weight=2,
+                       path_weight=1.5,
                        pheromone_weight=1)
 
             # --> If arrived at goal
             if agent.simulation_pos == agent.goal.simulation_pos:
                 print(f"-> Route to {agent.goal.name} found: {len(agent.simulation_route_to_goal)} steps")
 
-                self.evaporate_path_pheromone(evaporation_rate=0.25,
+                self.evaporate_path_pheromone(evaporation_rate=0.10,
                                               POI_name=agent.goal.name)
 
                 self.update_path_pheromone(POI_name=agent.goal.name,
@@ -115,6 +113,7 @@ class Swarm:
 
         # --> Calculate max pheromone
         pheromone_update = q / (len(route) + energy_cost)
+        pheromone_update = 1
 
         # --> Update pheromone linearly increasing from start to POI
         for index, step in enumerate(route):
@@ -149,17 +148,18 @@ class Swarm:
                             population_size,
                             simulation_origin,
                             simulation_shape,
-                            start_world_pos,
-                            start_simulation_pos):
+                            POI_dict):
         fake = Faker()
 
         # --> Add agents to list
         for _ in range(population_size):
+            # > Select random starting point
+            POI_key = random.choice(list(POI_dict.keys()))
+
             self.population.append(Agent(name=fake.name(),
                                          simulation_origin=simulation_origin,
                                          simulation_shape=simulation_shape,
-                                         start_world_pos=start_world_pos,
-                                         start_simulation_pos=start_simulation_pos))
+                                         start_simulation_pos=POI_dict[POI_key].simulation_pos))
 
         # --> Equip some items
         equipment = [Item("Helm", "Med_helm", "Iron"),

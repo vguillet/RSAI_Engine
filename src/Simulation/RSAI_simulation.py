@@ -10,6 +10,7 @@ import random
 
 # Libs
 import cv2
+import matplotlib.pyplot as plt
 
 # Own modules
 from src.Simulation.Environment.Environment import Environment
@@ -40,12 +41,14 @@ class RSAI_simulation:
         # --> Create swarm
         self.swarm = Swarm(simulation_origin=self.environment.origin,
                            simulation_shape=self.environment.shape,
-                           start_world_pos=(3220, 3255),        # (3220, 3255) og: (3216, 3219)
-                           start_simulation_pos=None,
+                           POI_dict=self.environment.POI_dict,
                            population_size=100,
                            verbose=0)
 
     def run_simulation(self):
+        from src.Simulation.Tools.Views_generator import Views
+        view_generator = Views(rsai_simulation=self)
+
         print("\n---------------------- Simulation started ----------------------")
         for agent in self.swarm.population:
             agent.goal = None
@@ -60,6 +63,11 @@ class RSAI_simulation:
 
             if counter % 100 == 0:
                 print(f"- Step counts: {counter} completed")
+
+            if counter % 1000 == 0:
+
+                plt.imshow(view_generator.Pheromone_map_view, cmap='hot', interpolation='nearest')
+                plt.show()
 
     def gui_run_simulation(self, progress_callback):
         print("\n---------------------- Simulation started ----------------------")
