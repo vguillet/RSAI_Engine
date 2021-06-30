@@ -56,8 +56,8 @@ class RSAI_GUI():
         # self.console_gui.reset_log()
 
         # --> Initiate console observer
-        worker = Worker(self.update_console)
-        self.threadpool.start(worker)
+        # worker = Worker(self.update_console)
+        # self.threadpool.start(worker)
 
         # ============================== Initiate RSAI simulation
         # --> Create RSAI sim

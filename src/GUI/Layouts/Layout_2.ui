@@ -467,8 +467,8 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>309</width>
-                       <height>295</height>
+                       <width>98</width>
+                       <height>89</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -482,7 +482,7 @@
                           <rect>
                            <x>0</x>
                            <y>0</y>
-                           <width>272</width>
+                           <width>159</width>
                            <height>440</height>
                           </rect>
                          </property>
@@ -1050,7 +1050,7 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>292</width>
+                       <width>195</width>
                        <height>481</height>
                       </rect>
                      </property>
@@ -2305,7 +2305,7 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>292</width>
+                       <width>241</width>
                        <height>362</height>
                       </rect>
                      </property>
@@ -3009,8 +3009,8 @@
                       <rect>
                        <x>0</x>
                        <y>0</y>
-                       <width>309</width>
-                       <height>326</height>
+                       <width>252</width>
+                       <height>100</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout">
@@ -3979,6 +3979,16 @@
               <item>
                <property name="text">
                 <string>POIs</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Appeal</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Pheromone</string>
                </property>
               </item>
               <item>

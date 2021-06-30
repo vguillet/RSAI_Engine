@@ -74,10 +74,13 @@ class RSAI_simulation:
 
             counter += 1
 
-            if counter == 1:
-                time.sleep(0.01)
-                progress_callback.emit()
-                counter = 0
+            time.sleep(0.01)
+            progress_callback.emit()
+
+            if counter % 100 == 0:
+                print(f"- Step counts: {counter} completed")
+                # time.sleep(0.01)
+                # progress_callback.emit()
 
 
 if __name__ == "__main__":

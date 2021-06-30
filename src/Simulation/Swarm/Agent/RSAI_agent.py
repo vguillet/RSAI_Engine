@@ -92,6 +92,7 @@ class Agent:
         
         # --> Setup goal tracker
         self.goal = None
+
         self.simulation_route_to_goal = Route()
         self.simulation_route_to_goal.append(self.simulation_pos)
 
@@ -133,8 +134,6 @@ class Agent:
         return math.floor(base + max([self.melee_level, self.range_level, self.mage_level]))
 
     def set_goal_POI(self, POI):
-        print(POI.simulation_pos, self.simulation_pos)
-
         if POI.simulation_pos == self.simulation_pos:
             return
 
@@ -151,159 +150,10 @@ class Agent:
              path_weight=1,
              pheromone_weight=1):
 
-        # def calc_step_appeal(arrays, array_step_ref, weights):
-        #     return arrays["Compass"][tuple(array_step_ref)] * weights[0] \
-        #            + arrays["Path"][tuple(array_step_ref)] * weights[1] \
-        #            + arrays["Path pheromone"][tuple(array_step_ref)] * weights[2]
-
         if self.goal is None:
             print("!!!!! No goal specified !!!!!")
 
         else:
-            # self.prev_simulation_pos = self.simulation_pos
-            #
-            # possible_steps = []
-            # possible_steps_appeal = []
-            #
-            # # --> Compile weight list
-            # weights_lst = [compass_weight, path_weight, pheromone_weight]
-            #
-            # # --> Compile arrays dictionary
-            #
-            # #   a b c
-            # #   d e f
-            # #   g h i
-            #
-            # step_arrays = {
-            #     "Obstacle": np.array(
-            #         [[environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
-            #           environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1]],
-            #           environments_grids["Obstacle"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
-            #
-            #          [environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] - 1],
-            #           1,
-            #           environments_grids["Obstacle"][self.simulation_pos[0], self.simulation_pos[1] + 1]],
-            #
-            #          [environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
-            #           environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1]],
-            #           environments_grids["Obstacle"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]]),
-            #
-            #     "Compass": np.array(
-            #         [[environments_grids["Compass"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
-            #           environments_grids["Compass"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1]],
-            #           environments_grids["Compass"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
-            #
-            #          [environments_grids["Compass"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] - 1],
-            #           1,
-            #           environments_grids["Compass"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] + 1]],
-            #
-            #          [environments_grids["Compass"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
-            #           environments_grids["Compass"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1]],
-            #           environments_grids["Compass"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]]),
-            #
-            #     "Path": np.array(
-            #         [[environments_grids["Path"][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
-            #           environments_grids["Path"][self.simulation_pos[0] - 1, self.simulation_pos[1]],
-            #           environments_grids["Path"][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
-            #
-            #          [environments_grids["Path"][self.simulation_pos[0], self.simulation_pos[1] - 1],
-            #           1,
-            #           environments_grids["Path"][self.simulation_pos[0], self.simulation_pos[1] + 1]],
-            #
-            #          [environments_grids["Path"][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
-            #           environments_grids["Path"][self.simulation_pos[0] + 1, self.simulation_pos[1]],
-            #           environments_grids["Path"][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]]),
-            #
-            #     "Path pheromone": np.array(
-            #         [[swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] - 1],
-            #           swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1]],
-            #           swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] - 1, self.simulation_pos[1] + 1]],
-            #
-            #          [swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] - 1],
-            #           1,
-            #           swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0], self.simulation_pos[1] + 1]],
-            #
-            #          [swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] - 1],
-            #           swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1]],
-            #           swarm_grids["Path pheromone"][self.goal.name][self.simulation_pos[0] + 1, self.simulation_pos[1] + 1]]])
-            # }
-            #
-            # # --> a
-            # if step_arrays["Obstacle"][0, 0] != 1 \
-            #         and self.simulation_pos[0] - 1 >= 0 \
-            #         and self.simulation_pos[1] - 1 >= 0:
-            #
-            #     possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] - 1])
-            #     possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
-            #                                                   array_step_ref=[0, 0],
-            #                                                   weights=weights_lst))
-            # # --> b
-            # if step_arrays["Obstacle"][0, 1] != 1 \
-            #         and self.simulation_pos[0] - 1 >= 0:
-            #
-            #     possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1]])
-            #     possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
-            #                                                   array_step_ref=[0, 1],
-            #                                                   weights=weights_lst))
-            #
-            # # --> c
-            # if step_arrays["Obstacle"][0, 2] != 1 \
-            #         and self.simulation_pos[0] - 1 >= 0 \
-            #         and self.simulation_pos[1] + 1 < self.simulation_shape[1]:
-            #
-            #     possible_steps.append([self.simulation_pos[0] - 1, self.simulation_pos[1] + 1])
-            #     possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
-            #                                                   array_step_ref=[0, 2],
-            #                                                   weights=weights_lst))
-            #
-            # # =================================
-            # # --> d
-            # if step_arrays["Obstacle"][1, 0] != 1 \
-            #         and self.simulation_pos[1] - 1 >= 0:
-            #
-            #     possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] - 1])
-            #     possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
-            #                                                   array_step_ref=[1, 0],
-            #                                                   weights=weights_lst))
-            # # --> f
-            # if step_arrays["Obstacle"][1, 2] != 1 \
-            #         and self.simulation_pos[1] + 1 < self.simulation_shape[1]:
-            #
-            #     possible_steps.append([self.simulation_pos[0], self.simulation_pos[1] + 1])
-            #     possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
-            #                                                   array_step_ref=[1, 2],
-            #                                                   weights=weights_lst))
-            #
-            # # =================================
-            # # --> g
-            # if step_arrays["Obstacle"][2, 0] != 1 \
-            #         and self.simulation_pos[0] + 1 < self.simulation_shape[0] \
-            #         and self.simulation_pos[1] - 1 >= 0:
-            #
-            #     possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] - 1])
-            #     possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
-            #                                                   array_step_ref=[2, 0],
-            #                                                   weights=weights_lst))
-            #
-            # # --> h
-            # if step_arrays["Obstacle"][2, 1] != 1 \
-            #         and self.simulation_pos[0] + 1 < self.simulation_shape[0]:
-            #
-            #     possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1]])
-            #     possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
-            #                                                   array_step_ref=[2, 1],
-            #                                                   weights=weights_lst))
-            #
-            # # --> i
-            # if step_arrays["Obstacle"][2, 2] != 1 \
-            #         and self.simulation_pos[0] + 1 < self.simulation_shape[0] \
-            #         and self.simulation_pos[1] + 1 < self.simulation_shape[1]:
-            #
-            #     possible_steps.append([self.simulation_pos[0] + 1, self.simulation_pos[1] + 1])
-            #     possible_steps_appeal.append(calc_step_appeal(arrays=step_arrays,
-            #                                                   array_step_ref=[2, 2],
-            #                                                   weights=weights_lst))
-
             # --> Check for boundaries:
             top_edge = False
             left_edge = False
@@ -392,7 +242,8 @@ class Agent:
 
             # > Iterate through step array positions
             for array_position in kernel_dict.keys():
-                if not np.isnan(step_arrays["Obstacle"][tuple(kernel_dict[array_position]["step"])]):
+                if not np.isnan(step_arrays["Obstacle"][tuple(kernel_dict[array_position]["step"])]) and \
+                        step_arrays["Obstacle"][tuple(kernel_dict[array_position]["step"])] != 1:
                     # > Record step
                     possible_steps.append(kernel_dict[array_position]["sim"])
 
@@ -411,6 +262,25 @@ class Agent:
                     # > Delete step
                     possible_steps.remove(step)
                     break
+
+            # --> Use bubblesort to sort population and fitness_evaluation according to fitness_evaluation
+            for _ in range(len(possible_steps_appeal)):
+                for i in range(len(possible_steps_appeal) - 1):
+                    if possible_steps_appeal[i] < possible_steps_appeal[i + 1]:
+                        # > Reorder population
+                        possible_steps[i], possible_steps[i + 1] = possible_steps[i + 1], possible_steps[i]
+
+                        # > Reorder fitness evaluation
+                        possible_steps_appeal[i], possible_steps_appeal[i + 1] = possible_steps_appeal[i + 1], \
+                                                                                 possible_steps_appeal[i]
+
+            # --> Replace
+            appeal_weights = [50, 12, 12, 8, 5, 1, 1, 1, 1]
+
+            for step_appeal in range(len(possible_steps_appeal)):
+                possible_steps_appeal[step_appeal] * appeal_weights[step_appeal]
+
+            possible_steps_appeal = [9, 7, 5, 4, 3, 2, 1, 1, 1][:len(possible_steps_appeal)]
 
             # --> Pick a step to take
             new_pos = random.choices(possible_steps,

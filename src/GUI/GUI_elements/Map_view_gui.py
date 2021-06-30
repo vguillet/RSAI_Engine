@@ -29,10 +29,12 @@ class Map_view_GUI:
                           "Obstacle": QPixmap(gui.simulation.obstacle_image_path)},
 
                 "simulation": {"Overview": QPixmap(array2qimage(gui.views.overview, normalize=True)),
-                               "Obstacles": QPixmap(array2qimage(gui.views.obstacle_view, normalize=True)),
-                               "Paths": QPixmap(array2qimage(gui.views.path_view, normalize=True)),
+                               "Agent": QPixmap(array2qimage(gui.views.agent_view, normalize=True)),
                                "POIs": QPixmap(array2qimage(gui.views.POI_view, normalize=True)),
-                               "Agent": QPixmap(array2qimage(gui.views.agent_view, normalize=True))}
+                               "Appeal": QPixmap(array2qimage(gui.views.Appeal_map_view, normalize=True)),
+                               "Pheromone": QPixmap(array2qimage(gui.views.Pheromone_map_view, normalize=True)),
+                               "Obstacles": QPixmap(array2qimage(gui.views.obstacle_view, normalize=True)),
+                               "Paths": QPixmap(array2qimage(gui.views.path_view, normalize=True))}
                 }
 
     @staticmethod
@@ -47,20 +49,28 @@ class Map_view_GUI:
                 gui.views_dict["simulation"]["Overview"] = QPixmap(array2qimage(gui.views.overview, normalize=True))
                 return
 
-            elif gui.current_sim_view == "Obstacles":
-                gui.views_dict["simulation"]["Obstacles"] = QPixmap(array2qimage(gui.views.obstacle_view, normalize=True))
-                return
-
-            elif gui.current_sim_view == "Paths":
-                gui.views_dict["simulation"]["Paths"] = QPixmap(array2qimage(gui.views.path_view, normalize=True))
+            elif gui.current_sim_view == "Agent":
+                gui.views_dict["simulation"]["Agent"] = QPixmap(array2qimage(gui.views.agent_view, normalize=True))
                 return
 
             elif gui.current_sim_view == "POIs":
                 gui.views_dict["simulation"]["POIs"] = QPixmap(array2qimage(gui.views.POI_view, normalize=True))
                 return
 
-            elif gui.current_sim_view == "Agent":
-                gui.views_dict["simulation"]["Agent"] = QPixmap(array2qimage(gui.views.agent_view, normalize=True))
+            elif gui.current_sim_view == "Appeal":
+                gui.views_dict["simulation"]["Appeal"] = QPixmap(array2qimage(gui.views.Appeal_map_view, normalize=True))
+                return
+
+            elif gui.current_sim_view == "Pheromone":
+                gui.views_dict["simulation"]["Pheromone"] = QPixmap(array2qimage(gui.views.Pheromone_map_view, normalize=True))
+                return
+
+            elif gui.current_sim_view == "Obstacles":
+                gui.views_dict["simulation"]["Obstacles"] = QPixmap(array2qimage(gui.views.obstacle_view, normalize=True))
+                return
+
+            elif gui.current_sim_view == "Paths":
+                gui.views_dict["simulation"]["Paths"] = QPixmap(array2qimage(gui.views.path_view, normalize=True))
                 return
 
     def update_map_view(self, gui):

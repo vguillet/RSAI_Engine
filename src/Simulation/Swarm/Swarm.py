@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 from src.Simulation.Swarm.Agent.RSAI_agent import Agent
 from src.Simulation.Items.Item import Item
 from src.Simulation.Tools.Throttle_tool import throttle
+from src.Simulation.Swarm.Agent.Path_finding.update_area import update_area
 
 __version__ = '1.1.1'
 __author__ = 'Victor Guillet'
@@ -71,26 +72,26 @@ class Swarm:
             # --> Take a step
             agent.move(environments_grids=environments_grids,
                        swarm_grids=self.grids_dict,
-                       compass_weight=2,
-                       path_weight=100,
-                       pheromone_weight=100)
+                       compass_weight=1,
+                       path_weight=1,
+                       pheromone_weight=1)
 
             # --> If arrived at goal
             if agent.simulation_pos == agent.goal.simulation_pos:
                 print(f"-> Route to {agent.goal.name} found: {len(agent.simulation_route_to_goal)} steps")
 
-                self.evaporate_path_pheromone(evaporation_rate=10,
+                self.evaporate_path_pheromone(evaporation_rate=3,
                                               POI_name=agent.goal.name)
 
                 self.update_path_pheromone(POI_name=agent.goal.name,
                                            route=agent.simulation_route_to_goal,
                                            energy_cost=0,
-                                           q=10000)
+                                           q=1000)
 
-                # --> Visualise potential grid
-                # potential_grid = environments_grids["Compass"][agent.goal.name][:self.simulation_shape[0], self.simulation_shape[1]] * 1.5 \
-                #                  + environments_grids["Path"] * 100 \
-                #                  + self.grids_dict["Path pheromone"][agent.goal.name] * 100
+                # # --> Visualise potential grid
+                # potential_grid = environments_grids["Compass"][agent.goal.name][:self.simulation_shape[0], :self.simulation_shape[1]] * 1 \
+                #                  + environments_grids["Path"] * 1 \
+                #                  + self.grids_dict["Path pheromone"][agent.goal.name] * 1
                 #
                 # plt.imshow(potential_grid, cmap='hot', interpolation='nearest')
                 # plt.show()
@@ -98,9 +99,8 @@ class Swarm:
                 # --> Clear agent goal
                 agent.clear_goal()
 
-            elif agent.age > 500:
+            elif agent.age > 5000:
                 agent.reset()
-                print("> Agent reset")
 
     def reset_pheromone(self):
         for POI in self.grids_dict["Path pheromone"].keys():
@@ -118,12 +118,24 @@ class Swarm:
 
         # --> Update pheromone linearly increasing from start to POI
         for index, step in enumerate(route):
-            self.grids_dict["Path pheromone"][POI_name][step[0], step[1]] += throttle(current_iteration=index,
-                                                                                      nb_of_iterations=len(route),
-                                                                                      max_value=pheromone_update,
-                                                                                      min_value=0,
-                                                                                      direction="up",
-                                                                                      decay_function=1)
+            # > Calc pheromone update for step
+            # step_pheromone_update = pheromone_update
+            step_pheromone_update = throttle(current_iteration=index,
+                                             nb_of_iterations=len(route),
+                                             max_value=pheromone_update,
+                                             min_value=pheromone_update/2,
+                                             direction="up",
+                                             decay_function=1)
+
+            # > Apply step pheromone update to grid at step location
+            update_area(grid=self.grids_dict["Path pheromone"][POI_name],
+                        simulation_pos=[step[0], step[1]],
+                        max_value=step_pheromone_update,
+                        min_value=pheromone_update/3,
+                        radius=3,
+                        plot=0)
+
+            # self.grids_dict["Path pheromone"][POI_name][step[0], step[1]] += step_pheromone_update
 
     def evaporate_path_pheromone(self, evaporation_rate, POI_name):
         for x in range(len(self.grids_dict["Path pheromone"][POI_name])):

@@ -28,23 +28,26 @@ def gen_compass_grid(simulation_shape, POI_dict, plot=1):
     compass_grids_dict = {}
 
     for POI_name in POI_dict.keys():
-        # grid = np.ones(simulation_shape)
-
         # --> Getting max shape dimension
         max_dim = max(simulation_shape)
 
+        # --> Creating meshgrid
         x = np.linspace(0, max_dim-1, max_dim)
         y = np.linspace(0, max_dim-1, max_dim)
 
-        # x = np.linspace(0, simulation_shape[1], simulation_shape[1])
-        # y = np.linspace(0, simulation_shape[0], simulation_shape[0])
         xx, yy = np.meshgrid(x, y)
 
+        # --> Apply cone function
         grid = -np.sqrt((xx - POI_dict[POI_name].simulation_pos[1])**2 +
                         (yy - POI_dict[POI_name].simulation_pos[0])**2)
 
+        # > Flip
         grid += np.amax(np.absolute(grid))
 
+        # > Normalise (min=0, max=1)
+        grid = grid / np.amax(grid)
+
+        # --> Display compass grid
         if plot == 1:
             # --> Make a 3D plot
             fig = plt.figure()
@@ -55,6 +58,7 @@ def gen_compass_grid(simulation_shape, POI_dict, plot=1):
             ax.set_zlabel('Z axis')
             plt.show()
 
+        # --> Add to compass dictionary
         compass_grids_dict[POI_name] = grid
 
     return compass_grids_dict
