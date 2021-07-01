@@ -92,23 +92,18 @@ class Swarm:
 
             # --> If arrived at goal
             if agent.simulation_pos == agent.goal.simulation_pos:
-                print(f"-> Route to {agent.goal.name} found: {len(agent.simulation_route_to_goal)} steps")
+                if len(agent.goal_history) == 0:
+                    print(f"-> Route to {agent.goal.name} found: {len(agent.simulation_route_to_goal)} steps")
+                else:
+                    print(f"-> Route from {agent.goal_history[-1].name} to {agent.goal.name} found: {len(agent.simulation_route_to_goal)} steps")
 
-                self.evaporate_path_pheromone(evaporation_rate=0.05,
+                self.evaporate_path_pheromone(evaporation_rate=0.01,
                                               POI_name=agent.goal.name)
 
                 self.update_path_pheromone(POI_name=agent.goal.name,
                                            route=agent.simulation_route_to_goal,
                                            energy_cost=0,
                                            q=1000)
-
-                # # --> Visualise potential grid
-                # potential_grid = environments_grids["Compass"][agent.goal.name][:self.simulation_shape[0], :self.simulation_shape[1]] * 1 \
-                #                  + environments_grids["Path"] * 1 \
-                #                  + self.grids_dict["Path pheromone"][agent.goal.name] * 1
-                #
-                # plt.imshow(potential_grid, cmap='hot', interpolation='nearest')
-                # plt.show()
 
                 # --> Clear agent goal
                 agent.clear_goal()
@@ -154,10 +149,11 @@ class Swarm:
 
         # --> Record swarm grid dict
         try:
-            # self.grids_dict = load_obj(self.grids_dict_path)
+            self.grids_dict = load_obj(self.grids_dict_path)
             save_obj(self.grids_dict, self.grids_dict_path)
         except:
-            print("!!!! Saving swarm grid dict failed !!!!")
+            pass
+            # print("!!!! Saving swarm grid dict failed !!!!")
 
     def evaporate_path_pheromone(self, evaporation_rate, POI_name):
         for x in range(len(self.grids_dict["Path pheromone"][POI_name])):

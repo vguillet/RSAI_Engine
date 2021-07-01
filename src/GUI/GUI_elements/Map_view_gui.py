@@ -120,8 +120,12 @@ class Map_view_GUI:
                 gui.main_window.goal_name.setText(selected_agent.goal.name)
 
                 # # --> Set prev goal coordinates
-                # gui.main_window.prev_goal_pos_world_coordinates.setText(str(selected_agent.goal_history[-1].world_pos))
-                # gui.main_window.prev_goal_pos_simulation_coordinates.setText(str(selected_agent.goal_history[-1].simulation_pos))
+                if len(selected_agent.goal_history) == 0:
+                    gui.main_window.prev_goal_pos_world_coordinates.setText("-")
+                    gui.main_window.prev_goal_pos_simulation_coordinates.setText("-")
+                else:
+                    gui.main_window.prev_goal_pos_world_coordinates.setText(str(selected_agent.goal_history[-1].world_pos))
+                    gui.main_window.prev_goal_pos_simulation_coordinates.setText(str(selected_agent.goal_history[-1].simulation_pos))
 
                 # --> Set goal coordinates
                 gui.main_window.goal_pos_world_coordinates.setText(str(selected_agent.goal.world_pos))
@@ -132,8 +136,8 @@ class Map_view_GUI:
                 gui.main_window.goal_name.setText("None")
 
                 # # --> Set prev goal coordinates
-                # gui.main_window.prev_goal_pos_world_coordinates.setText("-")
-                # gui.main_window.prev_goal_pos_simulation_coordinates.setText("-")
+                gui.main_window.prev_goal_pos_world_coordinates.setText("-")
+                gui.main_window.prev_goal_pos_simulation_coordinates.setText("-")
 
                 # --> Set goal coordinates
                 gui.main_window.goal_pos_world_coordinates.setText("-")

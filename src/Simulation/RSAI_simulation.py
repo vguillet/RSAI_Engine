@@ -61,13 +61,13 @@ class RSAI_simulation:
 
             counter += 1
 
-            if counter % 100 == 0:
+            if counter % 10000 == 0:
                 print(f"- Step counts: {counter} completed")
 
-            if counter % 1000 == 0:
-
-                plt.imshow(view_generator.Pheromone_map_view, cmap='hot', interpolation='nearest')
-                plt.show()
+            # if counter % 1000 == 0:
+            #
+            #     plt.imshow(view_generator.Pheromone_map_view, cmap='hot', interpolation='nearest')
+            #     plt.show()
 
     def gui_run_simulation(self, progress_callback):
         print("\n---------------------- Simulation started ----------------------")
@@ -82,7 +82,7 @@ class RSAI_simulation:
 
             counter += 1
 
-            time.sleep(0.01)
+            time.sleep(0.015)
             progress_callback.emit()
 
             if counter % 100 == 0:
